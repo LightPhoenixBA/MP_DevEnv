@@ -1,0 +1,25 @@
+!SceneAsset
+Id: b3bf3ccd-46dc-42de-b10f-a40df146fa41
+SerializedVersion: {Stride: 3.1.0.1}
+Tags: []
+ChildrenIds: []
+Offset: {X: 0.0, Y: 0.0, Z: 0.0}
+Hierarchy:
+    RootParts:
+        - ref!! 146d3c7f-38d0-46dd-ab72-0d83cb9010a4
+    Parts:
+        -   Entity:
+                Id: 146d3c7f-38d0-46dd-ab72-0d83cb9010a4
+                Name: Cube
+                Components:
+                    fc073608186afcfa027d000be5080d6f: !TransformComponent
+                        Id: 1f0b4e03-6ebf-46c4-bbbd-c4e7d9e744e5
+                        Position: {X: 0.0, Y: 0.0, Z: 0.0}
+                        Rotation: {X: 0.0, Y: 0.0, Z: 0.0, W: 1.0}
+                        Scale: {X: 1.0, Y: 1.0, Z: 1.0}
+                        Children: {}
+                    145a09bbf308399e88264bd7c53d027f: !ModelComponent
+                        Id: c640356c-94e4-401c-aa14-231283b7bcc5
+                        Model: 362f8885-fdfb-43b9-b112-9379023e3da4:Cube
+                        Materials:
+                            5cdcc1fc375049bb3ef18fb84b5e0e34~0: ba4e1010-d7b9-46d2-b3fe-12eaa7e0df58:Material

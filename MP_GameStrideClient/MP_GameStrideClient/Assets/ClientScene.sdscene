@@ -1,0 +1,91 @@
+!SceneAsset
+Id: 9b37250b-90f0-44d1-8e3a-097b59a315c1
+SerializedVersion: {Stride: 3.1.0.1}
+Tags: []
+ChildrenIds: []
+Offset: {X: 0.0, Y: 0.0, Z: 0.0}
+Hierarchy:
+    RootParts:
+        - ref!! 52929612-01aa-459c-9544-923ec59c6115
+        - ref!! 4048eb43-0baa-4a30-b422-9730878e934f
+        - ref!! 314d1f85-c1e4-464f-94f7-8c8b48606a48
+    Parts:
+        -   Entity:
+                Id: 314d1f85-c1e4-464f-94f7-8c8b48606a48
+                Name: StrideClient
+                Components:
+                    ab9b6b4dd572850caf3e6823ce582c7e: !TransformComponent
+                        Id: 6346fdf7-809a-495d-a88c-74f9fc3d5045
+                        Position: {X: 0.0, Y: 0.0, Z: 0.0}
+                        Rotation: {X: 0.0, Y: 0.0, Z: 0.0, W: 1.0}
+                        Scale: {X: 1.0, Y: 1.0, Z: 1.0}
+                        Children:
+                            c82e1a9ab6a37d6c13e3ee18b2b45cee: ref!! c560ecca-9a32-4fd8-8015-f0343e21c247
+                    d38e101f0896a922ef3b5e3024077c4c: !MP_GameStrideClient.StrideClient+NetworkClient,MP_GameStrideClient
+                        Id: 5e92f734-9362-489d-875d-878d0a3d843a
+        -   Entity:
+                Id: 4048eb43-0baa-4a30-b422-9730878e934f
+                Name: Directional light
+                Components:
+                    6288c0c23dab0a89247116dd02d51c58: !TransformComponent
+                        Id: 66a97ac4-e804-49fc-a247-5889cf440092
+                        Position: {X: 0.0, Y: 2.0, Z: 0.0}
+                        Rotation: {X: 1.131334E-08, Y: -0.9659258, Z: -0.25881904, W: -4.222196E-08}
+                        Scale: {X: 1.0, Y: 1.0, Z: 1.0}
+                        Children: {}
+                    6a68b1b2c32b48354265b42332cb85f2: !LightComponent
+                        Id: 3b7e47d2-dbb9-4d28-832d-627cff76da2f
+                        Type: !LightDirectional
+                            Color: !ColorRgbProvider
+                                Value: {R: 1.0, G: 1.0, B: 1.0}
+                            Shadow:
+                                Enabled: true
+                                Filter: !LightShadowMapFilterTypePcf
+                                    FilterSize: Filter5x5
+                                Size: Large
+                                DepthRange: {}
+                                PartitionMode: !LightDirectionalShadowMap.PartitionLogarithmic {}
+                                ComputeTransmittance: false
+                                BiasParameters: {}
+                        Intensity: 20.0
+        -   Entity:
+                Id: 52929612-01aa-459c-9544-923ec59c6115
+                Name: Skybox
+                Components:
+                    14755e109e94236d87524691146c0c5c: !TransformComponent
+                        Id: 6e9ea5c4-f9dc-450d-ba0b-4fe653bf535c
+                        Position: {X: 0.0, Y: 2.0, Z: -2.0}
+                        Rotation: {X: 0.0, Y: 0.0, Z: 0.0, W: 1.0}
+                        Scale: {X: 1.0, Y: 1.0, Z: 1.0}
+                        Children: {}
+                    7addd27e0e3023d7b32f6891711f2b88: !BackgroundComponent
+                        Id: b600ba1a-42c8-4bcc-92a1-2f609200dcc7
+                        Texture: 89ee9827-11fb-486a-863d-f59ed159aa44:Skybox texture
+                    c01112072237bfde1ed2da7361f5db08: !LightComponent
+                        Id: b0818d9a-fdf5-4c09-a76a-fda0cf57ff5e
+                        Type: !LightSkybox
+                            Skybox: 298f7a07-a52f-417f-a071-a56a84d69350:Skybox
+        -   Entity:
+                Id: 95346791-baeb-47d8-afc0-60bf46f53d8a
+                Name: Camera
+                Components:
+                    889f9957b3de90f89e7e4a20ff099cfa: !TransformComponent
+                        Id: c560ecca-9a32-4fd8-8015-f0343e21c247
+                        Position: {X: 2.6, Y: 0.6, Z: -1.0}
+                        Rotation: {X: 0.0, Y: 0.82903755, Z: 0.0, W: 0.5591929}
+                        Scale: {X: 1.0, Y: 1.0, Z: 1.0}
+                        Children: {}
+                    e5a961af31236fadd28b0691e0aece9a: !CameraComponent
+                        Id: e39c3b4e-2aef-45c3-842c-f4fc5d2fea0f
+                        Name: null
+                        Projection: Perspective
+                        Slot: e12edba0-fd00-4499-aa9e-79e91c32bf83
+                    c4480d919e517cc43ebad75f31bbea9d: !MP_GameStrideClient.BasicCameraController,MP_GameStrideClient
+                        Id: 8265794a-c0b7-4329-a6f1-6ee9cae21a28
+                        Gamepad: false
+                        KeyboardMovementSpeed: {X: 5.0, Y: 5.0, Z: 5.0}
+                        TouchMovementSpeed: {X: 0.7, Y: 0.7, Z: 0.3}
+                        SpeedFactor: 5.0
+                        KeyboardRotationSpeed: {X: 3.0, Y: 3.0}
+                        MouseRotationSpeed: {X: 1.0, Y: 1.0}
+                        TouchRotationSpeed: {X: 1.0, Y: 0.7}

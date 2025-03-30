@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.13.35919.96 d17.13
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MP_GameConsoleServer", "MP_GameConsoleServer.csproj", "{48278817-1BC7-880F-08C0-7552C22E424A}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{48278817-1BC7-880F-08C0-7552C22E424A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{48278817-1BC7-880F-08C0-7552C22E424A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{48278817-1BC7-880F-08C0-7552C22E424A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{48278817-1BC7-880F-08C0-7552C22E424A}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {8875A87D-F311-4E45-9F91-2EA7A6044160}
+	EndGlobalSection
+EndGlobal
