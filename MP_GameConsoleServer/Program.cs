@@ -42,8 +42,8 @@ namespace MP_GameStrideServer
         public void Initialize()
         {
             //lidgren networking
-            netServer = new(NetConnectionConfig.GetDefaultPeerConfig());
-            netServer.Configuration.LocalAddress = new System.Net.IPAddress([0, 0, 0, 0]);
+            netServer = new(NetConnectionConfig.GetDefaultConfig());
+            //netServer.Configuration.LocalAddress = new System.Net.IPAddress([0, 0, 0, 0]);
             netServer.Start();
 
             //stride Database file provider
