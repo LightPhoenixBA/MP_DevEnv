@@ -11,4 +11,8 @@
     <PackageReference Include="Stride.Engine" Version="4.2.0.1" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\Lidgren network\Lidgren.Network\Lidgren.Network.csproj" />
+  </ItemGroup>
+
 </Project>
