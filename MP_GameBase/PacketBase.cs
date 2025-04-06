@@ -1,4 +1,5 @@
 ﻿using Lidgren.Network;
+using System.Net.Sockets;
 
 namespace MP_GameBase;
 
@@ -7,21 +8,35 @@ public enum PacketType
     Default,
     Player,
     Scene,
-    Entity
+    Entity,
+    Transform
 }
-public interface IPacket
+public interface IMP_Packet
 {
-    static PacketType packetType;
-    //void PacketSend(NetOutgoingMessage netOutgoingMessage);
-    //void PacketReceive(NetIncomingMessage netIncomingMessage);
-    //public T PacketReceive<T>(NetIncomingMessage netIncomingMessage, IPacket dataType);
+    public static PacketType packetType { get; }
 }
-public abstract class Packet : IPacket
+public static class MP_PacketContainer
 {
-    public static PacketType packetType = PacketType.Default;
-    //public abstract void PacketSend(NetOutgoingMessage netOutgoingMessage);
-    //public abstract void PacketReceive(NetIncomingMessage netIncomingMessage);
-    //public abstract T PacketReceive<T>(NetIncomingMessage netIncomingMessage, IPacket dataType);
-
-
+    public static readonly Dictionary<PacketType, MP_PacketBase> packets = new Dictionary<PacketType, MP_PacketBase>()
+       {
+        { PacketType.Default,null },
+        { PacketType.Scene,new ScenePacket() },
+        { PacketType.Entity,new EntityPacket() },
+        { PacketType.Transform,new TransformPacket() },
+    };
+    public static NetOutgoingMessage SendPacket(PacketType packetType, object dataToSend, NetOutgoingMessage msg)
+    {
+        return packets[packetType].WritePacket(dataToSend, msg);
+    }
+    public static Tuple<PacketType, object> ReceivePacket(NetIncomingMessage msg)
+    {
+        PacketType newPacketType = (PacketType)msg.ReadUInt32();
+        return new Tuple<PacketType, object>( newPacketType,packets[newPacketType].ReadPacket(msg));
+    }
+}
+public abstract class MP_PacketBase : IMP_Packet
+{
+    public abstract PacketType packetType { get; }
+    abstract internal object ReadPacket(NetIncomingMessage msg);
+    abstract internal NetOutgoingMessage WritePacket(object dataToSend, NetOutgoingMessage msg);
 }

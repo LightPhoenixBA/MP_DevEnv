@@ -6,7 +6,6 @@ using Stride.Graphics;
 using System;
 using System.Net;
 using System.Threading.Tasks;
-using static MP_GameBase.MP_GameBase;
 
 namespace MP_GameStrideClient;
 
@@ -87,13 +86,15 @@ class StrideClient
 
                             break;
                         case NetIncomingMessageType.Data:
-                            PacketType incPacket = (PacketType)inc.ReadInt32();
-                            switch (incPacket)
+                           Tuple<PacketType,object> incPacket = MP_PacketContainer.ReceivePacket(inc);
+                            //PacketType incPacket  = (PacketType)inc.ReadInt32();
+                            switch (incPacket.Item1)
                             {
                                 case PacketType.Scene:
-
-                                    Scene serverScene = ScenePacket.UnpackScene(inc);
+                                    Scene serverScene = incPacket.Item2 as Scene;
+                                    SceneSystem.SceneInstance.RootScene.Children.Add(serverScene);
                                     break;
+                               
                                 default:
                                     throw new NotImplementedException("unhandled packet for " + incPacket.ToString());
                             }
@@ -102,7 +103,6 @@ class StrideClient
                             Log.Info("Unhandled type: " + inc.MessageType + " " + inc.LengthBytes + " bytes");
                             break;
                     }
-                    await Script.NextFrame();
 
                     //if (Input.IsMouseButtonPressed(MouseButton.Left) || Input.IsKeyPressed(Keys.Space))
                     //{
@@ -131,6 +131,8 @@ class StrideClient
                         }
                     }
                 }
+                await Script.NextFrame();
+
             }
         }
     }

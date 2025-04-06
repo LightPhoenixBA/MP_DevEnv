@@ -10,7 +10,6 @@ using Stride.Engine;
 using Stride.Engine.Design;
 using Stride.Games;
 using Stride.Physics;
-using static MP_GameBase.MP_GameBase;
 
 namespace MP_GameStrideServer
 {
@@ -107,25 +106,17 @@ namespace MP_GameStrideServer
                             Console.Write(inc.ReadString());
                             break;
                         case NetIncomingMessageType.StatusChanged:
+
                             NetConnectionStatus status = (NetConnectionStatus)inc.ReadByte();
                             switch (status)
                             {
-                                //case NetConnectionStatus.:
-
-                                //    netServer.Connections.Add(inc.SenderConnection);
-                                //case NetConnectionStatus.RespondedAwaitingApproval:
-                                //    inc.SenderConnection.Approve();
-                                //    break;
                                 case NetConnectionStatus.InitiatedConnect:
-                                    inc.SenderConnection.Approve();
-                                    netServer.Connections.Add(inc.SenderConnection);
-                                    NetOutgoingMessage outgoingMessage = netServer.CreateMessage();
-                                    new ScenePacket(scene).PacketSend(outgoingMessage);
-                                    inc.SenderConnection.SendMessage(outgoingMessage, NetDeliveryMethod.ReliableOrdered, 1);
-                                    // netServer.SendMessage();
-                                    // start streaming to this client
-                                    //  inc.SenderConnection.Tag = new StreamingClient(inc.SenderConnection, s_fileName);
                                     Console.WriteLine("Starting streaming to " + inc.SenderConnection.ToString());
+                                    break;
+                                    case NetConnectionStatus.Connected:
+                                    NetOutgoingMessage connectedMessage = netServer.CreateMessage();
+                                     ScenePacket.SendPacket(scene, connectedMessage);
+                                    netServer.SendMessage(connectedMessage,inc.SenderConnection,NetDeliveryMethod.ReliableOrdered);
                                     break;
                                 case NetConnectionStatus.Disconnected:
                                     Console.WriteLine(inc.SenderConnection + " has disconnected");
