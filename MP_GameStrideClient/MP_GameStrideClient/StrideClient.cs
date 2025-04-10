@@ -1,5 +1,6 @@
 ﻿using Lidgren.Network;
 using MP_GameBase;
+using Stride.Core;
 using Stride.Core.Mathematics;
 using Stride.Engine;
 using Stride.Graphics;
@@ -33,6 +34,7 @@ class StrideClient
             string serverAddress = "127.0.0.1";
             netClient.Start();
             netClient.Connect(serverConfig.LocalAddress.ToString(), serverConfig.Port , netClient.CreateMessage("Stride Client is requesting connection"));
+            MP_PacketContainer.Initialize(Game.Services);
 
             while (Game.IsRunning)
             {
@@ -94,9 +96,12 @@ class StrideClient
                                     Scene serverScene = incPacket.Item2 as Scene;
                                     SceneSystem.SceneInstance.RootScene.Children.Add(serverScene);
                                     break;
-                               
+                                case PacketType.Entity:
+                                    throw new NotImplementedException();
+                                    break;
+
                                 default:
-                                    throw new NotImplementedException("unhandled packet for " + incPacket.ToString());
+                                    throw new NotImplementedException("unhandled packet for " + incPacket.Item1.ToString());
                             }
                             break;
                         default:
@@ -104,24 +109,6 @@ class StrideClient
                             break;
                     }
 
-                    //if (Input.IsMouseButtonPressed(MouseButton.Left) || Input.IsKeyPressed(Keys.Space))
-                    //{
-                    //    var rotation = Matrix.RotationQuaternion(Entity.Transform.Rotation);
-
-                    //    // Ask server
-                    //    lastResult = await Task.Run(() =>
-                    //    {
-                    //        writer.Write(Entity.Transform.Position);
-                    //        writer.Write(Entity.Transform.Position + (rotation.Forward * 100.0f));
-                    //        writer.Flush();
-
-                    //        // Get result
-                    //        return socket.ReadStream.ReadByte() == 1;
-                    //    });
-                    //    lastResultTime = Game.UpdateTime.Total;
-                    //}
-
-                    // Display last result (max 2 seconds)
                     if (lastResult.HasValue)
                     {
                         DebugText.Print(lastResult.Value ? "Hit!" : "Miss...", new Int2(GraphicsDevice.Presenter.BackBuffer.Width / 2, (int)(GraphicsDevice.Presenter.BackBuffer.Height * 0.6f)));

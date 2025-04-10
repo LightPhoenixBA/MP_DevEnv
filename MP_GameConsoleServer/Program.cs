@@ -42,7 +42,6 @@ namespace MP_GameStrideServer
         {
             //lidgren networking
             netServer = new(NetConnectionConfig.GetDefaultConfig());
-            //netServer.Configuration.LocalAddress = new System.Net.IPAddress([0, 0, 0, 0]);
             netServer.Start();
 
             //stride Database file provider
@@ -86,6 +85,8 @@ namespace MP_GameStrideServer
             var physics = new PhysicsProcessor();
             sceneInstance.Processors.Add(physics);
 
+            MP_PacketContainer.Initialize( Services);
+            //  MP_PacketContainer.Services = Services;
         }
 
         public async Task Run()
@@ -135,81 +136,6 @@ namespace MP_GameStrideServer
                 }
             }
 
-
-            //   var socket = new SimpleSocket();
-            //   socket.Connected += clientSocket =>
-            //   {
-            //       Console.WriteLine("Client connected");
-            //       var reader = new BinarySerializationReader(clientSocket.ReadStream);
-            //       ScenePacket packet = new(scene);
-            //       packet.PacketSend(netServer.CreateMessage());
-            //// var wat =      netServer.CreateMessage();
-            //  //     wat.
-            //       // reader.Serialize<Scene>(ref scene, ArchiveMode.Serialize);
-            //      // reader.Write(scene.SerializeScene());
-            //       // reader.Write<Scene>( scene);
-            //       // reader.Write(  scene.Entities);
-            //       while (true)
-            //       {
-            //           // Receive ray start/end
-            //           var start = reader.Read<Vector3>();
-            //           var end = reader.Read<Vector3>();
-            //           // Raycast
-            //           var result = physics.Simulation.Raycast(start, end);
-            //           Console.WriteLine($"Performing raycast: {(result.Succeeded ? "hit" : "miss")}");
-            //           // Send result
-            //           clientSocket.WriteStream.WriteByte((byte)(result.Succeeded ? 1 : 0));
-            //           clientSocket.WriteStream.Flush();
-            //       }
-            //   };
-            //   await socket.StartServer(2655, false);
-            //   Console.WriteLine("Server listening, press a key to exit");
-            //   Console.ReadKey();
         }
-        //static void AppLoop(object sender, EventArgs e)
-        //{
-        //    while (NativeMethods.AppStillIdle)
-        //    {
-        //        NetIncomingMessage inc;
-        //        while ((inc = s_server.ReadMessage()) != null)
-        //        {
-        //            switch (inc.MessageType)
-        //            {
-        //                case NetIncomingMessageType.DebugMessage:
-        //                case NetIncomingMessageType.WarningMessage:
-        //                case NetIncomingMessageType.ErrorMessage:
-        //                case NetIncomingMessageType.VerboseDebugMessage:
-        //                    Output(inc.ReadString());
-        //                    break;
-        //                case NetIncomingMessageType.StatusChanged:
-        //                    NetConnectionStatus status = (NetConnectionStatus)inc.ReadByte();
-        //                    switch (status)
-        //                    {
-        //                        case NetConnectionStatus.Connected:
-        //                            // start streaming to this client
-        //                            inc.SenderConnection.Tag = new StreamingClient(inc.SenderConnection, s_fileName);
-        //                            Output("Starting streaming to " + inc.SenderConnection);
-        //                            break;
-        //                        default:
-        //                            Output(inc.SenderConnection + ": " + status + " (" + inc.ReadString() + ")");
-        //                            break;
-        //                    }
-        //                    break;
-        //            }
-        //            s_server.Recycle(inc);
-        //        }
-
-        //        // stream to all connections
-        //        foreach (NetConnection conn in s_server.Connections)
-        //        {
-        //            StreamingClient client = conn.Tag as StreamingClient;
-        //            if (client != null)
-        //                client.Heartbeat();
-        //        }
-
-        //        System.Threading.Thread.Sleep(0);
-        //    }
-        //}
     }
-
 }

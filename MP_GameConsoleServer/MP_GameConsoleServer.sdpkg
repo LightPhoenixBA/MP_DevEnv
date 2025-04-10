@@ -1,0 +1,19 @@
+!Package
+SerializedVersion: {Assets: 3.1.0.0}
+Meta:
+    Name: MP_GameConsoleServer
+    Version: 1.0.0
+    Authors: []
+    Owners: []
+    Dependencies: null
+AssetFolders:
+    -   Path: !dir Assets
+ResourceFolders:
+    - !dir Resources
+OutputGroupDirectories: {}
+ExplicitFolders: []
+Bundles: []
+TemplateFolders: []
+RootAssets:
+    - 362f8885-fdfb-43b9-b112-9379023e3da4:Cube
+    - ba4e1010-d7b9-46d2-b3fe-12eaa7e0df58:Material
