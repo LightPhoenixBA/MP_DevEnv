@@ -11,16 +11,16 @@ namespace MP_GameBase
             MP_PacketContainer.packets[PacketType.Transform].WritePacket(scene, msg);
             return msg;
         }
-        //public static NetOutgoingMessage WritePacket(TransformComponent dataToSend, NetOutgoingMessage msg)
-        //{
-        //    return MP_PacketContainer.packets[PacketType.Transform].WritePacket(dataToSend, msg);
-        //}
+        public static NetOutgoingMessage WritePacket(TransformComponent dataToSend, NetOutgoingMessage msg)
+        {
+            return MP_PacketContainer.packets[PacketType.Transform].WritePacket(dataToSend, msg);
+        }
         internal override TransformComponent ReadPacket(NetIncomingMessage msg)
         {
             return new TransformComponent()
             {
-                Position = new Vector3(msg.ReadInt32(), msg.ReadInt32(), msg.ReadInt32()),
-                Rotation = new Quaternion(msg.ReadInt32(), msg.ReadInt32(), msg.ReadInt32(), msg.ReadInt32())
+                Position = new Vector3(msg.ReadFloat(), msg.ReadFloat(), msg.ReadFloat()),
+                Rotation = new Quaternion(msg.ReadFloat(), msg.ReadFloat(), msg.ReadFloat(), msg.ReadFloat())
             };
         }
 
@@ -28,7 +28,7 @@ namespace MP_GameBase
         {
             if (dataToSend is TransformComponent transform)
             {
-                msg.Write((int)packetType);
+                msg.Write((uint)PacketType.Transform);
                 msg.Write(transform.Position.X);
                 msg.Write(transform.Position.Y);
                 msg.Write(transform.Position.Z);

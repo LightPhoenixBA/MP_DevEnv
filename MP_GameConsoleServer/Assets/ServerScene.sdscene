@@ -10,7 +10,7 @@ Hierarchy:
     Parts:
         -   Entity:
                 Id: 146d3c7f-38d0-46dd-ab72-0d83cb9010a4
-                Name: Cube
+                Name: ServerEntity
                 Components:
                     fc073608186afcfa027d000be5080d6f: !TransformComponent
                         Id: 1f0b4e03-6ebf-46c4-bbbd-c4e7d9e744e5
