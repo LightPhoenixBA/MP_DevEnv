@@ -1,5 +1,4 @@
 ﻿using Lidgren.Network;
-using Stride.Core.Extensions;
 using Stride.Rendering;
 
 namespace MP_GameBase;
@@ -18,10 +17,13 @@ class EntityPacket : MP_PacketBase
     {
         Entity entity = new Entity() { Id = new Guid(msg.ReadString()), Name = msg.ReadString() };
         string modelName = msg.ReadString();
-        Model model = MP_PacketContainer.Content.Load<Model>(modelName);
-        entity.Add(new ModelComponent(model));
+        var Cube = MP_PacketContainer.Content.Load<Prefab>(modelName);
+
+        Model model = MP_PacketContainer.Content.Load<Model>("CubePrefab");
+        entity.Add(new ModelComponent());
         var nestedPackets = MP_PacketContainer.ReceiveNestedPackets(msg);
-        foreach (var packet in nestedPackets) {
+        foreach (var packet in nestedPackets)
+        {
 
             foreach (var packetData in packet.Value)
             {
@@ -32,7 +34,7 @@ class EntityPacket : MP_PacketBase
                     case PacketType.Scene:
                         break;
                     case PacketType.Transform:
-                        TransformComponent newTransform = new();//(TransformComponent)packetData;
+                        TransformComponent newTransform = (TransformComponent)packetData;
                         entity.Transform.Position = newTransform.Position;
                         entity.Transform.Rotation = newTransform.Rotation;
 
@@ -57,7 +59,7 @@ class EntityPacket : MP_PacketBase
         msg.Write((uint)PacketType.Entity);
         msg.Write(entity.Id.ToString());
         msg.Write(entity.Name);
-        msg.Write("Cube");
+        msg.Write("CubePrefab");
         TransformPacket.WritePacket(entity.Transform, msg);
         msg.Write((uint)PacketType.EndPacket);
 

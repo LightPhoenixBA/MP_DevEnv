@@ -1,25 +1,23 @@
-!SceneAsset
-Id: b3bf3ccd-46dc-42de-b10f-a40df146fa41
+!PrefabAsset
+Id: 92a07faf-1aef-4f5b-b99e-c63d4d615418
 SerializedVersion: {Stride: 3.1.0.1}
 Tags: []
-ChildrenIds: []
-Offset: {X: 0.0, Y: 0.0, Z: 0.0}
 Hierarchy:
     RootParts:
-        - ref!! 10a5b897-7288-496d-ba0c-181ef1e20278
+        - ref!! f7a18242-169b-435e-bca9-1b3b719b9bf2
     Parts:
         -   Entity:
-                Id: 10a5b897-7288-496d-ba0c-181ef1e20278
+                Id: f7a18242-169b-435e-bca9-1b3b719b9bf2
                 Name: Cube
                 Components:
                     ef1a8b3a2de5c4c097148bebdc06226d: !TransformComponent
-                        Id: f5e2f9aa-6e5e-47bc-b7ed-46ebd80ddd54
+                        Id: f4ae53fa-c6c3-41bb-80d0-02f1ed4d3bab
                         Position: {X: 0.0, Y: 0.0, Z: 0.0}
                         Rotation: {X: 0.0, Y: 0.0, Z: 0.0, W: 1.0}
                         Scale: {X: 1.0, Y: 1.0, Z: 1.0}
                         Children: {}
                     a0337516cf1673c20ffb57241b32ed31: !ModelComponent
-                        Id: ee8df428-9b75-46de-a21b-0f85b07fb519
+                        Id: 5feaf038-7904-420b-bc11-daa446fb2e63
                         Model: 451ce864-ac0d-4142-a3d9-af25432e058b:CubeModel
                         Materials:
                             e116e635d2a31874b56b899a8f6bbad9~0: 14a1ca0b-9d90-4915-86d2-067f3d47d437:Sphere Material

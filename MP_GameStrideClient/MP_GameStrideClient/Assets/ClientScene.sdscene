@@ -23,6 +23,7 @@ Hierarchy:
                             c82e1a9ab6a37d6c13e3ee18b2b45cee: ref!! c560ecca-9a32-4fd8-8015-f0343e21c247
                     d38e101f0896a922ef3b5e3024077c4c: !MP_GameStrideClient.StrideClient+NetworkClient,MP_GameStrideClient
                         Id: 5e92f734-9362-489d-875d-878d0a3d843a
+                        localAdress: null
         -   Entity:
                 Id: 4048eb43-0baa-4a30-b422-9730878e934f
                 Name: Directional light

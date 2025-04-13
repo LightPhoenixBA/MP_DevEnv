@@ -2,6 +2,7 @@
 // Distributed under the MIT license. See the LICENSE.md file in the project root for more information.
 using Lidgren.Network;
 using MP_GameBase;
+using Silk.NET.OpenXR;
 using Stride.Core;
 using Stride.Core.IO;
 using Stride.Core.Serialization.Contents;
@@ -13,7 +14,7 @@ using Stride.Physics;
 
 namespace MP_GameStrideServer
 {
-    class MultiplayerConsoleGame
+    public class MultiplayerConsoleGame
     {
         public ServiceRegistry Services { get; private set; }
         private Scene scene;//{  get; private set; }
@@ -26,7 +27,6 @@ namespace MP_GameStrideServer
         //    Port = 4420
         //};
         public NetServer netServer;
-        public NetConnection[] netConnections;
 
         public ContentManager Content { get; private set; }
         public readonly string ServerRootPath = Path.GetFullPath(Path.Combine(AppContext.BaseDirectory, @"..\..\.."));
@@ -46,10 +46,18 @@ namespace MP_GameStrideServer
 
             //stride Database file provider
             Services = new ServiceRegistry();
-            var mountPath = VirtualFileSystem.ResolveProviderUnsafe("\\Assets", true).Provider == null ? "/asset" : null;
+
             ObjectDatabase objectDatabase = ObjectDatabase.CreateDefaultDatabase();
+            //server path
+            var mountPath = VirtualFileSystem.ResolveProviderUnsafe("\\Assets", true).Provider == null ? "/asset" : null;
             DatabaseFileProvider databaseFileProvider = new DatabaseFileProvider(objectDatabase, mountPath);
             Services.AddService<IDatabaseFileProviderService>(new DatabaseFileProviderService(databaseFileProvider));
+            //client path
+          //  var clientMountPath = VirtualFileSystem.ResolveProviderUnsafe("\\MP_GameStrideClient\\Assets", true).Provider == null ? "/MP_GameStrideClient/asset" : null;
+           //// ObjectDatabase clientObjectDatabase = ObjectDatabase.CreateDefaultDatabase();
+           // DatabaseFileProvider clientDatabaseFileProvider = new DatabaseFileProvider(objectDatabase, clientMountPath);
+           // Services.AddService<IDatabaseFileProviderService>(new DatabaseFileProviderService(clientDatabaseFileProvider));
+
 
             //stride Content manager
             Content = new ContentManager(Services);
@@ -64,11 +72,16 @@ namespace MP_GameStrideServer
             var loadSettings = new ContentManagerLoaderSettings
             {
                 // Ignore all references (Model, etc...)
-                ContentFilter = ContentManagerLoaderSettings.NewContentFilterByType(),
+                // ContentFilter = ContentManagerLoaderSettings.NewContentFilterByType(),
+                ContentFilter = ContentManagerLoaderSettings.NewContentFilterByType([typeof(Entity), typeof(Scene), typeof(TransformComponent)]),
                 AllowContentStreaming = true,
-                //LoadContentReferences = true,
+                LoadContentReferences = false,
             };
             scene = Content.Load<Scene>("ServerScene", loadSettings);
+            //foreach (var item in scene.Entities)
+            //{
+            //    item.EnableAll();
+            //}
             // Prefab playerPrefab = Content.Load<Prefab>("SpherePrefab");
             // Model model = Content.Load<Model>("SphereModel");
             var sceneInstance = new SceneInstance(Services, scene, ExecutionMode.Runtime);
@@ -85,8 +98,7 @@ namespace MP_GameStrideServer
             var physics = new PhysicsProcessor();
             sceneInstance.Processors.Add(physics);
 
-            MP_PacketContainer.Initialize( Services);
-            //  MP_PacketContainer.Services = Services;
+            MP_PacketContainer.Initialize(Services);
         }
 
         public async Task Run()
@@ -114,10 +126,10 @@ namespace MP_GameStrideServer
                                 case NetConnectionStatus.InitiatedConnect:
                                     Console.WriteLine("Starting streaming to " + inc.SenderConnection.ToString());
                                     break;
-                                    case NetConnectionStatus.Connected:
+                                case NetConnectionStatus.Connected:
                                     NetOutgoingMessage connectedMessage = netServer.CreateMessage();
-                                     ScenePacket.SendPacket(scene, connectedMessage);
-                                    netServer.SendMessage(connectedMessage,inc.SenderConnection,NetDeliveryMethod.ReliableOrdered);
+                                    ScenePacket.SendPacket(scene, connectedMessage);
+                                    netServer.SendMessage(connectedMessage, inc.SenderConnection, NetDeliveryMethod.ReliableOrdered);
                                     break;
                                 case NetConnectionStatus.Disconnected:
                                     Console.WriteLine(inc.SenderConnection + " has disconnected");
@@ -135,7 +147,6 @@ namespace MP_GameStrideServer
 
                 }
             }
-
         }
     }
 }

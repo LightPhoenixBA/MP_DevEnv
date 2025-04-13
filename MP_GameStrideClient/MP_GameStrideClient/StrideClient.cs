@@ -31,7 +31,6 @@ class StrideClient
             //string address = netConfig.LocalAddress.ToString();
             // string address = "lightphoenix.my.to";
             // string address = "localhost";
-            string serverAddress = "127.0.0.1";
             netClient.Start();
             netClient.Connect(serverConfig.LocalAddress.ToString(), serverConfig.Port , netClient.CreateMessage("Stride Client is requesting connection"));
             MP_PacketContainer.Initialize(Game.Services);
@@ -94,11 +93,12 @@ class StrideClient
                             {
                                 case PacketType.Scene:
                                     Scene serverScene = incPacket.Item2 as Scene;
-                                    foreach (var item in serverScene.Entities)
-                                    {
-                                        item.Scene = SceneSystem.SceneInstance.RootScene;
-                                       // SceneSystem.SceneInstance.RootScene.Entities.Add(item);
-                                    }
+                                    SceneSystem.SceneInstance.RootScene.Children.Add(serverScene);
+                                    //foreach (var item in serverScene.Entities)
+                                    //{
+                                    //    item.Scene = SceneSystem.SceneInstance.RootScene;
+                                    //   // SceneSystem.SceneInstance.RootScene.Entities.Add(item);
+                                    //}
                                    // SceneSystem.SceneInstance.RootScene.Children.Add(serverScene);
                                     break;
                                 case PacketType.Entity:

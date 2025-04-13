@@ -4,6 +4,8 @@
     <TargetFramework>net8.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+      <PackageOutputPath>../packages</PackageOutputPath>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Stride" Version="4.2.0.1" />
@@ -13,5 +15,6 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\MP_GameBase\MP_GameBase.csproj" />
+    <ProjectReference Include="..\MP_GameStrideClient\MP_GameStrideClient\MP_GameStrideClient.csproj" />
   </ItemGroup>
 </Project>

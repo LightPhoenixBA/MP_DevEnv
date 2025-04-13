@@ -15,6 +15,6 @@ ExplicitFolders: []
 Bundles: []
 TemplateFolders: []
 RootAssets:
-    - 362f8885-fdfb-43b9-b112-9379023e3da4:Cube
+    - 451ce864-ac0d-4142-a3d9-af25432e058b:CubeModel
+    - 92a07faf-1aef-4f5b-b99e-c63d4d615418:CubePrefab
     - b3bf3ccd-46dc-42de-b10f-a40df146fa41:ServerScene
-    - ba4e1010-d7b9-46d2-b3fe-12eaa7e0df58:Material
