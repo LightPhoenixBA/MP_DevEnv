@@ -1,68 +1,35 @@
 ﻿using Lidgren.Network;
+using Stride.Engine;
 using Stride.Rendering;
+using System.Net.Sockets;
 
 namespace MP_GameBase;
 
-class EntityPacket : MP_PacketBase
+class EntityPacket : MP_PacketBase<Entity>
 {
-    public override PacketType packetType => PacketType.Entity;
+    //public static readonly int PacketId = MP_PacketBase.Register(new EntityPacket ());
+    //public override int PacketId => PacketId;
+    //internal override object Read(NetIncomingMessage msg)
+    //{
+    //  return new Entity() { Id = new Guid(msg.ReadString()), Name = msg.ReadString() };
+    //}
 
-    public static NetOutgoingMessage SendPacket(Entity entity, NetOutgoingMessage msg)
+    //internal override void Write(Entity entity, NetOutgoingMessage msg)
+    //{
+    //    msg.WriteVariableInt32(PacketId);
+    //    msg.Write(entity.Id.ToString());
+    //    msg.Write(entity.Name);
+    //  //  msg.Write("CubePrefab");
+    //  //  TransformPacket.WritePacket(entity.Transform, msg);
+    //  //  msg.Write((uint)PacketType.EndPacket);
+    //}
+    internal override object Read(NetIncomingMessage msg)
     {
-        MP_PacketContainer.packets[PacketType.Entity].WritePacket(entity, msg);
-        return msg;
+        throw new NotImplementedException();
     }
 
-    internal override Entity ReadPacket(NetIncomingMessage msg)
+    internal override void Write(Entity data, NetOutgoingMessage msg)
     {
-        Entity entity = new Entity() { Id = new Guid(msg.ReadString()), Name = msg.ReadString() };
-        string modelName = msg.ReadString();
-        var Cube = MP_PacketContainer.Content.Load<Prefab>(modelName);
-
-        Model model = MP_PacketContainer.Content.Load<Model>("CubePrefab");
-        entity.Add(new ModelComponent());
-        var nestedPackets = MP_PacketContainer.ReceiveNestedPackets(msg);
-        foreach (var packet in nestedPackets)
-        {
-
-            foreach (var packetData in packet.Value)
-            {
-                switch (packet.Key)
-                {
-                    case PacketType.Player:
-                        break;
-                    case PacketType.Scene:
-                        break;
-                    case PacketType.Transform:
-                        TransformComponent newTransform = (TransformComponent)packetData;
-                        entity.Transform.Position = newTransform.Position;
-                        entity.Transform.Rotation = newTransform.Rotation;
-
-                        break;
-                    default:
-                        break;
-                }
-            }
-        }
-        //TransformComponent transformComponent = (TransformComponent)MP_PacketContainer.packets[PacketType.Transform].ReadPacket(msg);
-        //entity.Transform.Position = transformComponent.Position;
-        //entity.Transform.Rotation = transformComponent.Rotation;
-        return entity;
-    }
-
-    internal override NetOutgoingMessage WritePacket(object dataToSend, NetOutgoingMessage msg)
-    {
-        if (dataToSend is not Entity entity)
-        {
-            throw new InvalidDataException();
-        }
-        msg.Write((uint)PacketType.Entity);
-        msg.Write(entity.Id.ToString());
-        msg.Write(entity.Name);
-        msg.Write("CubePrefab");
-        TransformPacket.WritePacket(entity.Transform, msg);
-        msg.Write((uint)PacketType.EndPacket);
-
-        return msg;
+        throw new NotImplementedException();
     }
 }

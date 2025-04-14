@@ -97,8 +97,7 @@ namespace MP_GameStrideServer
 
             var physics = new PhysicsProcessor();
             sceneInstance.Processors.Add(physics);
-
-            MP_PacketContainer.Initialize(Services);
+          MP_PacketBase.RegisterAll();
         }
 
         public async Task Run()

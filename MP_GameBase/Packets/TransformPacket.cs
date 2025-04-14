@@ -1,43 +1,40 @@
 ﻿using Lidgren.Network;
+using System.Net.Sockets;
 
 namespace MP_GameBase
 {
-    class TransformPacket : MP_PacketBase
+    class TransformPacket : MP_PacketBase<TransformComponent>
     {
-        public override PacketType packetType => PacketType.Transform;
+        //public static readonly int PacketId = MP_PacketBase.Register(new TransformPacket());
+        //public override int PacketId => PacketId;
+        //internal override object Read(NetIncomingMessage msg)
+        //{
+        //    return new TransformComponent()
+        //    {
+        //        Position = new Vector3(msg.ReadFloat(), msg.ReadFloat(), msg.ReadFloat()),
+        //        Rotation = new Quaternion(msg.ReadFloat(), msg.ReadFloat(), msg.ReadFloat(), msg.ReadFloat())
+        //    };
+        //}
 
-        public static NetOutgoingMessage SendPacket(TransformComponent scene, NetOutgoingMessage msg)
+        //internal override void Write(TransformComponent transform, NetOutgoingMessage msg)
+        //{
+        //    msg.WriteVariableInt32(PacketId);
+        //    msg.Write(transform.Position.X);
+        //    msg.Write(transform.Position.Y);
+        //    msg.Write(transform.Position.Z);
+        //    msg.Write(transform.Rotation.X);
+        //    msg.Write(transform.Rotation.Y);
+        //    msg.Write(transform.Rotation.Z);
+        //    msg.Write(transform.Rotation.W);
+        //}
+        internal override object Read(NetIncomingMessage msg)
         {
-            MP_PacketContainer.packets[PacketType.Transform].WritePacket(scene, msg);
-            return msg;
-        }
-        public static NetOutgoingMessage WritePacket(TransformComponent dataToSend, NetOutgoingMessage msg)
-        {
-            return MP_PacketContainer.packets[PacketType.Transform].WritePacket(dataToSend, msg);
-        }
-        internal override TransformComponent ReadPacket(NetIncomingMessage msg)
-        {
-            return new TransformComponent()
-            {
-                Position = new Vector3(msg.ReadFloat(), msg.ReadFloat(), msg.ReadFloat()),
-                Rotation = new Quaternion(msg.ReadFloat(), msg.ReadFloat(), msg.ReadFloat(), msg.ReadFloat())
-            };
+            throw new NotImplementedException();
         }
 
-        internal override NetOutgoingMessage WritePacket(object dataToSend, NetOutgoingMessage msg)
+        internal override void Write(TransformComponent data, NetOutgoingMessage msg)
         {
-            if (dataToSend is TransformComponent transform)
-            {
-                msg.Write((uint)PacketType.Transform);
-                msg.Write(transform.Position.X);
-                msg.Write(transform.Position.Y);
-                msg.Write(transform.Position.Z);
-                msg.Write(transform.Rotation.X);
-                msg.Write(transform.Rotation.Y);
-                msg.Write(transform.Rotation.Z);
-                msg.Write(transform.Rotation.W);
-            }
-            return msg;
+            throw new NotImplementedException();
         }
     }
 }

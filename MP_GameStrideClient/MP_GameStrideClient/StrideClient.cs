@@ -23,17 +23,13 @@ class StrideClient
 
         public override async Task Execute()
         {
-            // var socket = new SimpleSocket();
-            //netConfig.LocalAddress = localAdress;
             netClient = new NetClient(clientConfig);
-            // netClient.DiscoverLocalPeers(netConfig.Port);
-            // netClient.RegisterReceivedCallback(new SendOrPostCallback(GotMessage));
             //string address = netConfig.LocalAddress.ToString();
             // string address = "lightphoenix.my.to";
             // string address = "localhost";
             netClient.Start();
             netClient.Connect(serverConfig.LocalAddress.ToString(), serverConfig.Port , netClient.CreateMessage("Stride Client is requesting connection"));
-            MP_PacketContainer.Initialize(Game.Services);
+            MP_PacketBase.RegisterAll();
 
             while (Game.IsRunning)
             {
@@ -87,26 +83,28 @@ class StrideClient
 
                             break;
                         case NetIncomingMessageType.Data:
-                           Tuple<PacketType,object> incPacket = MP_PacketContainer.ReceivePacket(inc);
-                            //PacketType incPacket  = (PacketType)inc.ReadInt32();
-                            switch (incPacket.Item1)
+                            object incPacket = MP_PacketBase.ReceivePacket(inc);
+                            switch (incPacket)
                             {
-                                case PacketType.Scene:
-                                    Scene serverScene = incPacket.Item2 as Scene;
-                                    SceneSystem.SceneInstance.RootScene.Children.Add(serverScene);
-                                    //foreach (var item in serverScene.Entities)
-                                    //{
-                                    //    item.Scene = SceneSystem.SceneInstance.RootScene;
-                                    //   // SceneSystem.SceneInstance.RootScene.Entities.Add(item);
-                                    //}
-                                   // SceneSystem.SceneInstance.RootScene.Children.Add(serverScene);
+                                case Scene:
+                                    SceneSystem.SceneInstance.RootScene.Children.Add(incPacket as Scene);
                                     break;
-                                case PacketType.Entity:
-                                    throw new NotImplementedException();
-                                    break;
+                                //case typeof(ScenePacket):
+                                //    Scene serverScene = (incPacket as ScenePacket).Read;
+                                //    SceneSystem.SceneInstance.RootScene.Children.Add(serverScene);
+                                //    //foreach (var item in serverScene.Entities)
+                                //    //{
+                                //    //    item.Scene = SceneSystem.SceneInstance.RootScene;
+                                //    //   // SceneSystem.SceneInstance.RootScene.Entities.Add(item);
+                                //    //}
+                                //   // SceneSystem.SceneInstance.RootScene.Children.Add(serverScene);
+                                //    break;
+                                //case PacketType.Entity:
+                                //    throw new NotImplementedException();
+                                //    break;
 
-                                default:
-                                    throw new NotImplementedException("unhandled packet for " + incPacket.Item1.ToString());
+                                //default:
+                                //    throw new NotImplementedException("unhandled packet for " + incPacket.Item1.ToString());
                             }
                             break;
                         default:
