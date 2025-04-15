@@ -14,7 +14,7 @@
     <PackageReference Include="Stride.Core.Assets.CompilerApp" Version="4.2.0.1" IncludeAssets="build;buildTransitive" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\MP_GameBase\MP_GameBase.csproj" />
-    <ProjectReference Include="..\MP_GameStrideClient\MP_GameStrideClient\MP_GameStrideClient.csproj" />
+    <ProjectReference Include="..\MP_GameBase\MP_StrideMultiplayerBase.csproj" />
+    <ProjectReference Include="..\MP_GameStrideClient\MP_GameStrideClient\MP_StrideClientGame.csproj" />
   </ItemGroup>
 </Project>

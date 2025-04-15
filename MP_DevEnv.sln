@@ -1,15 +1,14 @@
-
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.13.35818.85
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MP_GameStrideClient", "MP_GameStrideClient\MP_GameStrideClient\MP_GameStrideClient.csproj", "{20C35461-F7D9-F9E1-A8EA-4BD42E4F70F2}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MP_StrideClientGame", "MP_GameStrideClient\MP_GameStrideClient\MP_StrideClientGame.csproj", "{20C35461-F7D9-F9E1-A8EA-4BD42E4F70F2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MP_GameStrideClient.Windows", "MP_GameStrideClient\MP_GameStrideClient.Windows\MP_GameStrideClient.Windows.csproj", "{5D995892-A35A-9002-4C2D-2E454F807AF5}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MP_StrideClientGame.Windows", "MP_GameStrideClient\MP_GameStrideClient.Windows\MP_StrideClientGame.Windows.csproj", "{5D995892-A35A-9002-4C2D-2E454F807AF5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MP_GameConsoleServer", "MP_GameConsoleServer\MP_GameConsoleServer.csproj", "{8531F53A-18DF-4FDC-B243-A46B2F95FD99}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MP_StrideServerConsole", "MP_GameConsoleServer\MP_StrideServerConsole.csproj", "{8531F53A-18DF-4FDC-B243-A46B2F95FD99}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MP_GameBase", "MP_GameBase\MP_GameBase.csproj", "{2FD28137-A7F4-421F-A9FE-B3FF9C97FD71}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MP_StrideMultiplayerBase", "MP_GameBase\MP_StrideMultiplayerBase.csproj", "{2FD28137-A7F4-421F-A9FE-B3FF9C97FD71}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lidgren.Network", "..\Lidgren network\Lidgren.Network\Lidgren.Network.csproj", "{49BA1C69-6104-41AC-A5D8-B54FA9F696E8}"
 EndProject

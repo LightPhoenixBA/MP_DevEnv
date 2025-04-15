@@ -1,6 +1,5 @@
 ﻿using Lidgren.Network;
 using MP_GameBase;
-using Stride.Core;
 using Stride.Core.Mathematics;
 using Stride.Engine;
 using Stride.Graphics;
@@ -28,12 +27,11 @@ class StrideClient
             // string address = "lightphoenix.my.to";
             // string address = "localhost";
             netClient.Start();
-            netClient.Connect(serverConfig.LocalAddress.ToString(), serverConfig.Port , netClient.CreateMessage("Stride Client is requesting connection"));
+            netClient.Connect(serverConfig.LocalAddress.ToString(), serverConfig.Port, netClient.CreateMessage("Stride Client is requesting connection"));
             MP_PacketBase.RegisterAll();
 
             while (Game.IsRunning)
             {
-                // Do stuff every new frame
                 NetIncomingMessage inc;
                 while ((inc = netClient.ReadMessage()) != null)
                 {
@@ -48,39 +46,14 @@ class StrideClient
                             NetConnectionStatus status = (NetConnectionStatus)inc.ReadByte();
                             switch (status)
                             {
-                                //    case NetConnectionStatus.None:
-                                //        break;
                                 case NetConnectionStatus.InitiatedConnect:
                                     netClient.Tag = this;
                                     break;
-                                //    case NetConnectionStatus.ReceivedInitiation:
-                                //        break;
-                                //    case NetConnectionStatus.RespondedAwaitingApproval:
-                                //        break;
-                                //    case NetConnectionStatus.RespondedConnect:
-                                //        break;
-                                //case NetConnectionStatus.Connected:
-                                //    break;
-                                ////case NetConnectionStatus.Disconnecting:
-                                ////    break;
-                                //case NetConnectionStatus.Disconnected:
-                                //    break;
                                 default:
                                     Log.Info(inc.SenderConnection + ": " + status + " (" + inc.ReadString() + ")");
 
                                     break;
                             }
-                            // if (status == NetConnectionStatus.Connected)
-                            //    s_form.EnableInput();
-                            //else
-                            //    s_form.DisableInput();
-
-                            //if (status == NetConnectionStatus.Disconnected)
-                            //    s_form.button2.Text = "Connect";
-
-                            //string reason = inc.ReadString();
-                            //Log.Info(status.ToString() + ": " + reason);
-
                             break;
                         case NetIncomingMessageType.Data:
                             object incPacket = MP_PacketBase.ReceivePacket(inc);
@@ -89,22 +62,6 @@ class StrideClient
                                 case Scene:
                                     SceneSystem.SceneInstance.RootScene.Children.Add(incPacket as Scene);
                                     break;
-                                //case typeof(ScenePacket):
-                                //    Scene serverScene = (incPacket as ScenePacket).Read;
-                                //    SceneSystem.SceneInstance.RootScene.Children.Add(serverScene);
-                                //    //foreach (var item in serverScene.Entities)
-                                //    //{
-                                //    //    item.Scene = SceneSystem.SceneInstance.RootScene;
-                                //    //   // SceneSystem.SceneInstance.RootScene.Entities.Add(item);
-                                //    //}
-                                //   // SceneSystem.SceneInstance.RootScene.Children.Add(serverScene);
-                                //    break;
-                                //case PacketType.Entity:
-                                //    throw new NotImplementedException();
-                                //    break;
-
-                                //default:
-                                //    throw new NotImplementedException("unhandled packet for " + incPacket.Item1.ToString());
                             }
                             break;
                         default:
