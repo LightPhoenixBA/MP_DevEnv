@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace MP_GameStrideClient;
 
-class StrideClient
+public class StrideClient
 {
     public class NetworkClient : AsyncScript
     {

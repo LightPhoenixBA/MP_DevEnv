@@ -4,7 +4,7 @@ namespace MP_GameBase
 {
     class TransformPacket : MP_PacketBase<TransformComponent>
     {
-        internal override object Read(NetIncomingMessage msg)
+        protected override object Read(NetIncomingMessage msg)
         {
             return new TransformComponent()
             {
@@ -12,7 +12,7 @@ namespace MP_GameBase
                 Rotation = new Quaternion(msg.ReadFloat(), msg.ReadFloat(), msg.ReadFloat(), msg.ReadFloat())
             };
         }
-        internal override void Write(TransformComponent transform, NetOutgoingMessage msg)
+        protected override void Write(TransformComponent transform, NetOutgoingMessage msg)
         {
             msg.WriteVariableInt32(PacketId);
             msg.Write(transform.Position.X);

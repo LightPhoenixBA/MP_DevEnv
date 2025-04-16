@@ -14,11 +14,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Lidgren network\Lidgren.Network\Lidgren.Network.csproj" />
+    <Folder Include="Assets\" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Assets\" />
+    <ProjectReference Include="..\..\Lidgren network\Lidgren.Network\Lidgren.Network.csproj" />
   </ItemGroup>
 
 </Project>

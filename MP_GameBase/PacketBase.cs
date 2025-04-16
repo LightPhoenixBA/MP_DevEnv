@@ -33,7 +33,7 @@ public abstract class MP_PacketBase
     }
     public abstract void SendPacket(object data, NetOutgoingMessage msg);
 
-    internal abstract object Read(NetIncomingMessage msg);
+    protected abstract object Read(NetIncomingMessage msg);
 }
 
 public abstract class MP_PacketBase<T> : MP_PacketBase
@@ -50,7 +50,7 @@ public abstract class MP_PacketBase<T> : MP_PacketBase
         registry[PacketId].SendPacket(data, msg);
     }
 
-    internal abstract void Write(T data, NetOutgoingMessage msg);
+    protected abstract void Write(T data, NetOutgoingMessage msg);
 
     public override void SendPacket(object data, NetOutgoingMessage msg)
     {
