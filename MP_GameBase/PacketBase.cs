@@ -1,18 +1,19 @@
 ﻿using Lidgren.Network;
-
+using MP_StrideMultiplayerBase;
+using Stride.Core.Serialization.Contents;
 namespace MP_GameBase;
 
 public abstract class MP_PacketBase
 {
     public static readonly List<MP_PacketBase> registry = new();
-    public static void RegisterAll()
+    protected static ContentManager Content { get; private set; }
+    public static void RegisterAll(ContentManager content)
     {
+        Content = content;
         _ = new ScenePacket();
         _ = new EntityPacket();
         _ = new TransformPacket();
-        //_ = ScenePacket.PacketId;
-        //_ = EntityPacket.PacketId;
-        //_ = TransformPacket.PacketId;
+        _ = new PrefabPacket();
     }
     public static int Register(MP_PacketBase packet)
     {

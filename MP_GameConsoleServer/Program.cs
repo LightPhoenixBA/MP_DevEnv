@@ -1,18 +1,7 @@
-﻿// Copyright (c) Xenko contributors (https://xenko.com)
-// Distributed under the MIT license. See the LICENSE.md file in the project root for more information.
-using Lidgren.Network;
-using MP_GameBase;
-using Stride.Core;
-using Stride.Core.IO;
-using Stride.Core.Serialization.Contents;
-using Stride.Core.Storage;
-using Stride.Engine;
-using Stride.Engine.Design;
-using Stride.Games;
-using Stride.Physics;
-
-namespace MP_GameStrideServer;
-
+﻿namespace MP_GameStrideServer;
+/// <summary>
+/// root client side class for MP_StrideGameBase
+/// </summary>
 public class MultiplayerConsoleGame
 {
     public ServiceRegistry Services { get; private set; }
@@ -21,6 +10,12 @@ public class MultiplayerConsoleGame
     private SceneSystem sceneSystem;
     private GameSystemCollection gameSystems;
     public NetServer netServer;
+    public static readonly ContentManagerLoaderSettings loadSettings = new ContentManagerLoaderSettings
+    {
+        ContentFilter = ContentManagerLoaderSettings.NewContentFilterByType([typeof(Entity), typeof(Scene), typeof(TransformComponent), typeof(Prefab)]),
+        AllowContentStreaming = true,
+        LoadContentReferences = false,
+    };
 
     public ContentManager Content { get; private set; }
     public readonly string ServerRootPath = Path.GetFullPath(Path.Combine(AppContext.BaseDirectory, @"..\..\.."));
@@ -55,13 +50,14 @@ public class MultiplayerConsoleGame
         gameSystems.Initialize();
 
         // Load scene (physics only)
-        var loadSettings = new ContentManagerLoaderSettings
-        {
-            ContentFilter = ContentManagerLoaderSettings.NewContentFilterByType([typeof(Entity), typeof(Scene), typeof(TransformComponent)]),
-            AllowContentStreaming = true,
-            LoadContentReferences = false,
-        };
-        scene = Content.Load<Scene>("ServerScene", loadSettings);
+        //var loadSettings = new ContentManagerLoaderSettings
+        //{
+        //    ContentFilter = ContentManagerLoaderSettings.NewContentFilterByType([typeof(Entity), typeof(Scene), typeof(TransformComponent),typeof(Prefab)]),
+        //    AllowContentStreaming = true,
+        //    LoadContentReferences = false,
+        //};
+        scene = Content.Load<Scene>("ServerScene");
+        scene.Name = "ServerScene";
         var sceneInstance = new SceneInstance(Services, scene, ExecutionMode.Runtime);
         var sceneSystem = new SceneSystem(Services)
         {
@@ -71,7 +67,7 @@ public class MultiplayerConsoleGame
 
         var physics = new PhysicsProcessor();
         sceneInstance.Processors.Add(physics);
-        MP_PacketBase.RegisterAll();
+        MP_PacketBase.RegisterAll(Content);
     }
 
     public async Task Run()
@@ -103,6 +99,20 @@ public class MultiplayerConsoleGame
                                 NetOutgoingMessage connectedMessage = netServer.CreateMessage();
                                 ScenePacket.SendPacket(scene, connectedMessage);
                                 netServer.SendMessage(connectedMessage, inc.SenderConnection, NetDeliveryMethod.ReliableOrdered);
+                                foreach (var entity in scene.Entities)
+                                {
+                                    NetOutgoingMessage entityMessage = netServer.CreateMessage();
+                                    Prefab prefabCheck = Content.Load<Prefab>(entity.Name, loadSettings);
+                                    if (prefabCheck != null)
+                                    {
+                                        PrefabPacket.SendUntypedPacket(entity.Name, entityMessage);
+                                    }
+                                    else
+                                    {
+                                        EntityPacket.SendPacket(entity, entityMessage);
+                                    }
+                                    netServer.SendMessage(entityMessage, inc.SenderConnection, NetDeliveryMethod.ReliableOrdered);
+                                }
                                 break;
                             case NetConnectionStatus.Disconnected:
                                 Console.WriteLine(inc.SenderConnection + " has disconnected");

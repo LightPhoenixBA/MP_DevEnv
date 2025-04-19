@@ -3,9 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.13.35818.85
 MinimumVisualStudioVersion = 16.0.0.0
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MP_GameStrideClient.Windows", "MP_GameStrideClient.Windows\MP_GameStrideClient.Windows.csproj", "{6717DB5E-70DF-4C94-B604-C84BE8B43129}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MP_StrideClientGame", "MP_GameStrideClient\MP_StrideClientGame.csproj", "{49408E55-97FA-323F-EC47-83952780ABB7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MP_GameStrideClient", "MP_GameStrideClient\MP_GameStrideClient.csproj", "{7260528F-5C6E-4C8A-B72A-E6703E9FB5E5}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MP_StrideClientGame.Windows", "MP_GameStrideClient.Windows\MP_StrideClientGame.Windows.csproj", "{21A140F1-6FFB-7B1D-7E03-B76064959EB1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lidgren.Network", "..\..\Lidgren network\Lidgren.Network\Lidgren.Network.csproj", "{E228CE14-7482-438D-B3C9-0804C3001C06}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MP_StrideMultiplayerBase", "..\MP_GameBase\MP_StrideMultiplayerBase.csproj", "{4FC5E957-BA16-466D-828D-ACF79325AEB7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -13,14 +17,14 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{6717DB5E-70DF-4C94-B604-C84BE8B43129}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{6717DB5E-70DF-4C94-B604-C84BE8B43129}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{6717DB5E-70DF-4C94-B604-C84BE8B43129}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{6717DB5E-70DF-4C94-B604-C84BE8B43129}.Release|Any CPU.Build.0 = Release|Any CPU
-		{7260528F-5C6E-4C8A-B72A-E6703E9FB5E5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{7260528F-5C6E-4C8A-B72A-E6703E9FB5E5}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{7260528F-5C6E-4C8A-B72A-E6703E9FB5E5}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{7260528F-5C6E-4C8A-B72A-E6703E9FB5E5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{49408E55-97FA-323F-EC47-83952780ABB7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{49408E55-97FA-323F-EC47-83952780ABB7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{49408E55-97FA-323F-EC47-83952780ABB7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{49408E55-97FA-323F-EC47-83952780ABB7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{21A140F1-6FFB-7B1D-7E03-B76064959EB1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{21A140F1-6FFB-7B1D-7E03-B76064959EB1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{21A140F1-6FFB-7B1D-7E03-B76064959EB1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{21A140F1-6FFB-7B1D-7E03-B76064959EB1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -1,85 +1,85 @@
 !SceneAsset
-Id: b3bf3ccd-46dc-42de-b10f-a40df146fa41
+Id: 122d71b5-d5fe-4aee-b958-a974cb1fd1b4
 SerializedVersion: {Stride: 3.1.0.1}
 Tags: []
 ChildrenIds: []
 Offset: {X: 0.0, Y: 0.0, Z: 0.0}
 Hierarchy:
     RootParts:
-        - ref!! 1506d586-f1fa-475e-a1ee-4926609437ca
-        - ref!! 6551c1e6-05a7-47a4-adbc-bcf5042bc020
-        - ref!! c5299647-fb4d-4b07-b280-59fc8b0683e3
-        - ref!! b0df6c58-a787-4793-838d-ed85521d3879
+        - ref!! b0a49d7d-d9ea-4ef9-8265-2d7706b32a82
+        - ref!! fc154f5c-9e3e-4619-b555-9e2aba6295af
+        - ref!! f4f47bb5-b017-4615-9ac6-0bd7ea7bb225
+        - ref!! 15314c5e-3202-41cb-9e48-6956aecf3193
     Parts:
         -   Entity:
-                Id: 1506d586-f1fa-475e-a1ee-4926609437ca
+                Id: 15314c5e-3202-41cb-9e48-6956aecf3193
                 Name: CubePrefab
                 Components:
                     ef1a8b3a2de5c4c097148bebdc06226d: !TransformComponent
-                        Id: 5ea13479-4503-4f93-bd86-56a52cf686e2
-                        Position*: {X: 1.0, Y: 0.0, Z: 0.0}
+                        Id: f9b5f05a-7268-43d7-aba1-7e0a50e4aacf
+                        Position*: {X: 2.0741343, Y: 0.0, Z: 0.0}
                         Rotation: {X: 0.0, Y: 0.0, Z: 0.0, W: 1.0}
                         Scale: {X: 1.0, Y: 1.0, Z: 1.0}
                         Children: {}
                     a0337516cf1673c20ffb57241b32ed31: !ModelComponent
-                        Id: 0d741859-22ba-4caf-a0ac-788612c5a72c
+                        Id: c97fffa0-f727-4874-9555-50b046201932
                         Model: 451ce864-ac0d-4142-a3d9-af25432e058b:CubeModel
                         Materials: {}
             Base:
                 BasePartAsset: 92a07faf-1aef-4f5b-b99e-c63d4d615418:CubePrefab
                 BasePartId: f7a18242-169b-435e-bca9-1b3b719b9bf2
-                InstanceId: 0ce8c631-b13e-4545-bad2-0eea4a9947c8
+                InstanceId: 1d260fb4-ca3a-4c9e-9016-45267324cc7a
         -   Entity:
-                Id: 6551c1e6-05a7-47a4-adbc-bcf5042bc020
-                Name: CubePrefab
+                Id: b0a49d7d-d9ea-4ef9-8265-2d7706b32a82
+                Name*: CubePrefab
                 Components:
                     ef1a8b3a2de5c4c097148bebdc06226d: !TransformComponent
-                        Id: 535c78a9-ee6e-45a0-b0c5-7f1124a36cdd
-                        Position*: {X: -1.0, Y: 0.0, Z: 0.0}
+                        Id: d6b14ad6-521f-49b6-a970-2dced84412de
+                        Position*: {X: 0.0, Y: 0.0, Z: 2.1102576}
                         Rotation: {X: 0.0, Y: 0.0, Z: 0.0, W: 1.0}
                         Scale: {X: 1.0, Y: 1.0, Z: 1.0}
                         Children: {}
                     a0337516cf1673c20ffb57241b32ed31: !ModelComponent
-                        Id: c3e92a5e-9973-49fd-9d2a-e57254450f67
+                        Id: edeeb94a-a318-4aff-a3fc-5ece8fd80901
                         Model: 451ce864-ac0d-4142-a3d9-af25432e058b:CubeModel
                         Materials: {}
             Base:
                 BasePartAsset: 92a07faf-1aef-4f5b-b99e-c63d4d615418:CubePrefab
                 BasePartId: f7a18242-169b-435e-bca9-1b3b719b9bf2
-                InstanceId: 08d8c5fc-2250-4f6f-99d0-41a1b0d603d6
+                InstanceId: ae118a2b-53bb-4113-bc05-3caf22abb95d
         -   Entity:
-                Id: b0df6c58-a787-4793-838d-ed85521d3879
+                Id: f4f47bb5-b017-4615-9ac6-0bd7ea7bb225
                 Name: CubePrefab
                 Components:
                     ef1a8b3a2de5c4c097148bebdc06226d: !TransformComponent
-                        Id: ec33ab35-44e5-4a4f-9942-55e3b23e717c
-                        Position*: {X: 0.0, Y: 0.0, Z: -1.0}
+                        Id: 48fde4a5-ca45-43e6-b3e5-bbd4e4befb77
+                        Position*: {X: -2.8071942, Y: 0.0, Z: 0.0}
                         Rotation: {X: 0.0, Y: 0.0, Z: 0.0, W: 1.0}
                         Scale: {X: 1.0, Y: 1.0, Z: 1.0}
                         Children: {}
                     a0337516cf1673c20ffb57241b32ed31: !ModelComponent
-                        Id: 1896614c-eaa4-4e1d-ac18-e93698dd681a
+                        Id: dec78dbb-c2d5-49e1-9e87-65e228217b8e
                         Model: 451ce864-ac0d-4142-a3d9-af25432e058b:CubeModel
                         Materials: {}
             Base:
                 BasePartAsset: 92a07faf-1aef-4f5b-b99e-c63d4d615418:CubePrefab
                 BasePartId: f7a18242-169b-435e-bca9-1b3b719b9bf2
-                InstanceId: df669741-740f-4082-a5e3-305b45bfd0a4
+                InstanceId: e5bbd5bc-6396-4496-9d6b-2cfb42d78cbf
         -   Entity:
-                Id: c5299647-fb4d-4b07-b280-59fc8b0683e3
+                Id: fc154f5c-9e3e-4619-b555-9e2aba6295af
                 Name: CubePrefab
                 Components:
                     ef1a8b3a2de5c4c097148bebdc06226d: !TransformComponent
-                        Id: e814d404-4588-43af-a0ae-497740cc0f3f
-                        Position*: {X: 0.0, Y: 0.0, Z: 1.0}
+                        Id: 44bf632f-b61b-4908-b58b-1d7c9827e75e
+                        Position*: {X: 0.0, Y: 0.0, Z: -2.6459882}
                         Rotation: {X: 0.0, Y: 0.0, Z: 0.0, W: 1.0}
                         Scale: {X: 1.0, Y: 1.0, Z: 1.0}
                         Children: {}
                     a0337516cf1673c20ffb57241b32ed31: !ModelComponent
-                        Id: 4232425c-e549-4e2b-a1fa-08b68b5c1080
+                        Id: 1ed4ebc4-dddb-48e3-b807-a67b9ef47bcc
                         Model: 451ce864-ac0d-4142-a3d9-af25432e058b:CubeModel
                         Materials: {}
             Base:
                 BasePartAsset: 92a07faf-1aef-4f5b-b99e-c63d4d615418:CubePrefab
                 BasePartId: f7a18242-169b-435e-bca9-1b3b719b9bf2
-                InstanceId: b744652b-7ef2-4c66-81e6-266436d105a7
+                InstanceId: 031409d4-9c9a-4063-a831-5030e1bb0776

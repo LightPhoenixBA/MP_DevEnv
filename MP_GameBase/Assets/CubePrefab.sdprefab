@@ -8,7 +8,7 @@ Hierarchy:
     Parts:
         -   Entity:
                 Id: f7a18242-169b-435e-bca9-1b3b719b9bf2
-                Name: Cube
+                Name: CubePrefab
                 Components:
                     ef1a8b3a2de5c4c097148bebdc06226d: !TransformComponent
                         Id: f4ae53fa-c6c3-41bb-80d0-02f1ed4d3bab
@@ -19,5 +19,4 @@ Hierarchy:
                     a0337516cf1673c20ffb57241b32ed31: !ModelComponent
                         Id: 5feaf038-7904-420b-bc11-daa446fb2e63
                         Model: 451ce864-ac0d-4142-a3d9-af25432e058b:CubeModel
-                        Materials:
-                            e116e635d2a31874b56b899a8f6bbad9~0: 14a1ca0b-9d90-4915-86d2-067f3d47d437:Sphere Material
+                        Materials: {}

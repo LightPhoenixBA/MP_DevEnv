@@ -2,7 +2,7 @@
 
 namespace MP_GameBase;
 
-class EntityPacket : MP_PacketBase<Entity>
+public class EntityPacket : MP_PacketBase<Entity>
 {
     protected override object Read(NetIncomingMessage msg)
     {
@@ -11,7 +11,6 @@ class EntityPacket : MP_PacketBase<Entity>
 
     protected override void Write(Entity entity, NetOutgoingMessage msg)
     {
-        msg.WriteVariableInt32(PacketId);
         msg.Write(entity.Id.ToString());
         msg.Write(entity.Name);
     }
