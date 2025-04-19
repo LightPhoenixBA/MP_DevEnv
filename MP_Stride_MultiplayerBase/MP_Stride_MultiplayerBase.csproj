@@ -20,7 +20,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Lidgren network\Lidgren.Network\Lidgren.Network.csproj" />
+    <Reference Include="Lidgren.Network">
+      <HintPath>..\..\Lidgren network\Lidgren.Network\bin\Debug\Lidgren.Network.dll</HintPath>
+    </Reference>
   </ItemGroup>
 
 </Project>

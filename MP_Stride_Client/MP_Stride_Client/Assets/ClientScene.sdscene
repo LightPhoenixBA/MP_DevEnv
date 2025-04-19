@@ -1,0 +1,48 @@
+!SceneAsset
+Id: 9b37250b-90f0-44d1-8e3a-097b59a315c1
+SerializedVersion: {Stride: 3.1.0.1}
+Tags: []
+ChildrenIds: []
+Offset: {X: 0.0, Y: 0.0, Z: 0.0}
+Hierarchy:
+    RootParts:
+        - ref!! e2735291-a09e-420e-a9ff-e2480c6ef318
+        - ref!! fe9c1132-261b-4a11-8c42-d60fddb9153d
+    Parts:
+        -   Entity:
+                Id: e2735291-a09e-420e-a9ff-e2480c6ef318
+                Name: Camera
+                Components:
+                    889f9957b3de90f89e7e4a20ff099cfa: !TransformComponent
+                        Id: 5098a808-d7af-46ac-ae22-53be6740f2a7
+                        Position: {X: 2.6, Y: 0.6, Z: -1.0}
+                        Rotation: {X: 0.0, Y: 0.82903755, Z: 0.0, W: 0.5591929}
+                        Scale: {X: 1.0, Y: 1.0, Z: 1.0}
+                        Children: {}
+                    e5a961af31236fadd28b0691e0aece9a: !CameraComponent
+                        Id: f889f3db-5a3f-4144-9215-c5f985488e44
+                        Name: null
+                        Projection: Perspective
+                        Slot: e12edba0-fd00-4499-aa9e-79e91c32bf83
+                    b5921751838ba35a5a7ee25e158937f4: !MP_GameStrideClient.BasicCameraController,MP_StrideClientGame
+                        Id: 70178d57-7832-4f15-8fd2-836e4b29995c
+                        Gamepad: false
+                        KeyboardMovementSpeed: {X: 5.0, Y: 5.0, Z: 5.0}
+                        TouchMovementSpeed: {X: 0.7, Y: 0.7, Z: 0.3}
+                        SpeedFactor: 5.0
+                        KeyboardRotationSpeed: {X: 3.0, Y: 3.0}
+                        MouseRotationSpeed: {X: 1.0, Y: 1.0}
+                        TouchRotationSpeed: {X: 1.0, Y: 0.7}
+        -   Entity:
+                Id: fe9c1132-261b-4a11-8c42-d60fddb9153d
+                Name: StrideClient
+                Components:
+                    c5bf4e84a58b09ba4c7965f34e6477ea: !TransformComponent
+                        Id: b7de9785-3eae-4e6a-93aa-5cbbc311ad82
+                        Position: {X: 0.0, Y: 0.0, Z: 0.0}
+                        Rotation: {X: 0.0, Y: 0.0, Z: 0.0, W: 1.0}
+                        Scale: {X: 1.0, Y: 1.0, Z: 1.0}
+                        Children: {}
+                    0b883900b87e2663ce0cb745e35cd173: !MP_GameBase.NetworkClient,MP_StrideMultiplayerBase
+                        Id: 1be6ffd1-3c30-4117-b4b5-0b4fe0122974
+                        localAdress: null

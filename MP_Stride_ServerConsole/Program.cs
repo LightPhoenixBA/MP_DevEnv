@@ -2,7 +2,7 @@
 /// <summary>
 /// root client side class for MP_StrideGameBase
 /// </summary>
-public class MultiplayerConsoleGame
+public class MultiplayerConsoleGame : StartupScript
 {
     public ServiceRegistry Services { get; private set; }
     private Scene scene;//{  get; private set; }
@@ -13,17 +13,27 @@ public class MultiplayerConsoleGame
     public static readonly ContentManagerLoaderSettings loadSettings = new ContentManagerLoaderSettings
     {
         ContentFilter = ContentManagerLoaderSettings.NewContentFilterByType([typeof(Entity), typeof(Scene), typeof(TransformComponent), typeof(Prefab)]),
-        AllowContentStreaming = true,
+        AllowContentStreaming = false,
         LoadContentReferences = false,
     };
 
     public ContentManager Content { get; private set; }
     public readonly string ServerRootPath = Path.GetFullPath(Path.Combine(AppContext.BaseDirectory, @"..\..\.."));
-
+    /// <summary>
+    /// A general console server for the Stride game engine developed by LightPhoenix_BA (this method in intended to be called using Stride)
+    /// </summary>
+    public static async Task MainAsync()
+    {
+        await new MultiplayerConsoleGame().Run();
+    }
+    /// <summary>
+    /// A general console based server for the Stride game engine developed by LightPhoenix_BA (this method launches the console)
+    /// </summary>
+    /// <param name="args"></param>
     [STAThread]
     static void Main(string[] args)
     {
-        new MultiplayerConsoleGame().Run().Wait();
+        MainAsync().Wait();
     }
     public void Initialize()
     {
@@ -48,15 +58,7 @@ public class MultiplayerConsoleGame
         gameSystems = new GameSystemCollection(Services);
         Services.AddService<IGameSystemCollection>(gameSystems);
         gameSystems.Initialize();
-
-        // Load scene (physics only)
-        //var loadSettings = new ContentManagerLoaderSettings
-        //{
-        //    ContentFilter = ContentManagerLoaderSettings.NewContentFilterByType([typeof(Entity), typeof(Scene), typeof(TransformComponent),typeof(Prefab)]),
-        //    AllowContentStreaming = true,
-        //    LoadContentReferences = false,
-        //};
-        scene = Content.Load<Scene>("ServerScene");
+        scene = Content.Load<Scene>("ServerScene", loadSettings);
         scene.Name = "ServerScene";
         var sceneInstance = new SceneInstance(Services, scene, ExecutionMode.Runtime);
         var sceneSystem = new SceneSystem(Services)
