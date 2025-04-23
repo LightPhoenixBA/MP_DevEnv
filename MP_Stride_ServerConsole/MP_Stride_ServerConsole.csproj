@@ -14,6 +14,11 @@
     <PackageReference Include="Stride.Core.Assets.CompilerApp" Version="4.2.0.1" IncludeAssets="build;buildTransitive" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\MP_GameBase\MP_StrideMultiplayerBase.csproj" />
+    <ProjectReference Include="..\MP_Stride_MultiplayerBase\MP_Stride_MultiplayerBase.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="Lidgren.Network">
+      <HintPath>..\..\Lidgren network\Lidgren.Network\bin\Debug\Lidgren.Network.dll</HintPath>
+    </Reference>
   </ItemGroup>
 </Project>

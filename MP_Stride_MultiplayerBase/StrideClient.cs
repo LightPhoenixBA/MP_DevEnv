@@ -1,10 +1,7 @@
 ﻿using Lidgren.Network;
-using Stride.Core.Extensions;
 using Stride.Graphics;
+using Stride.Rendering.ProceduralModels;
 using System.Net;
-using Stride.UI;
-using Stride.UI.Controls;
-using Stride.UI.Panels;
 
 
 namespace MP_GameBase;
@@ -16,6 +13,7 @@ public class NetworkClient : AsyncScript
     private NetPeerConfiguration serverConfig = NetConnectionConfig.GetDefaultConfig();
     private bool? lastResult;
     private TimeSpan lastResultTime;
+    public Scene serverScene { get; private set; }
 
     public override async Task Execute()
     {
@@ -25,6 +23,7 @@ public class NetworkClient : AsyncScript
         MP_PacketBase.RegisterAll(Content);
         //Scene nestedScene = Content.Load<Scene>("ClientScene");
         //nestedScene.Parent = SceneSystem.SceneInstance.RootScene;
+       // _ = Content.Load<ProceduralModelDescriptor>("Sphere");
 
         while (Game.IsRunning)
         {
@@ -57,19 +56,24 @@ public class NetworkClient : AsyncScript
                         switch (incPacket)
                         {
                             case Scene:
-                                SceneSystem.SceneInstance.RootScene.Children.Add(incPacket as Scene);
+                                if (serverScene != null)
+                                {
+                                    throw new NotImplementedException("StrideClient can only have one server scene and is already set as " + serverScene.Name);
+                                }
+
+                                serverScene = incPacket as Scene;
+                                SceneSystem.SceneInstance.RootScene.Children.Add(serverScene);
                                 break;
-                            //case Stride.Engine.Entity:
-                            //    SceneSystem.SceneInstance.RootScene.Entities.Add(incPacket as Entity);
-                            //    break;
-                            //case Tuple<string, Prefab>:
-                            //    Prefab prefab = (incPacket as Tuple<string, Prefab>).Item2;
-                            //    foreach (var entity in prefab.Entities)
-                            //    {
-                            //        SceneSystem.SceneInstance.RootScene.Entities.Add(entity);
-                            //    }
-                            //    // SceneSystem.SceneInstance.RootScene.Entities.Add((incPacket as Prefab).Entities.First());
-                            //    break;
+                            case Stride.Engine.Entity:
+                                serverScene.Entities.Add(incPacket as Entity);
+                                break;
+                            case Tuple<string, Prefab>:
+                                Prefab prefab = (incPacket as Tuple<string, Prefab>).Item2;
+                                foreach (var entity in prefab.Entities)
+                                {
+                                    serverScene.Entities.Add(entity);
+                                }
+                                break;
 
                         }
                         break;

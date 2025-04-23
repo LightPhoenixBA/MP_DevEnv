@@ -7,8 +7,40 @@ Offset: {X: 0.0, Y: 0.0, Z: 0.0}
 Hierarchy:
     RootParts:
         - ref!! e2735291-a09e-420e-a9ff-e2480c6ef318
-        - ref!! fe9c1132-261b-4a11-8c42-d60fddb9153d
+        - ref!! dbcaeac4-bb94-4058-80cc-15a9a60b1ff1
+        - ref!! c611087f-3508-42f8-bfe4-05eb490a67aa
     Parts:
+        -   Entity:
+                Id: c611087f-3508-42f8-bfe4-05eb490a67aa
+                Name: CubePrefab
+                Components:
+                    990f2b222f4cff35d73f008dfeecb911: !TransformComponent
+                        Id: 6d6b09b4-f5b3-4f00-b56f-0a6879e83104
+                        Position*: {X: 0.0, Y: 0.0, Z: 0.0}
+                        Rotation: {X: 0.0, Y: 0.0, Z: 0.0, W: 1.0}
+                        Scale: {X: 1.0, Y: 1.0, Z: 1.0}
+                        Children: {}
+                    37b4a4dc83e607a4cabae9e5c13f34fa: !ModelComponent
+                        Id: 36eafb8b-a824-4391-80e1-05aef6ca4e54
+                        Model: 451ce864-ac0d-4142-a3d9-af25432e058b:CubeModel
+                        Materials: {}
+            Base:
+                BasePartAsset: 92a07faf-1aef-4f5b-b99e-c63d4d615418:CubePrefab
+                BasePartId: acaf6825-5429-4d82-a12a-6aa5ab74f0ff
+                InstanceId: d3462813-04e2-43d9-848a-0701b29c5d63
+        -   Entity:
+                Id: dbcaeac4-bb94-4058-80cc-15a9a60b1ff1
+                Name: StrideClient
+                Components:
+                    b458ca65799fcd404b1140e283956f43: !TransformComponent
+                        Id: 33d4436a-5241-4850-be46-3e7131e2bb9d
+                        Position: {X: 0.0, Y: 0.0, Z: 0.0}
+                        Rotation: {X: 0.0, Y: 0.0, Z: 0.0, W: 1.0}
+                        Scale: {X: 1.0, Y: 1.0, Z: 1.0}
+                        Children: {}
+                    799236b7ee1292ba9847d6b768d3a208: !MP_GameBase.NetworkClient,MP_Stride_MultiplayerBase
+                        Id: 6647d38d-cf3e-4382-86e4-05c9d2e59d9a
+                        localAdress: null
         -   Entity:
                 Id: e2735291-a09e-420e-a9ff-e2480c6ef318
                 Name: Camera
@@ -24,8 +56,8 @@ Hierarchy:
                         Name: null
                         Projection: Perspective
                         Slot: e12edba0-fd00-4499-aa9e-79e91c32bf83
-                    b5921751838ba35a5a7ee25e158937f4: !MP_GameStrideClient.BasicCameraController,MP_StrideClientGame
-                        Id: 70178d57-7832-4f15-8fd2-836e4b29995c
+                    8b57701529d044ae971a256e827e5f8a: !MP_GameStrideClient.BasicCameraController,MP_Stride_ClientGameSample
+                        Id: 18efcca5-3560-4723-9b88-6635e96279ca
                         Gamepad: false
                         KeyboardMovementSpeed: {X: 5.0, Y: 5.0, Z: 5.0}
                         TouchMovementSpeed: {X: 0.7, Y: 0.7, Z: 0.3}
@@ -33,16 +65,3 @@ Hierarchy:
                         KeyboardRotationSpeed: {X: 3.0, Y: 3.0}
                         MouseRotationSpeed: {X: 1.0, Y: 1.0}
                         TouchRotationSpeed: {X: 1.0, Y: 0.7}
-        -   Entity:
-                Id: fe9c1132-261b-4a11-8c42-d60fddb9153d
-                Name: StrideClient
-                Components:
-                    c5bf4e84a58b09ba4c7965f34e6477ea: !TransformComponent
-                        Id: b7de9785-3eae-4e6a-93aa-5cbbc311ad82
-                        Position: {X: 0.0, Y: 0.0, Z: 0.0}
-                        Rotation: {X: 0.0, Y: 0.0, Z: 0.0, W: 1.0}
-                        Scale: {X: 1.0, Y: 1.0, Z: 1.0}
-                        Children: {}
-                    0b883900b87e2663ce0cb745e35cd173: !MP_GameBase.NetworkClient,MP_StrideMultiplayerBase
-                        Id: 1be6ffd1-3c30-4117-b4b5-0b4fe0122974
-                        localAdress: null

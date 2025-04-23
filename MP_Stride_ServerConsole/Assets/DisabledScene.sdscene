@@ -1,0 +1,86 @@
+!SceneAsset
+Id: 102cf3c4-777f-492d-a6ee-553804a8a2ce
+SerializedVersion: {Stride: 3.1.0.1}
+Tags: []
+ChildrenIds: []
+Parent: b3bf3ccd-46dc-42de-b10f-a40df146fa41:ServerScene
+Offset: {X: 0.0, Y: 0.0, Z: 0.0}
+Hierarchy:
+    RootParts:
+        - ref!! a40784a8-2770-4ecd-8f46-42646d7bf377
+        - ref!! 81e907cc-e7b9-4292-a646-3a3f19c6d59a
+        - ref!! 20580007-cb18-4ac8-99b3-a285c38c1057
+        - ref!! fdd77ad1-bdfa-40aa-ae5b-d6e8e03c7505
+    Parts:
+        -   Entity:
+                Id: 20580007-cb18-4ac8-99b3-a285c38c1057
+                Name: CubePrefab
+                Components:
+                    990f2b222f4cff35d73f008dfeecb911: !TransformComponent
+                        Id: e5c475ec-bd1b-4bd6-9b6c-e39bb267686d
+                        Position*: {X: -1.0, Y: 0.0, Z: 0.0}
+                        Rotation: {X: 0.0, Y: 0.0, Z: 0.0, W: 1.0}
+                        Scale: {X: 1.0, Y: 1.0, Z: 1.0}
+                        Children: {}
+                    37b4a4dc83e607a4cabae9e5c13f34fa: !ModelComponent
+                        Id: 2b54bc9d-5005-45e3-bed3-e51812dd15fe
+                        Model: 451ce864-ac0d-4142-a3d9-af25432e058b:CubeModel
+                        Materials: {}
+            Base:
+                BasePartAsset: 92a07faf-1aef-4f5b-b99e-c63d4d615418:CubePrefab
+                BasePartId: acaf6825-5429-4d82-a12a-6aa5ab74f0ff
+                InstanceId: 15771e03-f9a7-49be-99ff-aff121951c94
+        -   Entity:
+                Id: 81e907cc-e7b9-4292-a646-3a3f19c6d59a
+                Name: CubePrefab
+                Components:
+                    990f2b222f4cff35d73f008dfeecb911: !TransformComponent
+                        Id: 731e5333-a906-4e18-bade-06f51050d06c
+                        Position*: {X: 0.0, Y: 0.0, Z: 1.0}
+                        Rotation: {X: 0.0, Y: 0.0, Z: 0.0, W: 1.0}
+                        Scale: {X: 1.0, Y: 1.0, Z: 1.0}
+                        Children: {}
+                    37b4a4dc83e607a4cabae9e5c13f34fa: !ModelComponent
+                        Id: 34579ddc-ee3e-44e3-87ca-81955771a5f5
+                        Model: 451ce864-ac0d-4142-a3d9-af25432e058b:CubeModel
+                        Materials: {}
+            Base:
+                BasePartAsset: 92a07faf-1aef-4f5b-b99e-c63d4d615418:CubePrefab
+                BasePartId: acaf6825-5429-4d82-a12a-6aa5ab74f0ff
+                InstanceId: d702dc8a-2eae-4a29-bd3c-09d35e43f466
+        -   Entity:
+                Id: a40784a8-2770-4ecd-8f46-42646d7bf377
+                Name: CubePrefab
+                Components:
+                    990f2b222f4cff35d73f008dfeecb911: !TransformComponent
+                        Id: 370fb4c7-7e02-4111-9bdf-ea37a5a07923
+                        Position*: {X: 1.0, Y: 0.0, Z: 0.0}
+                        Rotation: {X: 0.0, Y: 0.0, Z: 0.0, W: 1.0}
+                        Scale: {X: 1.0, Y: 1.0, Z: 1.0}
+                        Children: {}
+                    37b4a4dc83e607a4cabae9e5c13f34fa: !ModelComponent
+                        Id: 626f6c40-7cf4-4d29-aad7-a9ae2fb93acd
+                        Model: 451ce864-ac0d-4142-a3d9-af25432e058b:CubeModel
+                        Materials: {}
+            Base:
+                BasePartAsset: 92a07faf-1aef-4f5b-b99e-c63d4d615418:CubePrefab
+                BasePartId: acaf6825-5429-4d82-a12a-6aa5ab74f0ff
+                InstanceId: 600dca22-f5b7-4c3e-b47f-fb237b0ff5d5
+        -   Entity:
+                Id: fdd77ad1-bdfa-40aa-ae5b-d6e8e03c7505
+                Name: CubePrefab
+                Components:
+                    990f2b222f4cff35d73f008dfeecb911: !TransformComponent
+                        Id: 0550a80f-b840-4065-a08f-93f12eeeff69
+                        Position*: {X: 0.0, Y: 0.0, Z: -1.0}
+                        Rotation: {X: 0.0, Y: 0.0, Z: 0.0, W: 1.0}
+                        Scale: {X: 1.0, Y: 1.0, Z: 1.0}
+                        Children: {}
+                    37b4a4dc83e607a4cabae9e5c13f34fa: !ModelComponent
+                        Id: 0f09c499-468f-438d-8d81-1481b22d576f
+                        Model: 451ce864-ac0d-4142-a3d9-af25432e058b:CubeModel
+                        Materials: {}
+            Base:
+                BasePartAsset: 92a07faf-1aef-4f5b-b99e-c63d4d615418:CubePrefab
+                BasePartId: acaf6825-5429-4d82-a12a-6aa5ab74f0ff
+                InstanceId: 62f097eb-9957-4c44-a689-9871b55cf16f

@@ -1,3 +1,4 @@
+
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.13.35818.85
@@ -9,6 +10,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MP_Stride_ServerConsole", "MP_Stride_ServerConsole\MP_Stride_ServerConsole.csproj", "{2DE2B8B4-D86E-F694-35D0-9A49190B746F}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MP_Stride_ClientGameSample.Windows", "MP_Stride_Client\MP_Stride_Client.Windows\MP_Stride_ClientGameSample.Windows.csproj", "{D983CA91-1E25-1A14-D47A-2EC865F0D381}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MP_Stride_ClientGameSample", "MP_Stride_Client\MP_Stride_Client\MP_Stride_ClientGameSample.csproj", "{42B8A630-E0C7-454B-A1A0-EE0D2FC3AF7C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -28,6 +31,10 @@ Global
 		{D983CA91-1E25-1A14-D47A-2EC865F0D381}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D983CA91-1E25-1A14-D47A-2EC865F0D381}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D983CA91-1E25-1A14-D47A-2EC865F0D381}.Release|Any CPU.Build.0 = Release|Any CPU
+		{42B8A630-E0C7-454B-A1A0-EE0D2FC3AF7C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{42B8A630-E0C7-454B-A1A0-EE0D2FC3AF7C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{42B8A630-E0C7-454B-A1A0-EE0D2FC3AF7C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{42B8A630-E0C7-454B-A1A0-EE0D2FC3AF7C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

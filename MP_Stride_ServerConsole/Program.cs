@@ -1,6 +1,12 @@
-﻿namespace MP_GameStrideServer;
+﻿using Stride.Core;
+using Stride.Core.Extensions;
+using Stride.Engine.Gizmos;
+using Stride.Graphics;
+using Stride.Rendering;
+
+namespace MP_GameStrideServer;
 /// <summary>
-/// root client side class for MP_StrideGameBase
+/// root Server class for running Multiplayer in Stride with Lidgren containing Main() method for running server
 /// </summary>
 public class MultiplayerConsoleGame : StartupScript
 {
@@ -12,7 +18,17 @@ public class MultiplayerConsoleGame : StartupScript
     public NetServer netServer;
     public static readonly ContentManagerLoaderSettings loadSettings = new ContentManagerLoaderSettings
     {
-        ContentFilter = ContentManagerLoaderSettings.NewContentFilterByType([typeof(Entity), typeof(Scene), typeof(TransformComponent), typeof(Prefab)]),
+        ContentFilter = ContentManagerLoaderSettings.NewContentFilterByType
+        ([
+            typeof(Entity),
+            typeof(Scene),
+            typeof(TransformComponent),
+            typeof(Prefab)  ,
+            typeof(ProceduralModelDescriptor),
+            typeof(Model)
+
+
+        ]),
         AllowContentStreaming = false,
         LoadContentReferences = false,
     };
@@ -57,7 +73,11 @@ public class MultiplayerConsoleGame : StartupScript
         // Game systems
         gameSystems = new GameSystemCollection(Services);
         Services.AddService<IGameSystemCollection>(gameSystems);
+        Services.AddService<IGraphicsDeviceService>(new GraphicsDeviceService());
         gameSystems.Initialize();
+        //var GraphicsDeviceManager = new GraphicsDeviceManager(this);
+        //Services.AddService<IGraphicsDeviceManager>(GraphicsDeviceManager);
+        //Services.AddService<IGraphicsDeviceService>(GraphicsDeviceManager);
         scene = Content.Load<Scene>("ServerScene", loadSettings);
         scene.Name = "ServerScene";
         var sceneInstance = new SceneInstance(Services, scene, ExecutionMode.Runtime);
@@ -104,16 +124,43 @@ public class MultiplayerConsoleGame : StartupScript
                                 foreach (var entity in scene.Entities)
                                 {
                                     NetOutgoingMessage entityMessage = netServer.CreateMessage();
-                                    Prefab prefabCheck = Content.Load<Prefab>(entity.Name, loadSettings);
-                                    if (prefabCheck != null)
+                                    object refencedObj = Content.Get(typeof(object), entity.Name) ?? Content.Load(typeof(object), entity.Name, loadSettings);
+                                    if (refencedObj == null)
                                     {
-                                        PrefabPacket.SendUntypedPacket(entity.Name, entityMessage);
+                                        Console.WriteLine("couldnt resolve type to access packet for " + entity.Name);
                                     }
-                                    else
+                                    switch (refencedObj)
                                     {
-                                        EntityPacket.SendPacket(entity, entityMessage);
+                                        case Prefab:
+                                            PrefabPacket.SendUntypedPacket(entity.Name, entityMessage);
+                                            break;
+                                        case ProceduralModelDescriptor:
+                                            PrefabPacket.SendUntypedPacket(entity.Name, entityMessage);
+                                            break;
+                                        case Stride.Engine.Entity:
+                                            EntityPacket.SendPacket(entity, entityMessage);
+                                            break;
+                                        default:
+                                            if (!loadSettings.ContentFilter.ToEnumerable<Type>().Contains(refencedObj.GetType()))
+                                            {
+                                                Console.WriteLine("content filter doesnt allow/handle the type " + refencedObj.ToString());
+                                            }
+                                            Content.Load<IEntityGizmo>(entity.Name);
+                                            break;
                                     }
-                                    netServer.SendMessage(entityMessage, inc.SenderConnection, NetDeliveryMethod.ReliableOrdered);
+
+                                    //var loadingObj = Content.Get<ProceduralModelDescriptor>(entity.Name);//entity.GetType();
+                                    ////var prefabCheck = Content.OpenAsStream(entity.Name, StreamFlags.Seekable).Read();
+                                    //// var prefabCheck = Content.Load(typeof(Prefab), entity.Name, loadSettings);
+                                    //if (loadingObj != null)
+                                    //{
+                                    //    PrefabPacket.SendUntypedPacket(entity.Name, entityMessage);
+                                    //}
+                                    //else
+                                    //{
+                                    //    EntityPacket.SendPacket(entity, entityMessage);
+                                    //}
+                                    //netServer.SendMessage(entityMessage, inc.SenderConnection, NetDeliveryMethod.ReliableOrdered);
                                 }
                                 break;
                             case NetConnectionStatus.Disconnected:
