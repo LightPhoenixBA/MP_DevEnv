@@ -4,7 +4,7 @@ using Stride.Engine.Gizmos;
 using Stride.Graphics;
 using Stride.Rendering;
 
-namespace MP_GameStrideServer;
+namespace MP_Stride_ServerConsole;
 /// <summary>
 /// root Server class for running Multiplayer in Stride with Lidgren containing Main() method for running server
 /// </summary>
@@ -73,7 +73,7 @@ public class MultiplayerConsoleGame : StartupScript
         // Game systems
         gameSystems = new GameSystemCollection(Services);
         Services.AddService<IGameSystemCollection>(gameSystems);
-        Services.AddService<IGraphicsDeviceService>(new GraphicsDeviceService());
+     ////////////////////////   Services.AddService<IGraphicsDeviceService>(new GraphicsDeviceService());
         gameSystems.Initialize();
         //var GraphicsDeviceManager = new GraphicsDeviceManager(this);
         //Services.AddService<IGraphicsDeviceManager>(GraphicsDeviceManager);
