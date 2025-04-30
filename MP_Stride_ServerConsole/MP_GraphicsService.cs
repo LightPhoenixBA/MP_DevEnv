@@ -10,10 +10,10 @@ public class MP_GraphicsService : IGraphicsDeviceService, IGraphicsDeviceManager
 
     public MP_GraphicsService(GameBase gameBase)
     {
-        gameBase.ConfirmRenderingSettings(false);
+         gameBase.ConfirmRenderingSettings(false);
 
         //new GraphicsDevice();
-        // _graphicsDevice = new GraphicsDevice(new GraphicsContext());
+       // _graphicsDevice = new GraphicsDevice(new GraphicsContext());
     }
 
     public event EventHandler<EventArgs> DeviceCreated;
