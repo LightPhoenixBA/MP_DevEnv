@@ -1,7 +1,6 @@
 ﻿using Lidgren.Network;
-using MP_StrideMultiplayerBase;
 using Stride.Core.Serialization.Contents;
-namespace MP_GameBase;
+namespace MP_Stride_MultiplayerBase;
 
 public abstract class MP_PacketBase
 {

@@ -1,6 +1,5 @@
 ﻿global using Lidgren.Network;
-global using MP_GameBase;
-global using MP_StrideMultiplayerBase;
+global using MP_Stride_MultiplayerBase;
 global using Stride.Core.Serialization.Contents;
 global using Stride.Core.Storage;
 global using Stride.Engine.Design;

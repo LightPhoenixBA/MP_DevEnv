@@ -1,9 +1,11 @@
-﻿
+
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.13.35931.197 d17.13
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MP_Stride_MultiplayerBase", "MP_Stride_MultiplayerBase.csproj", "{4028A793-7071-CD5A-F57C-34CA62DF587B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lidgren.Network", "..\..\Lidgren network\Lidgren.Network\Lidgren.Network.csproj", "{E2F5A699-EF3F-4DED-AFE7-92A43106C0E2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

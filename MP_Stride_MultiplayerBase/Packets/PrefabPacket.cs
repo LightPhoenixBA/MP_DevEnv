@@ -1,8 +1,8 @@
 ﻿using Lidgren.Network;
-using MP_GameBase;
+using MP_Stride_MultiplayerBase;
 using Stride.Engine;
 
-namespace MP_StrideMultiplayerBase
+namespace MP_Stride_MultiplayerBase
 {
     public class PrefabPacket : MP_PacketBase<Tuple<string, Prefab?>>
     {

@@ -8,39 +8,15 @@ namespace MP_Stride_ServerConsole;
 /// <summary>
 /// root Server class for running Multiplayer in Stride with Lidgren containing Main() method for running server
 /// </summary>
-public class MultiplayerConsoleGame : StartupScript
+public class ConsoleProgram
 {
-    public ServiceRegistry Services { get; private set; }
-    private Scene scene;//{  get; private set; }
-    private PhysicsProcessor physics;
-    private SceneSystem sceneSystem;
-    private GameSystemCollection gameSystems;
-    public NetServer netServer;
-    public static readonly ContentManagerLoaderSettings loadSettings = new ContentManagerLoaderSettings
-    {
-        ContentFilter = ContentManagerLoaderSettings.NewContentFilterByType
-        ([
-            typeof(Entity),
-            typeof(Scene),
-            typeof(TransformComponent),
-            typeof(Prefab)  ,
-            typeof(ProceduralModelDescriptor),
-            typeof(Model)
-
-
-        ]),
-        AllowContentStreaming = false,
-        LoadContentReferences = false,
-    };
-
-    public ContentManager Content { get; private set; }
-    public readonly string ServerRootPath = Path.GetFullPath(Path.Combine(AppContext.BaseDirectory, @"..\..\.."));
     /// <summary>
     /// A general console server for the Stride game engine developed by LightPhoenix_BA (this method in intended to be called using Stride)
     /// </summary>
     public static async Task MainAsync()
     {
-        await new MultiplayerConsoleGame().Run();
+       await new MP_Stride_ServerBase().Execute();
+       //  new MP_Stride_ServerBase().Run();
     }
     /// <summary>
     /// A general console based server for the Stride game engine developed by LightPhoenix_BA (this method launches the console)
@@ -50,133 +26,5 @@ public class MultiplayerConsoleGame : StartupScript
     static void Main(string[] args)
     {
         MainAsync().Wait();
-    }
-    public void Initialize()
-    {
-        //lidgren networking
-        netServer = new(NetConnectionConfig.GetDefaultConfig());
-        netServer.Start();
-
-        //stride Database file provider
-        Services = new ServiceRegistry();
-
-        ObjectDatabase objectDatabase = ObjectDatabase.CreateDefaultDatabase();
-        //server path
-        var mountPath = VirtualFileSystem.ResolveProviderUnsafe("\\Assets", true).Provider == null ? "/asset" : null;
-        DatabaseFileProvider databaseFileProvider = new DatabaseFileProvider(objectDatabase, mountPath);
-        Services.AddService<IDatabaseFileProviderService>(new DatabaseFileProviderService(databaseFileProvider));
-
-        //stride Content manager
-        Content = new ContentManager(Services);
-        Services.AddService<IContentManager>(Content);
-
-        // Game systems
-        gameSystems = new GameSystemCollection(Services);
-        Services.AddService<IGameSystemCollection>(gameSystems);
-     ////////////////////////   Services.AddService<IGraphicsDeviceService>(new GraphicsDeviceService());
-        gameSystems.Initialize();
-        //var GraphicsDeviceManager = new GraphicsDeviceManager(this);
-        //Services.AddService<IGraphicsDeviceManager>(GraphicsDeviceManager);
-        //Services.AddService<IGraphicsDeviceService>(GraphicsDeviceManager);
-        scene = Content.Load<Scene>("ServerScene", loadSettings);
-        scene.Name = "ServerScene";
-        var sceneInstance = new SceneInstance(Services, scene, ExecutionMode.Runtime);
-        var sceneSystem = new SceneSystem(Services)
-        {
-            SceneInstance = sceneInstance,
-        };
-        Services.AddService(sceneSystem);
-
-        var physics = new PhysicsProcessor();
-        sceneInstance.Processors.Add(physics);
-        MP_PacketBase.RegisterAll(Content);
-    }
-
-    public async Task Run()
-    {
-        Initialize();
-
-        while (gameSystems != null)
-        {
-            NetIncomingMessage inc;
-            while ((inc = netServer.ReadMessage()) != null)
-            {
-                switch (inc.MessageType)
-                {
-                    case NetIncomingMessageType.DebugMessage:
-                    case NetIncomingMessageType.WarningMessage:
-                    case NetIncomingMessageType.ErrorMessage:
-                    case NetIncomingMessageType.VerboseDebugMessage:
-                        Console.Write(inc.ReadString());
-                        break;
-                    case NetIncomingMessageType.StatusChanged:
-
-                        NetConnectionStatus status = (NetConnectionStatus)inc.ReadByte();
-                        switch (status)
-                        {
-                            case NetConnectionStatus.InitiatedConnect:
-                                Console.WriteLine("Starting streaming to " + inc.SenderConnection.ToString());
-                                break;
-                            case NetConnectionStatus.Connected:
-                                NetOutgoingMessage connectedMessage = netServer.CreateMessage();
-                                ScenePacket.SendPacket(scene, connectedMessage);
-                                netServer.SendMessage(connectedMessage, inc.SenderConnection, NetDeliveryMethod.ReliableOrdered);
-                                foreach (var entity in scene.Entities)
-                                {
-                                    NetOutgoingMessage entityMessage = netServer.CreateMessage();
-                                    object refencedObj = Content.Get(typeof(object), entity.Name) ?? Content.Load(typeof(object), entity.Name, loadSettings);
-                                    if (refencedObj == null)
-                                    {
-                                        Console.WriteLine("couldnt resolve type to access packet for " + entity.Name);
-                                    }
-                                    switch (refencedObj)
-                                    {
-                                        case Prefab:
-                                            PrefabPacket.SendUntypedPacket(entity.Name, entityMessage);
-                                            break;
-                                        case ProceduralModelDescriptor:
-                                            PrefabPacket.SendUntypedPacket(entity.Name, entityMessage);
-                                            break;
-                                        case Stride.Engine.Entity:
-                                            EntityPacket.SendPacket(entity, entityMessage);
-                                            break;
-                                        default:
-                                            if (!loadSettings.ContentFilter.ToEnumerable<Type>().Contains(refencedObj.GetType()))
-                                            {
-                                                Console.WriteLine("content filter doesnt allow/handle the type " + refencedObj.ToString());
-                                            }
-                                            Content.Load<IEntityGizmo>(entity.Name);
-                                            break;
-                                    }
-
-                                    //var loadingObj = Content.Get<ProceduralModelDescriptor>(entity.Name);//entity.GetType();
-                                    ////var prefabCheck = Content.OpenAsStream(entity.Name, StreamFlags.Seekable).Read();
-                                    //// var prefabCheck = Content.Load(typeof(Prefab), entity.Name, loadSettings);
-                                    //if (loadingObj != null)
-                                    //{
-                                    //    PrefabPacket.SendUntypedPacket(entity.Name, entityMessage);
-                                    //}
-                                    //else
-                                    //{
-                                    //    EntityPacket.SendPacket(entity, entityMessage);
-                                    //}
-                                    //netServer.SendMessage(entityMessage, inc.SenderConnection, NetDeliveryMethod.ReliableOrdered);
-                                }
-                                break;
-                            case NetConnectionStatus.Disconnected:
-                                Console.WriteLine(inc.SenderConnection + " has disconnected");
-                                break;
-                            default:
-                                Console.WriteLine("/n" + inc.SenderConnection + ": " + status + " (" + inc.ReadString() + ")");
-                                break;
-                        }
-                        break;
-                    case NetIncomingMessageType.Data:
-
-                        break;
-                }
-                netServer.Recycle(inc);
-            }
-        }
     }
 }

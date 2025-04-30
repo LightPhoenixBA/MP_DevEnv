@@ -1,7 +1,7 @@
 !Package
 SerializedVersion: {Assets: 3.1.0.0}
 Meta:
-    Name: MP_Stride_ClientGameSample.Windows
+    Name: MP_Stride_ServerConsole
     Version: 1.0.0
     Authors: []
     Owners: []
@@ -15,4 +15,5 @@ ExplicitFolders: []
 Bundles: []
 TemplateFolders: []
 RootAssets:
-    - 9b37250b-90f0-44d1-8e3a-097b59a315c1:ClientScene
+    - 102cf3c4-777f-492d-a6ee-553804a8a2ce:DisabledScene
+    - b3bf3ccd-46dc-42de-b10f-a40df146fa41:ServerScene

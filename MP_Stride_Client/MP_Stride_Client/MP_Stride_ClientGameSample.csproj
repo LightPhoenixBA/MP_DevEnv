@@ -6,6 +6,8 @@
     <PackageOutputPath>../../packages</PackageOutputPath>
   </PropertyGroup>
   <ItemGroup>
+    <PackageReference Include="MP_Stride_MultiplayerBase" Version="1.0.0" />
+    <PackageReference Include="MP_Stride_ServerConsole" Version="1.0.0" />
     <PackageReference Include="Stride.Engine" Version="4.2.0.1" />
     <PackageReference Include="Stride.Video" Version="4.2.0.1" />
     <PackageReference Include="Stride.Physics" Version="4.2.0.1" />
@@ -13,9 +15,5 @@
     <PackageReference Include="Stride.Particles" Version="4.2.0.1" />
     <PackageReference Include="Stride.UI" Version="4.2.0.1" />
     <PackageReference Include="Stride.Core.Assets.CompilerApp" Version="4.2.0.1" IncludeAssets="build;buildTransitive" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\MP_Stride_MultiplayerBase\MP_Stride_MultiplayerBase.csproj" />
-    <ProjectReference Include="..\..\MP_Stride_ServerConsole\MP_Stride_ServerConsole.csproj" />
   </ItemGroup>
 </Project>

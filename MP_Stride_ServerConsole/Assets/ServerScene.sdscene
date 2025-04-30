@@ -2,25 +2,28 @@
 Id: b3bf3ccd-46dc-42de-b10f-a40df146fa41
 SerializedVersion: {Stride: 3.1.0.1}
 Tags: []
-ChildrenIds:
-    - 102cf3c4-777f-492d-a6ee-553804a8a2ce
+ChildrenIds: []
 Offset: {X: 0.0, Y: 0.0, Z: 0.0}
 Hierarchy:
     RootParts:
-        - ref!! b77b2749-c2ed-495c-b9ed-10c1d914d07e
+        - ref!! b5954747-e7cb-44c1-9190-8817e2c7145d
     Parts:
         -   Entity:
-                Id: b77b2749-c2ed-495c-b9ed-10c1d914d07e
-                Name: Sphere
+                Id: b5954747-e7cb-44c1-9190-8817e2c7145d
+                Name: CubePrefab
                 Components:
-                    2e0bd122fdc45f1db974ea69e676b4b8: !TransformComponent
-                        Id: daa4714f-fc44-43a8-b9cf-8d9987ed9c83
-                        Position: {X: 0.0, Y: 0.5, Z: 0.0}
+                    990f2b222f4cff35d73f008dfeecb911: !TransformComponent
+                        Id: 057150d9-6de3-4b19-83fc-58a355fb03b9
+                        Position*: {X: 0.0, Y: 0.0, Z: 0.0}
                         Rotation: {X: 0.0, Y: 0.0, Z: 0.0, W: 1.0}
                         Scale: {X: 1.0, Y: 1.0, Z: 1.0}
                         Children: {}
-                    0d75985a8dc4be71cd892f81f385036c: !ModelComponent
-                        Id: c18a477b-4ebb-4a35-ae84-527986685bbe
-                        Model: 024dd280-ae20-432e-b8b6-aff536d0f91b:Sphere
+                    37b4a4dc83e607a4cabae9e5c13f34fa: !ModelComponent
+                        Id: fc666f4b-6590-4b05-93b8-b00e70311c44
+                        Model: 451ce864-ac0d-4142-a3d9-af25432e058b:CubeModel
                         Materials:
-                            a36680604ef9bf31a84ef0658d679bd6~0: 14a1ca0b-9d90-4915-86d2-067f3d47d437:Sphere Material
+                            2598c7e6f5e83df949cad43f5bd270f8~0: 91c28363-8902-4ad9-aedc-bcf6e793cb23:CubeMaterial
+            Base:
+                BasePartAsset: 92a07faf-1aef-4f5b-b99e-c63d4d615418:CubePrefab
+                BasePartId: acaf6825-5429-4d82-a12a-6aa5ab74f0ff
+                InstanceId: cea74c00-c03a-425f-8653-19232e7993cf
