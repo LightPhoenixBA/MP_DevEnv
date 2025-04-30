@@ -1,8 +1,6 @@
 ﻿using Lidgren.Network;
-using MP_GameBase;
-using Stride.Engine;
 
-namespace MP_StrideMultiplayerBase
+namespace MP_Stride_MultiplayerBase
 {
     public class PrefabPacket : MP_PacketBase<Tuple<string, Prefab?>>
     {
@@ -14,6 +12,7 @@ namespace MP_StrideMultiplayerBase
 
         public static void SendUntypedPacket(string PrefabName, NetOutgoingMessage msg)
         {
+            msg.WriteVariableInt32(PacketId);
             registry[PacketId].SendPacket(Tuple.Create<string, Prefab?>(PrefabName, null), msg);
         }
 

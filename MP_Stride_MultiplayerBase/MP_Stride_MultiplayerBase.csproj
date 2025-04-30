@@ -1,28 +1,23 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net8.0</TargetFramework>
-    <ImplicitUsings>enable</ImplicitUsings>
-    <Nullable>enable</Nullable>
-    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
-    <PackageOutputPath>../packages</PackageOutputPath>
+	<TargetFramework>net8.0</TargetFramework>
+	  <Authors>LightPhoenixBA</Authors>
+	<ImplicitUsings>enable</ImplicitUsings>
+	<Nullable>enable</Nullable>
+	<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+	<PackageOutputPath>../packages</PackageOutputPath>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Stride.Assets" Version="4.2.0.1" />
-    <PackageReference Include="Stride.Core" Version="4.2.0.1" />
-    <PackageReference Include="Stride.Engine" Version="4.2.0.1" />
-    <PackageReference Include="Stride.UI" Version="4.2.0.1" />
+	<PackageReference Include="Stride.Assets" Version="4.2.0.1" />
+	<PackageReference Include="Stride.Core" Version="4.2.0.1" />
+	<PackageReference Include="Stride.Engine" Version="4.2.0.1" />
+	<PackageReference Include="Stride.UI" Version="4.2.0.1" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Assets\" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Reference Include="Lidgren.Network">
-      <HintPath>..\..\Lidgren network\Lidgren.Network\bin\Debug\Lidgren.Network.dll</HintPath>
-    </Reference>
+	<ProjectReference Include="..\..\Lidgren network\Lidgren.Network\Lidgren.Network.csproj" />
   </ItemGroup>
 
 </Project>

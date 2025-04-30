@@ -3,7 +3,7 @@ Id: b9df7a12-d75b-410e-a522-8f1f8061b8f3
 SerializedVersion: {Stride: 3.1.0.1}
 Tags: []
 DefaultScene: 9b37250b-90f0-44d1-8e3a-097b59a315c1:ClientScene
-GraphicsCompositor: b8e7e507-afb9-44ad-88c2-b2fa8e6837d1:GraphicsCompositor
+GraphicsCompositor: 4530574e-c347-4881-b927-7267516b649a:GraphicsCompositor
 Defaults:
     - !Stride.Audio.AudioEngineSettings,Stride.Audio
         HrtfSupport: false
@@ -13,10 +13,11 @@ Defaults:
         DefaultBackBufferWidth: 1280
         DefaultBackBufferHeight: 720
         AdaptBackBufferToScreen: false
-        DefaultGraphicsProfile: Level_10_0
+        DefaultGraphicsProfile: Level_11_0
         ColorSpace: Linear
         DisplayOrientation: LandscapeRight
     - !Stride.Streaming.StreamingSettings,Stride.Rendering
+        Enabled: false
         ManagerUpdatesInterval: 0:00:00:00.0330000
         ResourceLiveTimeout: 0:00:00:08.0000000
     - !Stride.Assets.Textures.TextureSettings,Stride.Assets

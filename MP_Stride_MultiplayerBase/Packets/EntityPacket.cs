@@ -1,6 +1,6 @@
 ﻿using Lidgren.Network;
 
-namespace MP_GameBase;
+namespace MP_Stride_MultiplayerBase;
 
 public class EntityPacket : MP_PacketBase<Entity>
 {

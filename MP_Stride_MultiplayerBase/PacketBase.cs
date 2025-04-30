@@ -1,7 +1,6 @@
 ﻿using Lidgren.Network;
-using MP_StrideMultiplayerBase;
 using Stride.Core.Serialization.Contents;
-namespace MP_GameBase;
+namespace MP_Stride_MultiplayerBase;
 
 public abstract class MP_PacketBase
 {
@@ -25,7 +24,10 @@ public abstract class MP_PacketBase
         return registry.Count - 1;
     }
 
-    public static MP_PacketBase GetById(int id) => registry[id];
+    public static MP_PacketBase GetById(int id)
+    {
+        return registry[id];
+    }
 
     public static object ReceivePacket(NetIncomingMessage msg)
     {

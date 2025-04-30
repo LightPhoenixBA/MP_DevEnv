@@ -6,58 +6,61 @@ ChildrenIds: []
 Offset: {X: 0.0, Y: 0.0, Z: 0.0}
 Hierarchy:
     RootParts:
-        - ref!! e2735291-a09e-420e-a9ff-e2480c6ef318
-        - ref!! dbcaeac4-bb94-4058-80cc-15a9a60b1ff1
-        - ref!! c611087f-3508-42f8-bfe4-05eb490a67aa
+        - ref!! cfb30c8e-53af-498d-abce-2551a995a861
+        - ref!! fc8d98b9-55f4-4c2b-ba11-10c2f553d52e
+        - ref!! 633a0dcd-7c46-4d53-bf1e-1591d86d7763
+        - ref!! 616deb98-9d2e-4674-97f7-9417df7be4fe
+        - ref!! dc3d5b03-f584-4dcf-b4cc-a22f5bd617de
     Parts:
         -   Entity:
-                Id: c611087f-3508-42f8-bfe4-05eb490a67aa
+                Id: 616deb98-9d2e-4674-97f7-9417df7be4fe
                 Name: CubePrefab
                 Components:
                     990f2b222f4cff35d73f008dfeecb911: !TransformComponent
-                        Id: 6d6b09b4-f5b3-4f00-b56f-0a6879e83104
-                        Position*: {X: 0.0, Y: 0.0, Z: 0.0}
+                        Id: da31923b-c5ad-4c24-9177-26b50bce73cc
+                        Position*: {X: 0.0, Y: 0.9825555, Z: 0.0}
                         Rotation: {X: 0.0, Y: 0.0, Z: 0.0, W: 1.0}
                         Scale: {X: 1.0, Y: 1.0, Z: 1.0}
                         Children: {}
                     37b4a4dc83e607a4cabae9e5c13f34fa: !ModelComponent
-                        Id: 36eafb8b-a824-4391-80e1-05aef6ca4e54
+                        Id: 6916fcca-5ceb-4fb5-b4da-5590f23e0a66
                         Model: 451ce864-ac0d-4142-a3d9-af25432e058b:CubeModel
-                        Materials: {}
+                        Materials:
+                            2598c7e6f5e83df949cad43f5bd270f8~0: 91c28363-8902-4ad9-aedc-bcf6e793cb23:CubeMaterial
             Base:
                 BasePartAsset: 92a07faf-1aef-4f5b-b99e-c63d4d615418:CubePrefab
                 BasePartId: acaf6825-5429-4d82-a12a-6aa5ab74f0ff
-                InstanceId: d3462813-04e2-43d9-848a-0701b29c5d63
+                InstanceId: c383e269-8592-4c17-bc5d-e2fb7782e167
         -   Entity:
-                Id: dbcaeac4-bb94-4058-80cc-15a9a60b1ff1
+                Id: 633a0dcd-7c46-4d53-bf1e-1591d86d7763
                 Name: StrideClient
                 Components:
-                    b458ca65799fcd404b1140e283956f43: !TransformComponent
-                        Id: 33d4436a-5241-4850-be46-3e7131e2bb9d
+                    b9b7e11ad89d06e2b9c8bc12f549ebd0: !TransformComponent
+                        Id: 79db825f-908a-4e09-a929-c35e1b5e15a8
                         Position: {X: 0.0, Y: 0.0, Z: 0.0}
                         Rotation: {X: 0.0, Y: 0.0, Z: 0.0, W: 1.0}
                         Scale: {X: 1.0, Y: 1.0, Z: 1.0}
                         Children: {}
-                    799236b7ee1292ba9847d6b768d3a208: !MP_GameBase.NetworkClient,MP_Stride_MultiplayerBase
-                        Id: 6647d38d-cf3e-4382-86e4-05c9d2e59d9a
+                    7d5ca37c47d20fb49b02a39107f51199: !MP_Stride_MultiplayerBase.StrideClient,MP_Stride_MultiplayerBase
+                        Id: 694bba6c-60b6-4fba-9925-30bfd7f2c633
                         localAdress: null
         -   Entity:
-                Id: e2735291-a09e-420e-a9ff-e2480c6ef318
+                Id: cfb30c8e-53af-498d-abce-2551a995a861
                 Name: Camera
                 Components:
-                    889f9957b3de90f89e7e4a20ff099cfa: !TransformComponent
-                        Id: 5098a808-d7af-46ac-ae22-53be6740f2a7
-                        Position: {X: 2.6, Y: 0.6, Z: -1.0}
-                        Rotation: {X: 0.0, Y: 0.82903755, Z: 0.0, W: 0.5591929}
+                    30cca683b8ff56aeb01e8fde635dd270: !TransformComponent
+                        Id: 5b8b6367-702c-440c-a1a1-a1054667804b
+                        Position: {X: 0.0, Y: 1.0155878, Z: 2.3900895}
+                        Rotation: {X: -0.18587883, Y: 0.0, Z: 0.0, W: 0.9825727}
                         Scale: {X: 1.0, Y: 1.0, Z: 1.0}
                         Children: {}
-                    e5a961af31236fadd28b0691e0aece9a: !CameraComponent
-                        Id: f889f3db-5a3f-4144-9215-c5f985488e44
+                    d3cb90bdb7a0af72dd43acf081f08c17: !CameraComponent
+                        Id: 19e2c5cb-6910-42df-ae4a-bc0c917ddcd2
                         Name: null
                         Projection: Perspective
-                        Slot: e12edba0-fd00-4499-aa9e-79e91c32bf83
-                    8b57701529d044ae971a256e827e5f8a: !MP_GameStrideClient.BasicCameraController,MP_Stride_ClientGameSample
-                        Id: 18efcca5-3560-4723-9b88-6635e96279ca
+                        Slot: 47c428b0-aee6-40a0-a318-27cc6e67824c
+                    5cf72c3f8642f9cba0b157fb32d888a2: !MP_GameStrideClient.BasicCameraController,MP_Stride_ClientGameSample
+                        Id: b5d7f5ee-fcee-4f06-baa0-42a180f65603
                         Gamepad: false
                         KeyboardMovementSpeed: {X: 5.0, Y: 5.0, Z: 5.0}
                         TouchMovementSpeed: {X: 0.7, Y: 0.7, Z: 0.3}
@@ -65,3 +68,30 @@ Hierarchy:
                         KeyboardRotationSpeed: {X: 3.0, Y: 3.0}
                         MouseRotationSpeed: {X: 1.0, Y: 1.0}
                         TouchRotationSpeed: {X: 1.0, Y: 0.7}
+        -   Entity:
+                Id: dc3d5b03-f584-4dcf-b4cc-a22f5bd617de
+                Name: HelloFromScene
+                Components:
+                    9307d2d25d05c18133677d2b423ff68b: !TransformComponent
+                        Id: b26cc67d-5f97-47ad-a9f8-9cb3c2edd77c
+                        Position: {X: 0.0, Y: 0.0, Z: 0.0}
+                        Rotation: {X: 0.0, Y: 0.0, Z: 0.0, W: 1.0}
+                        Scale: {X: 1.0, Y: 1.0, Z: 1.0}
+                        Children: {}
+                    954b87f5828bee7f054bac2e82c82601: !MP_Stride_MultiplayerBase.HelloFromScene,MP_Stride_MultiplayerBase
+                        Id: 13167d5f-711d-4153-be0a-467ff8918df5
+        -   Entity:
+                Id: fc8d98b9-55f4-4c2b-ba11-10c2f553d52e
+                Name: Torus
+                Components:
+                    2b8953e691edd9450ed9d98ffe75439f: !TransformComponent
+                        Id: 3e34fb84-af64-46c6-90e5-4eee761f0f92
+                        Position: {X: 0.0, Y: 0.0, Z: 0.0}
+                        Rotation: {X: 0.0, Y: 0.0, Z: 0.0, W: 1.0}
+                        Scale: {X: 3.0, Y: 1.0, Z: 3.0}
+                        Children: {}
+                    95ac8a37c0dbd29dcf270089277b7a89: !ModelComponent
+                        Id: ab206d44-efa2-474d-bda9-a6cb564ebfd9
+                        Model: 474be25b-caaf-4234-94f7-cf7d1e822bd2:Torus
+                        Materials:
+                            cb5e63e7a5f7cf59d56669d129e6148a~0: f8b614c4-2fec-4085-a5d8-0454ea776708:TorusMaterial

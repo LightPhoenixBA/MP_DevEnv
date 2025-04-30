@@ -1,18 +1,18 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFrameworks>net8.0</TargetFrameworks>
-    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
-    <PackageOutputPath>../../packages</PackageOutputPath>
+	<TargetFrameworks>net8.0</TargetFrameworks>
+	<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+	<PackageOutputPath>../../packages</PackageOutputPath>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="Stride.Engine" Version="4.2.0.1" />
-    <PackageReference Include="Stride.Video" Version="4.2.0.1" />
-    <PackageReference Include="Stride.Physics" Version="4.2.0.1" />
-    <PackageReference Include="Stride.Navigation" Version="4.2.0.1" />
-    <PackageReference Include="Stride.Particles" Version="4.2.0.1" />
-    <PackageReference Include="Stride.UI" Version="4.2.0.1" />
-    <PackageReference Include="Stride.Core.Assets.CompilerApp" Version="4.2.0.1" IncludeAssets="build;buildTransitive" />
+	<PackageReference Include="Stride.Engine" Version="4.2.0.1" />
+	<PackageReference Include="Stride.Video" Version="4.2.0.1" />
+	<PackageReference Include="Stride.Physics" Version="4.2.0.1" />
+	<PackageReference Include="Stride.Navigation" Version="4.2.0.1" />
+	<PackageReference Include="Stride.Particles" Version="4.2.0.1" />
+	<PackageReference Include="Stride.UI" Version="4.2.0.1" />
+	<PackageReference Include="Stride.Core.Assets.CompilerApp" Version="4.2.0.1" IncludeAssets="build;buildTransitive" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\MP_Stride_MultiplayerBase\MP_Stride_MultiplayerBase.csproj" />

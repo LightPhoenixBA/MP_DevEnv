@@ -19,4 +19,5 @@ Hierarchy:
                     37b4a4dc83e607a4cabae9e5c13f34fa: !ModelComponent
                         Id: 4e9ad697-9229-4489-a6c4-e2551bae51a9
                         Model: 451ce864-ac0d-4142-a3d9-af25432e058b:CubeModel
-                        Materials: {}
+                        Materials:
+                            2598c7e6f5e83df949cad43f5bd270f8~0: 91c28363-8902-4ad9-aedc-bcf6e793cb23:CubeMaterial

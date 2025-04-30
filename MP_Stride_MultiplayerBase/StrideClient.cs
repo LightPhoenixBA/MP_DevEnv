@@ -1,16 +1,28 @@
 ﻿using Lidgren.Network;
 using Stride.Graphics;
-using Stride.Rendering.ProceduralModels;
 using System.Net;
 
-
-namespace MP_GameBase;
-public class NetworkClient : AsyncScript
+namespace MP_Stride_MultiplayerBase;
+public class StrideClient : AsyncScript
 {
-    NetClient netClient;
+    public static StrideClient ClientInstance { get; private set; }
+    public StrideClient()
+    {
+        if (ClientInstance == null)
+        {
+            ClientInstance = this;
+        }
+        else
+        {
+            Cancel();
+        }
+    }
+
+    public NetClient netClient { get; private set; }
+    public bool isSinglePlayer { get; private set; } = false;
     public IPAddress localAdress;
     private NetPeerConfiguration clientConfig = NetConnectionConfig.GetDefaultClientConfig();
-    private NetPeerConfiguration serverConfig = NetConnectionConfig.GetDefaultConfig();
+    private static NetPeerConfiguration serverConfig = NetConnectionConfig.GetDefaultConfig();
     private bool? lastResult;
     private TimeSpan lastResultTime;
     public Scene serverScene { get; private set; }
@@ -20,10 +32,8 @@ public class NetworkClient : AsyncScript
         netClient = new NetClient(clientConfig);
         netClient.Start();
         netClient.Connect(serverConfig.LocalAddress.ToString(), serverConfig.Port, netClient.CreateMessage("Stride Client is requesting connection"));
+
         MP_PacketBase.RegisterAll(Content);
-        //Scene nestedScene = Content.Load<Scene>("ClientScene");
-        //nestedScene.Parent = SceneSystem.SceneInstance.RootScene;
-       // _ = Content.Load<ProceduralModelDescriptor>("Sphere");
 
         while (Game.IsRunning)
         {
@@ -44,6 +54,10 @@ public class NetworkClient : AsyncScript
                             case NetConnectionStatus.InitiatedConnect:
                                 netClient.Tag = this;
                                 break;
+                            //case NetConnectionStatus.Connected:
+                            //    Console.WriteLine("Connected!");
+                            //Log.Info($"Connection establisted! {inc.ReadString()} Server:{inc.SenderConnection}");
+                            //break;
                             default:
                                 Log.Info(inc.SenderConnection + ": " + status + " (" + inc.ReadString() + ")");
 

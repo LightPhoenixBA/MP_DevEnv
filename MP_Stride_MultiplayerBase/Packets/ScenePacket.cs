@@ -1,6 +1,6 @@
 ﻿using Lidgren.Network;
 
-namespace MP_GameBase;
+namespace MP_Stride_MultiplayerBase;
 public class ScenePacket : MP_PacketBase<Scene>
 {
     protected override void Write(Scene data, NetOutgoingMessage msg)
