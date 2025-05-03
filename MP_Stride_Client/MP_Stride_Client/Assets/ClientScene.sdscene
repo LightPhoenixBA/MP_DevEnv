@@ -23,7 +23,7 @@ Hierarchy:
                     8defe5bd589b3ee52a0371ac56a92b4a: !LightComponent
                         Id: 477eecfa-139b-4025-8b4d-8a84c05f64aa
                         Type: !LightSkybox
-                            Skybox: b8b6ea20-bf62-455e-83ca-2c788cf4e136:Skybox
+                            Skybox: b1132358-298b-4dc7-b822-d4a15983b830:Skybox
                     8271bc091b25fd5bb0f215eddc8e2d22: !BackgroundComponent
                         Id: 2684909a-02d5-4471-91ad-c38df9940412
                         Texture: null
@@ -41,7 +41,16 @@ Hierarchy:
                         Id: 8abdf3d4-dda3-4031-9db2-392f9933470d
                         Name: null
                         Projection: Perspective
-                        Slot: 2dd472bc-61d5-44f4-bb38-001ecd4e3e21
+                        Slot: 4ad28360-eacd-4a6b-b5f6-c7229ffb166d
+                    0d305fccc72fef8b1da730ab42a67bfb: !MP_GameStrideClient.BasicCameraController,MP_Stride_ClientGameSample
+                        Id: dc008eca-5429-4af9-95b7-2d567087f895
+                        Gamepad: false
+                        KeyboardMovementSpeed: {X: 5.0, Y: 5.0, Z: 5.0}
+                        TouchMovementSpeed: {X: 0.7, Y: 0.7, Z: 0.3}
+                        SpeedFactor: 5.0
+                        KeyboardRotationSpeed: {X: 3.0, Y: 3.0}
+                        MouseRotationSpeed: {X: 1.0, Y: 1.0}
+                        TouchRotationSpeed: {X: 1.0, Y: 0.7}
         -   Entity:
                 Id: 86368522-9496-4a30-8ebf-93242cf5c4da
                 Name: Cone

@@ -10,14 +10,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+	<PackageReference Include="Lidgren.Network" Version="1.0.2" />
 	<PackageReference Include="Stride.Assets" Version="4.2.0.1" />
 	<PackageReference Include="Stride.Core" Version="4.2.0.1" />
 	<PackageReference Include="Stride.Engine" Version="4.2.0.1" />
 	<PackageReference Include="Stride.UI" Version="4.2.0.1" />
-  </ItemGroup>
-
-  <ItemGroup>
-	<ProjectReference Include="..\..\Lidgren network\Lidgren.Network\Lidgren.Network.csproj" />
   </ItemGroup>
 
 </Project>

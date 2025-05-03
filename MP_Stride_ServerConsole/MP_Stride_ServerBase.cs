@@ -29,7 +29,7 @@ public class MP_Stride_ServerBase //: Game
     public string ServerRootPath => Path.GetFullPath(Path.Combine(AppContext.BaseDirectory, @"..\..\.."));
     public MP_Stride_ServerBase(IServiceRegistry Services, Simulation Simulation)
     {
-        this.Services = Services as ServiceRegistry;
+        this.Services = (ServiceRegistry)Services;
         Content = Services.GetSafeServiceAs<IContentManager>() as ContentManager;
         GameSystems = Services.GetSafeServiceAs<IGameSystemCollection>() as GameSystemCollection;
         // physicsProcessor = (PhysicsProcessor)GameSystems.First(o => o.GetType() == typeof(PhysicsProcessor));//.First<PhysicsProcessor>();//Services.GetSafeServiceAs<IPhysicsSystem>() as PhysicsProcessor;

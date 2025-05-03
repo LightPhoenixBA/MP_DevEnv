@@ -1,3 +1,4 @@
+
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.13.35818.85
@@ -5,6 +6,10 @@ MinimumVisualStudioVersion = 16.0.0.0
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MP_Stride_ClientGameSample", "MP_Stride_Client\MP_Stride_ClientGameSample.csproj", "{1FC56AD3-AF0D-8F6B-FD25-2075B9889989}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MP_Stride_ClientGameSample.Windows", "MP_Stride_Client.Windows\MP_Stride_ClientGameSample.Windows.csproj", "{9B6AD80A-891C-2E40-859D-CB2F20E0D91F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MP_Stride_MultiplayerBase", "..\MP_Stride_MultiplayerBase\MP_Stride_MultiplayerBase.csproj", "{D45D3A3D-BD2D-41F4-A8DB-1202C69CAD1F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MP_Stride_ServerConsole", "..\MP_Stride_ServerConsole\MP_Stride_ServerConsole.csproj", "{ED135FAE-1DD9-492C-8ABB-DF536416B218}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -1,18 +1,13 @@
 !Package
 SerializedVersion: {Assets: 3.1.0.0}
 Meta:
-    Name: MP_Stride_MultiplayerBase
+    Name: MP_Stride_ClientGameSample.Windows
     Version: 1.0.0
     Authors: []
     Owners: []
     Dependencies: null
 AssetFolders:
     -   Path: !dir Assets
-    -   Path: !dir Assets
-    -   Path: !dir Assets
-    -   Path: !dir Assets
-    -   Path: !dir Assets
-    -   Path: !dir D:/Development/Stride Mutliplayer/MP_Stride_MultiplayerBase/Assets
 ResourceFolders:
     - !dir Resources
 OutputGroupDirectories: {}

@@ -12,7 +12,6 @@ AssetFolders:
     -   Path: !dir Assets
     -   Path: !dir Assets
     -   Path: !dir Assets
-    -   Path: !dir Assets
     -   Path: !dir D:/Development/Stride Mutliplayer/MP_Stride_ServerConsole/Assets
 ResourceFolders:
     - !dir Resources
