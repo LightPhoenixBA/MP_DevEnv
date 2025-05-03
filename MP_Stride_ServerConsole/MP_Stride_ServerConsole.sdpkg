@@ -10,6 +10,9 @@ AssetFolders:
     -   Path: !dir Assets
     -   Path: !dir Assets
     -   Path: !dir Assets
+    -   Path: !dir Assets
+    -   Path: !dir Assets
+    -   Path: !dir Assets
     -   Path: !dir D:/Development/Stride Mutliplayer/MP_Stride_ServerConsole/Assets
 ResourceFolders:
     - !dir Resources
@@ -18,5 +21,4 @@ ExplicitFolders: []
 Bundles: []
 TemplateFolders: []
 RootAssets:
-    - 102cf3c4-777f-492d-a6ee-553804a8a2ce:DisabledScene
     - b3bf3ccd-46dc-42de-b10f-a40df146fa41:ServerScene

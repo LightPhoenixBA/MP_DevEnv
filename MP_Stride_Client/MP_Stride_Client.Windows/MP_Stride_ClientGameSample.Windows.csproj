@@ -12,6 +12,8 @@
     <DisableFastUpToDateCheck>true</DisableFastUpToDateCheck>
   </PropertyGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\MP_Stride_MultiplayerBase\MP_Stride_MultiplayerBase.csproj" />
+    <ProjectReference Include="..\..\MP_Stride_ServerConsole\MP_Stride_ServerConsole.csproj" />
     <ProjectReference Include="..\MP_Stride_Client\MP_Stride_ClientGameSample.csproj" />
   </ItemGroup>
 </Project>

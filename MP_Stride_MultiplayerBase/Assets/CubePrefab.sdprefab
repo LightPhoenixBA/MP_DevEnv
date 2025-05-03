@@ -20,4 +20,17 @@ Hierarchy:
                         Id: 4e9ad697-9229-4489-a6c4-e2551bae51a9
                         Model: 451ce864-ac0d-4142-a3d9-af25432e058b:CubeModel
                         Materials:
-                            2598c7e6f5e83df949cad43f5bd270f8~0: 91c28363-8902-4ad9-aedc-bcf6e793cb23:CubeMaterial
+                            2598c7e6f5e83df949cad43f5bd270f8~0: 54418b70-f0b7-4f8e-9143-e023033c9a20:CubeMaterial
+                    1324f003be564f626e9dd09b6a484903: !StaticColliderComponent
+                        Id: 09284b8b-361f-4f98-9a9e-3c931c706091
+                        CanSleep: false
+                        Restitution: 0.0
+                        Friction: 0.5
+                        RollingFriction: 0.0
+                        CcdMotionThreshold: 0.0
+                        CcdSweptSphereRadius: 0.0
+                        IsTrigger: false
+                        AlwaysUpdateNaviMeshCache: false
+                        ColliderShapes:
+                            684a647082187982d03132daff29af4b: !StaticMeshColliderShapeDesc
+                                Model: 451ce864-ac0d-4142-a3d9-af25432e058b:CubeModel

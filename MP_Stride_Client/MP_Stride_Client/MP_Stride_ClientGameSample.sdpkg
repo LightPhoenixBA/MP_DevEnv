@@ -10,6 +10,9 @@ AssetFolders:
     -   Path: !dir Assets
     -   Path: !dir Assets
     -   Path: !dir Assets
+    -   Path: !dir Assets
+    -   Path: !dir Assets
+    -   Path: !dir Assets
     -   Path: !dir D:/Development/Stride Mutliplayer/MP_Stride_Client/MP_Stride_Client/Assets
 ResourceFolders:
     - !dir Resources
@@ -17,4 +20,5 @@ OutputGroupDirectories: {}
 ExplicitFolders: []
 Bundles: []
 TemplateFolders: []
-RootAssets: []
+RootAssets:
+    - 31434075-5601-442f-b071-c952187e690a:GraphicsCompositor

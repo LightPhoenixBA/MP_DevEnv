@@ -1,19 +1,16 @@
-﻿using BulletSharp;
-using Stride.Core.Diagnostics;
-using Stride.Engine;
-using Stride.Graphics;
-using Stride.Rendering;
+﻿using Stride.Physics;
 
 namespace MP_Stride_ServerConsole;
 
-public class MP_Stride_ServerBase : Game
+public class MP_Stride_ServerBase //: Game
 {
-    // public readonly MP_GraphicsService serverGraphicsService { get; init; } = new MP_GraphicsService(this);
-    new public ServiceRegistry Services { get; init; } = new ServiceRegistry();
-    public GameSystemCollection GameSystems { get; init; }
+    public ServiceRegistry Services { get; init; } = new ServiceRegistry();
+    // public PhysicsProcessor physicsProcessor { get; init; }
+    public Bullet2PhysicsSystem physicsSystem { get; init; }
+    public Simulation simulation { get; init; }
     public ContentManager Content { get; init; }
+    public GameSystemCollection GameSystems { get; init; }
 
-   // public GraphicsDevice GraphicsDevice { get; init; } = GraphicsDevice.New(DeviceCreationFlags.None, GraphicsProfile.Level_9_1);
     private Scene serverScene;
     private NetServer netServer = new NetServer(NetConnectionConfig.GetDefaultConfig());
     public static readonly ContentManagerLoaderSettings loadSettings = new ContentManagerLoaderSettings
@@ -23,19 +20,23 @@ public class MP_Stride_ServerBase : Game
             typeof(Scene),
             typeof(TransformComponent),
             typeof(Prefab),
-            typeof(ProceduralModelDescriptor),
-            typeof(Model)
+            //typeof(ProceduralModelDescriptor),
+            //typeof(Model)
         ]),
         AllowContentStreaming = false,
         LoadContentReferences = true,
     };
     public string ServerRootPath => Path.GetFullPath(Path.Combine(AppContext.BaseDirectory, @"..\..\.."));
-    public MP_Stride_ServerBase(IServiceRegistry Services)
+    public MP_Stride_ServerBase(IServiceRegistry Services, Simulation Simulation)
     {
         this.Services = Services as ServiceRegistry;
         Content = Services.GetSafeServiceAs<IContentManager>() as ContentManager;
         GameSystems = Services.GetSafeServiceAs<IGameSystemCollection>() as GameSystemCollection;
-        SceneSystem.InitialSceneUrl = "ServerScene";
+        // physicsProcessor = (PhysicsProcessor)GameSystems.First(o => o.GetType() == typeof(PhysicsProcessor));//.First<PhysicsProcessor>();//Services.GetSafeServiceAs<IPhysicsSystem>() as PhysicsProcessor;
+        //physicsProcessor = (Services.GetService<IPhysicsSystem>() as Bullet2PhysicsSystem);
+        // var dafuq =     (Services.GetService<IPhysicsSystem>() as Bullet2PhysicsSystem).SafeArgument("PhysicsScene");
+        //SceneSystem.InitialSceneUrl = "ServerScene";
+        simulation = Simulation;
         StartServerSystems();
     }
     public MP_Stride_ServerBase() : base()
@@ -45,43 +46,34 @@ public class MP_Stride_ServerBase : Game
         var databaseFileProvider = new DatabaseFileProvider(objectDatabase, mountPath);
         Services.AddService<IDatabaseFileProviderService>(new DatabaseFileProviderService(databaseFileProvider));
         Services.AddService<IContentManager>(Content = new ContentManager(Services));
-        Services.AddService(GameSystems = new GameSystemCollection(Services));
-        Services.AddService<IGraphicsDeviceService>(new MP_GraphicsService(this));
-
-        //  Services.AddService(GraphicsDevice);
-
-        //Add physics
-        //  var wat = new GraphicsDeviceManager(this);
-        // graphicsDevice = new GraphicsDevice(Services);
-        // Services.AddService<IGraphicsDeviceService>(wat);
-        // var physics = new PhysicsProcessor();
-        //{
-        //    ParentScene = serverScene,
-        //    Enabled = true,
-        //};
-        GameSystems.Initialize();
+        physicsSystem = new Bullet2PhysicsSystem(Services);
+        Services.AddService(physicsSystem);
+       // simulation = physicsSystem.Create(new PhysicsProcessor(),PhysicsEngineFlags.MultiThreaded);
+        // physicsSystem = Services.GetService<IPhysicsSystem>() as Bullet2PhysicsSystem;
+        serverScene = Content.Load<Scene>("ServerScene", loadSettings);
+        // serverScene.Name = "ServerScene";
+        // physicsProcessor.ParentScene = serverScene;
+        //   simulation = physicsSystem.GetSimulation(this.GameSystems);//physicsSystem.Create(physicsProcessor, PhysicsEngineFlags.MultiThreaded);
+        // physicsSystem.Initialize();
+        //GameSystems.Initialize();
         StartServerSystems();
-        var sceneSystem = new SceneSystem(Services)
-        {
-            SceneInstance = new SceneInstance(Services, serverScene),
-        };
+        var sceneSystem = new SceneSystem(Services);
         Services.AddService(sceneSystem);
+        GameSystems = new GameSystemCollection(Services) { sceneSystem };
+        Services.AddService<IGameSystemCollection>(GameSystems);
+        GameSystems.Initialize();
+        sceneSystem.SceneInstance = new SceneInstance(Services, serverScene);
+       // Services.AddService(sceneSystem);
+        sceneSystem.Initialize();
 
     }
     private void StartServerSystems()
     {
-        // Register all packets
         MP_PacketBase.RegisterAll(Content);
-
-        // Scene setup
-        serverScene = Content.Load<Scene>("ServerScene", loadSettings);
-        serverScene.Name = "ServerScene";
-
         netServer.Start();
     }
     public async Task Execute()
     {
-        //   Stride.Graphics.GraphicsAdapter.;
         while (netServer.Status == NetPeerStatus.Running)
         {
             NetIncomingMessage inc;
@@ -115,23 +107,23 @@ public class MP_Stride_ServerBase : Game
         switch (status)
         {
             case NetConnectionStatus.InitiatedConnect:
-                Log.Info($"{ToString()} Initiating connection with {inc.SenderConnection}");
+                //Log.Info($"{ToString()} Initiating connection with {inc.SenderConnection}");
                 Console.WriteLine($"{ToString()} Initiating connection with {inc.SenderConnection}");
                 break;
 
             case NetConnectionStatus.Connected:
-                Log.Info($"{ToString()} Client connected: {inc.SenderConnection}");
+                //Log.Info($"{ToString()} Client connected: {inc.SenderConnection}");
                 Console.WriteLine($"{ToString()} Client connected: {inc.SenderConnection}");
                 SendSceneAndEntities(inc.SenderConnection);
                 break;
 
             case NetConnectionStatus.Disconnected:
-                Log.Info($"{ToString()} Client disconnected: {inc.SenderConnection}");
+                // Log.Info($"{ToString()} Client disconnected: {inc.SenderConnection}");
                 Console.WriteLine($"{ToString()} Client disconnected: {inc.SenderConnection}");
                 break;
 
             default:
-                Log.Info($"{ToString()} Status changed: {status} - {inc.ReadString()}");
+                // Log.Info($"{ToString()} Status changed: {status} - {inc.ReadString()}");
                 Console.WriteLine($"{ToString()} Status changed: {status} - {inc.ReadString()}");
                 break;
         }
@@ -150,8 +142,9 @@ public class MP_Stride_ServerBase : Game
             Console.WriteLine($"sending {entity.Name} as {referencedObj}");
             switch (referencedObj)
             {
-                case Prefab:
                 case ProceduralModelDescriptor:
+                    throw new InvalidOperationException("depreciated");
+                case Prefab:
                     PrefabPacket.SendUntypedPacket(entity.Name, entityMessage);
                     break;
                 case Stride.Engine.Entity:
@@ -164,9 +157,5 @@ public class MP_Stride_ServerBase : Game
 
             netServer.SendMessage(entityMessage, connection, NetDeliveryMethod.ReliableOrdered);
         }
-    }
-
-    public override void ConfirmRenderingSettings(bool gameCreation)
-    {
     }
 }

@@ -1,11 +1,14 @@
 ﻿using Lidgren.Network;
 using Stride.Graphics;
+using Stride.Graphics.SDL;
+using System.Diagnostics;
 using System.Net;
+using System.Reflection;
 
 namespace MP_Stride_MultiplayerBase;
 public class StrideClient : AsyncScript
 {
-    public static StrideClient ClientInstance { get; private set; }
+    public static StrideClient ClientInstance { get; internal set; } = new();
     public StrideClient()
     {
         if (ClientInstance == null)
@@ -15,11 +18,12 @@ public class StrideClient : AsyncScript
         else
         {
             Cancel();
+            Log.Warning("aborting player duping");
         }
     }
 
     public NetClient netClient { get; private set; }
-    public bool isSinglePlayer { get; private set; } = false;
+    public bool isSinglePlayer { get; private set; } = !Process.GetProcessesByName("MP_Stride_ConsoleServer").Any();
     public IPAddress localAdress;
     private NetPeerConfiguration clientConfig = NetConnectionConfig.GetDefaultClientConfig();
     private static NetPeerConfiguration serverConfig = NetConnectionConfig.GetDefaultConfig();
@@ -31,10 +35,12 @@ public class StrideClient : AsyncScript
     {
         netClient = new NetClient(clientConfig);
         netClient.Start();
-        netClient.Connect(serverConfig.LocalAddress.ToString(), serverConfig.Port, netClient.CreateMessage("Stride Client is requesting connection"));
+        netClient.Connect(serverConfig.LocalAddress.ToString(), serverConfig.Port
+            , netClient.CreateMessage("Stride Client is requesting connection"));
 
         MP_PacketBase.RegisterAll(Content);
-
+        //var hrr = Services.GetService<GraphicsCompositor>().Cameras[0].Camera;
+        //hrr.Update();
         while (Game.IsRunning)
         {
             NetIncomingMessage inc;
@@ -54,13 +60,11 @@ public class StrideClient : AsyncScript
                             case NetConnectionStatus.InitiatedConnect:
                                 netClient.Tag = this;
                                 break;
-                            //case NetConnectionStatus.Connected:
-                            //    Console.WriteLine("Connected!");
-                            //Log.Info($"Connection establisted! {inc.ReadString()} Server:{inc.SenderConnection}");
-                            //break;
+                            case NetConnectionStatus.Connected:
+                                Log.Info($"Connection establisted! {inc.ReadString()} Server:{inc.SenderConnection}");
+                                break;
                             default:
                                 Log.Info(inc.SenderConnection + ": " + status + " (" + inc.ReadString() + ")");
-
                                 break;
                         }
                         var hmm = Content;

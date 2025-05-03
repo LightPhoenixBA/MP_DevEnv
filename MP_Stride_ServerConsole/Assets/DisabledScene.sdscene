@@ -25,7 +25,20 @@ Hierarchy:
                         Id: 2b54bc9d-5005-45e3-bed3-e51812dd15fe
                         Model: 451ce864-ac0d-4142-a3d9-af25432e058b:CubeModel
                         Materials:
-                            2598c7e6f5e83df949cad43f5bd270f8~0: 91c28363-8902-4ad9-aedc-bcf6e793cb23:CubeMaterial
+                            2598c7e6f5e83df949cad43f5bd270f8~0: 54418b70-f0b7-4f8e-9143-e023033c9a20:CubeMaterial
+                    1324f003be564f626e9dd09b6a484903: !StaticColliderComponent
+                        Id: 44996c54-f13a-4a46-82a3-e8dddb8c1b6d
+                        CanSleep: false
+                        Restitution: 0.0
+                        Friction: 0.5
+                        RollingFriction: 0.0
+                        CcdMotionThreshold: 0.0
+                        CcdSweptSphereRadius: 0.0
+                        IsTrigger: false
+                        AlwaysUpdateNaviMeshCache: false
+                        ColliderShapes:
+                            684a647082187982d03132daff29af4b: !StaticMeshColliderShapeDesc
+                                Model: 451ce864-ac0d-4142-a3d9-af25432e058b:CubeModel
             Base:
                 BasePartAsset: 92a07faf-1aef-4f5b-b99e-c63d4d615418:CubePrefab
                 BasePartId: acaf6825-5429-4d82-a12a-6aa5ab74f0ff
@@ -44,7 +57,20 @@ Hierarchy:
                         Id: 34579ddc-ee3e-44e3-87ca-81955771a5f5
                         Model: 451ce864-ac0d-4142-a3d9-af25432e058b:CubeModel
                         Materials:
-                            2598c7e6f5e83df949cad43f5bd270f8~0: 91c28363-8902-4ad9-aedc-bcf6e793cb23:CubeMaterial
+                            2598c7e6f5e83df949cad43f5bd270f8~0: 54418b70-f0b7-4f8e-9143-e023033c9a20:CubeMaterial
+                    1324f003be564f626e9dd09b6a484903: !StaticColliderComponent
+                        Id: 936a214d-409c-4900-9e6d-ead4598cd7a0
+                        CanSleep: false
+                        Restitution: 0.0
+                        Friction: 0.5
+                        RollingFriction: 0.0
+                        CcdMotionThreshold: 0.0
+                        CcdSweptSphereRadius: 0.0
+                        IsTrigger: false
+                        AlwaysUpdateNaviMeshCache: false
+                        ColliderShapes:
+                            684a647082187982d03132daff29af4b: !StaticMeshColliderShapeDesc
+                                Model: 451ce864-ac0d-4142-a3d9-af25432e058b:CubeModel
             Base:
                 BasePartAsset: 92a07faf-1aef-4f5b-b99e-c63d4d615418:CubePrefab
                 BasePartId: acaf6825-5429-4d82-a12a-6aa5ab74f0ff
@@ -63,7 +89,20 @@ Hierarchy:
                         Id: 626f6c40-7cf4-4d29-aad7-a9ae2fb93acd
                         Model: 451ce864-ac0d-4142-a3d9-af25432e058b:CubeModel
                         Materials:
-                            2598c7e6f5e83df949cad43f5bd270f8~0: 91c28363-8902-4ad9-aedc-bcf6e793cb23:CubeMaterial
+                            2598c7e6f5e83df949cad43f5bd270f8~0: 54418b70-f0b7-4f8e-9143-e023033c9a20:CubeMaterial
+                    1324f003be564f626e9dd09b6a484903: !StaticColliderComponent
+                        Id: 90eea87e-ce0c-475d-8f64-64134f201514
+                        CanSleep: false
+                        Restitution: 0.0
+                        Friction: 0.5
+                        RollingFriction: 0.0
+                        CcdMotionThreshold: 0.0
+                        CcdSweptSphereRadius: 0.0
+                        IsTrigger: false
+                        AlwaysUpdateNaviMeshCache: false
+                        ColliderShapes:
+                            684a647082187982d03132daff29af4b: !StaticMeshColliderShapeDesc
+                                Model: 451ce864-ac0d-4142-a3d9-af25432e058b:CubeModel
             Base:
                 BasePartAsset: 92a07faf-1aef-4f5b-b99e-c63d4d615418:CubePrefab
                 BasePartId: acaf6825-5429-4d82-a12a-6aa5ab74f0ff
@@ -82,7 +121,20 @@ Hierarchy:
                         Id: 0f09c499-468f-438d-8d81-1481b22d576f
                         Model: 451ce864-ac0d-4142-a3d9-af25432e058b:CubeModel
                         Materials:
-                            2598c7e6f5e83df949cad43f5bd270f8~0: 91c28363-8902-4ad9-aedc-bcf6e793cb23:CubeMaterial
+                            2598c7e6f5e83df949cad43f5bd270f8~0: 54418b70-f0b7-4f8e-9143-e023033c9a20:CubeMaterial
+                    1324f003be564f626e9dd09b6a484903: !StaticColliderComponent
+                        Id: e6230e9f-5655-4fde-a181-92e09d001cde
+                        CanSleep: false
+                        Restitution: 0.0
+                        Friction: 0.5
+                        RollingFriction: 0.0
+                        CcdMotionThreshold: 0.0
+                        CcdSweptSphereRadius: 0.0
+                        IsTrigger: false
+                        AlwaysUpdateNaviMeshCache: false
+                        ColliderShapes:
+                            684a647082187982d03132daff29af4b: !StaticMeshColliderShapeDesc
+                                Model: 451ce864-ac0d-4142-a3d9-af25432e058b:CubeModel
             Base:
                 BasePartAsset: 92a07faf-1aef-4f5b-b99e-c63d4d615418:CubePrefab
                 BasePartId: acaf6825-5429-4d82-a12a-6aa5ab74f0ff
