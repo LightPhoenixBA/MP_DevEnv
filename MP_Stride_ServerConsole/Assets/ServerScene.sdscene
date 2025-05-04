@@ -6,25 +6,25 @@ ChildrenIds: []
 Offset: {X: 0.0, Y: 0.0, Z: 0.0}
 Hierarchy:
     RootParts:
-        - ref!! b5954747-e7cb-44c1-9190-8817e2c7145d
+        - ref!! b3b4e64f-ab66-41e5-bdb8-5655fb21e8d5
     Parts:
         -   Entity:
-                Id: b5954747-e7cb-44c1-9190-8817e2c7145d
+                Id: b3b4e64f-ab66-41e5-bdb8-5655fb21e8d5
                 Name: CubePrefab
                 Components:
                     990f2b222f4cff35d73f008dfeecb911: !TransformComponent
-                        Id: 057150d9-6de3-4b19-83fc-58a355fb03b9
+                        Id: aa4af1f5-2fa9-45ff-aaac-7fe11de147e8
                         Position*: {X: 0.0, Y: -0.5, Z: 0.0}
                         Rotation: {X: 0.0, Y: 0.0, Z: 0.0, W: 1.0}
                         Scale: {X: 1.0, Y: 1.0, Z: 1.0}
                         Children: {}
                     37b4a4dc83e607a4cabae9e5c13f34fa: !ModelComponent
-                        Id: fc666f4b-6590-4b05-93b8-b00e70311c44
+                        Id: b81f4c8d-37ec-416a-8f98-7f2582726a1f
                         Model: 451ce864-ac0d-4142-a3d9-af25432e058b:CubeModel
                         Materials:
-                            2598c7e6f5e83df949cad43f5bd270f8~0: 54418b70-f0b7-4f8e-9143-e023033c9a20:CubeMaterial
+                            dc14283e4754150e057940aed4e741a2~0: 54418b70-f0b7-4f8e-9143-e023033c9a20:CubeMaterial
                     1324f003be564f626e9dd09b6a484903: !StaticColliderComponent
-                        Id: fd717918-c0e5-4b3f-a729-d126be755dbf
+                        Id: ea1b7976-76d7-4e05-b16c-a444fe2d65c9
                         CanSleep: false
                         Restitution: 0.0
                         Friction: 0.5
@@ -35,8 +35,8 @@ Hierarchy:
                         AlwaysUpdateNaviMeshCache: false
                         ColliderShapes:
                             684a647082187982d03132daff29af4b: !StaticMeshColliderShapeDesc
-                                Model: 451ce864-ac0d-4142-a3d9-af25432e058b:CubeModel
+                                Model: null
             Base:
                 BasePartAsset: 92a07faf-1aef-4f5b-b99e-c63d4d615418:CubePrefab
                 BasePartId: acaf6825-5429-4d82-a12a-6aa5ab74f0ff
-                InstanceId: cea74c00-c03a-425f-8653-19232e7993cf
+                InstanceId: c8ebb6c6-172e-45bc-b70e-3fe39b29c3a4

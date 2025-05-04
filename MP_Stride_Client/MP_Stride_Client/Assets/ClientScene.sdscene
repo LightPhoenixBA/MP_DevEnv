@@ -9,6 +9,7 @@ Hierarchy:
         - ref!! 3b7810a7-9533-4918-9728-63d35be5ade2
         - ref!! 619e3242-0612-4ae9-9ee2-ae6c7bbac413
         - ref!! 86368522-9496-4a30-8ebf-93242cf5c4da
+        - ref!! bf92b94b-a9ed-48fe-ba28-49006b1e5253
     Parts:
         -   Entity:
                 Id: 3b7810a7-9533-4918-9728-63d35be5ade2
@@ -26,7 +27,7 @@ Hierarchy:
                             Skybox: b1132358-298b-4dc7-b822-d4a15983b830:Skybox
                     8271bc091b25fd5bb0f215eddc8e2d22: !BackgroundComponent
                         Id: 2684909a-02d5-4471-91ad-c38df9940412
-                        Texture: null
+                        Texture: ce4d01e6-6535-464e-8d74-49390889256c:Skybox texture
         -   Entity:
                 Id: 619e3242-0612-4ae9-9ee2-ae6c7bbac413
                 Name: Camera
@@ -65,3 +66,29 @@ Hierarchy:
                         Id: 84222b23-f2a9-4fe4-9834-6ccbe1518a71
                         Model: 47725418-e57b-437e-ac6d-8d9d33c0c775:Cone
                         Materials: {}
+                    11afc3ec465505e16f857ef041d8d3ff: !StaticColliderComponent
+                        Id: cd748fc5-81a7-49fa-97c8-af64b1f9c48d
+                        CanSleep: false
+                        Restitution: 0.0
+                        Friction: 0.5
+                        RollingFriction: 0.0
+                        CcdMotionThreshold: 0.0
+                        CcdSweptSphereRadius: 0.0
+                        IsTrigger: false
+                        AlwaysUpdateNaviMeshCache: false
+                        ColliderShapes:
+                            27835380524766bae2ec91d551ea7ac5: !ConeColliderShapeDesc
+                                LocalOffset: {X: 0.0, Y: 0.0, Z: 0.0}
+                                LocalRotation: {X: 0.0, Y: 0.0, Z: 0.0, W: 1.0}
+        -   Entity:
+                Id: bf92b94b-a9ed-48fe-ba28-49006b1e5253
+                Name: SingleplayerServerStart
+                Components:
+                    3f1cbf9c6743ec1eb3fc1a811f6be2c2: !TransformComponent
+                        Id: f9340060-4909-4f72-8138-050f9b3043fa
+                        Position: {X: 0.0, Y: 0.0, Z: 0.0}
+                        Rotation: {X: 0.0, Y: 0.0, Z: 0.0, W: 1.0}
+                        Scale: {X: 1.0, Y: 1.0, Z: 1.0}
+                        Children: {}
+                    8d9fc01cd712485a24f1df4a5ae29bf2: !.SingleplayerServerStart,MP_Stride_ClientGameSample
+                        Id: c7561783-2167-4a7f-bd43-3ffab6a71acd

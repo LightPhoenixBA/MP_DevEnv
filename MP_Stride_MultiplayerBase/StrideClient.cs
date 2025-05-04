@@ -11,9 +11,11 @@ public class StrideClient : AsyncScript
     public static StrideClient ClientInstance { get; internal set; } = new();
     public StrideClient()
     {
+        Priority = 1;
         if (ClientInstance == null)
         {
             ClientInstance = this;
+            _ = isSinglePlayer;
         }
         else
         {
@@ -23,7 +25,7 @@ public class StrideClient : AsyncScript
     }
 
     public NetClient netClient { get; private set; }
-    public bool isSinglePlayer { get; private set; } = !Process.GetProcessesByName("MP_Stride_ConsoleServer").Any();
+    public static bool isSinglePlayer { get; private set; } = !Process.GetProcessesByName("MP_Stride_ConsoleServer").Any();
     public IPAddress localAdress;
     private NetPeerConfiguration clientConfig = NetConnectionConfig.GetDefaultClientConfig();
     private static NetPeerConfiguration serverConfig = NetConnectionConfig.GetDefaultConfig();
@@ -39,8 +41,6 @@ public class StrideClient : AsyncScript
             , netClient.CreateMessage("Stride Client is requesting connection"));
 
         MP_PacketBase.RegisterAll(Content);
-        //var hrr = Services.GetService<GraphicsCompositor>().Cameras[0].Camera;
-        //hrr.Update();
         while (Game.IsRunning)
         {
             NetIncomingMessage inc;

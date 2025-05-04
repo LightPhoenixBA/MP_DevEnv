@@ -1,15 +1,22 @@
-﻿using Stride.Physics;
-
+﻿using Stride.Core.Diagnostics;
+using Stride.Engine.Design;
+using Stride.Graphics;
+using Stride.Physics;
+using System.Drawing.Printing;
 namespace MP_Stride_ServerConsole;
 
-public class MP_Stride_ServerBase //: Game
+public class MP_Stride_ServerBase
 {
     public ServiceRegistry Services { get; init; } = new ServiceRegistry();
-    // public PhysicsProcessor physicsProcessor { get; init; }
-    public Bullet2PhysicsSystem physicsSystem { get; init; }
-    public Simulation simulation { get; init; }
+    internal GameSettings gameSettings { get; init; } = new GameSettings()
+    {
+        DefaultSceneUrl = "ServerScene",
+        DefaultGraphicsCompositorUrl = null
+    };
+    //public Bullet2PhysicsSystem physicsSystem { get; init; }
     public ContentManager Content { get; init; }
     public GameSystemCollection GameSystems { get; init; }
+    private Stride.Core.Diagnostics.Logger Log { get; } = GlobalLogger.GetLogger("MP_Stride_ServerBase");
 
     private Scene serverScene;
     private NetServer netServer = new NetServer(NetConnectionConfig.GetDefaultConfig());
@@ -27,45 +34,45 @@ public class MP_Stride_ServerBase //: Game
         LoadContentReferences = true,
     };
     public string ServerRootPath => Path.GetFullPath(Path.Combine(AppContext.BaseDirectory, @"..\..\.."));
-    public MP_Stride_ServerBase(IServiceRegistry Services, Simulation Simulation)
+    public MP_Stride_ServerBase(IServiceRegistry Services)
     {
+        Log.Info("Starting Stride singleplayer server");
         this.Services = (ServiceRegistry)Services;
-        Content = Services.GetSafeServiceAs<IContentManager>() as ContentManager;
-        GameSystems = Services.GetSafeServiceAs<IGameSystemCollection>() as GameSystemCollection;
-        // physicsProcessor = (PhysicsProcessor)GameSystems.First(o => o.GetType() == typeof(PhysicsProcessor));//.First<PhysicsProcessor>();//Services.GetSafeServiceAs<IPhysicsSystem>() as PhysicsProcessor;
-        //physicsProcessor = (Services.GetService<IPhysicsSystem>() as Bullet2PhysicsSystem);
-        // var dafuq =     (Services.GetService<IPhysicsSystem>() as Bullet2PhysicsSystem).SafeArgument("PhysicsScene");
-        //SceneSystem.InitialSceneUrl = "ServerScene";
-        simulation = Simulation;
+        Content = (ContentManager)Services.GetSafeServiceAs<IContentManager>();
+        GameSystems = (GameSystemCollection)Services.GetSafeServiceAs<IGameSystemCollection>();
         StartServerSystems();
     }
     public MP_Stride_ServerBase() : base()
     {
+        Console.WriteLine("Starting Console Server");
+        //start core systems
         var objectDatabase = ObjectDatabase.CreateDefaultDatabase();
         var mountPath = VirtualFileSystem.ResolveProviderUnsafe("\\Assets", true).Provider == null ? "/asset" : null;
         var databaseFileProvider = new DatabaseFileProvider(objectDatabase, mountPath);
         Services.AddService<IDatabaseFileProviderService>(new DatabaseFileProviderService(databaseFileProvider));
         Services.AddService<IContentManager>(Content = new ContentManager(Services));
-        physicsSystem = new Bullet2PhysicsSystem(Services);
-        Services.AddService(physicsSystem);
-       // simulation = physicsSystem.Create(new PhysicsProcessor(),PhysicsEngineFlags.MultiThreaded);
-        // physicsSystem = Services.GetService<IPhysicsSystem>() as Bullet2PhysicsSystem;
-        serverScene = Content.Load<Scene>("ServerScene", loadSettings);
-        // serverScene.Name = "ServerScene";
-        // physicsProcessor.ParentScene = serverScene;
-        //   simulation = physicsSystem.GetSimulation(this.GameSystems);//physicsSystem.Create(physicsProcessor, PhysicsEngineFlags.MultiThreaded);
-        // physicsSystem.Initialize();
-        //GameSystems.Initialize();
         StartServerSystems();
-        var sceneSystem = new SceneSystem(Services);
-        Services.AddService(sceneSystem);
-        GameSystems = new GameSystemCollection(Services) { sceneSystem };
-        Services.AddService<IGameSystemCollection>(GameSystems);
-        GameSystems.Initialize();
-        sceneSystem.SceneInstance = new SceneInstance(Services, serverScene);
-       // Services.AddService(sceneSystem);
-        sceneSystem.Initialize();
 
+        //start game systems
+        serverScene = Content.Load<Scene>("ServerScene", loadSettings);
+        Services.AddService(gameSettings);
+        Services.AddService<IPhysicsSystem>(new Bullet2PhysicsSystem(Services));
+        GameSystems = new GameSystemCollection(Services);
+        Services.AddService<IGameSystemCollection>(GameSystems);
+        var sceneSystem = new SceneSystem(Services)
+        {
+            SceneInstance = new SceneInstance(Services, serverScene)
+        };
+        GameSystems.Add(sceneSystem);
+
+        Services.AddService(sceneSystem);
+
+        GameSystems.Initialize();
+        // Services.AddService(sceneSystem);
+        sceneSystem.Initialize();
+        //physicsSystem = new Bullet2PhysicsSystem(Services);
+        //Services.AddService(physicsSystem);
+        //simulation = physicsSystem.Create(new PhysicsProcessor(), PhysicsEngineFlags.UseHardwareWhenPossible);
     }
     private void StartServerSystems()
     {

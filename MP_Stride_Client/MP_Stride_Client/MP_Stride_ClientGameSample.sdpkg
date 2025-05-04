@@ -11,9 +11,6 @@ AssetFolders:
     -   Path: !dir Effects
     -   Path: !dir ../../../RefreshMP_Stride_ClientGameSample/MP_Stride_ClientGameSample/MP_Stride_ClientGameSample/Assets
     -   Path: !dir Assets
-    -   Path: !dir Assets
-    -   Path: !dir Assets
-    -   Path: !dir Assets
     -   Path: !dir D:/Development/Stride Mutliplayer/MP_Stride_Client/MP_Stride_Client/Assets
 ResourceFolders:
     - !dir Resources

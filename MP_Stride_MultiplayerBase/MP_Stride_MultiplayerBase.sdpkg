@@ -9,9 +9,6 @@ Meta:
 AssetFolders:
     -   Path: !dir Assets
     -   Path: !dir Assets
-    -   Path: !dir Assets
-    -   Path: !dir Assets
-    -   Path: !dir Assets
     -   Path: !dir D:/Development/Stride Mutliplayer/MP_Stride_MultiplayerBase/Assets
 ResourceFolders:
     - !dir Resources
@@ -19,4 +16,7 @@ OutputGroupDirectories: {}
 ExplicitFolders: []
 Bundles: []
 TemplateFolders: []
-RootAssets: []
+RootAssets:
+    - 451ce864-ac0d-4142-a3d9-af25432e058b:CubeModel
+    - 54418b70-f0b7-4f8e-9143-e023033c9a20:CubeMaterial
+    - 92a07faf-1aef-4f5b-b99e-c63d4d615418:CubePrefab
