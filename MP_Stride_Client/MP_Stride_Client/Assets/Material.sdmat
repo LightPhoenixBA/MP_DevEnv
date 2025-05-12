@@ -5,8 +5,11 @@ Tags: []
 Attributes:
     Diffuse: !MaterialDiffuseMapFeature
         DiffuseMap: !ComputeColor
-            Value: {R: 0.2720976, G: 0.05851561, B: 0.66875, A: 1.0}
+            Value: {R: 0.27058825, G: 0.05490196, B: 0.6666667, A: 1.0}
     DiffuseModel: !MaterialDiffuseLambertModelFeature {}
+    Specular: !MaterialMetalnessMapFeature
+        MetalnessMap: !ComputeFloat
+            Value: 0.599
     Overrides:
         UVScale: {X: 1.0, Y: 1.0}
 Layers: {}

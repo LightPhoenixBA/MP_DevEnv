@@ -1,9 +1,6 @@
 ﻿using Lidgren.Network;
-using Stride.Graphics;
-using Stride.Graphics.SDL;
 using System.Diagnostics;
 using System.Net;
-using System.Reflection;
 
 namespace MP_Stride_MultiplayerBase;
 public class StrideClient : AsyncScript
@@ -15,22 +12,19 @@ public class StrideClient : AsyncScript
         if (ClientInstance == null)
         {
             ClientInstance = this;
-            _ = isSinglePlayer;
         }
         else
         {
             Cancel();
-            Log.Warning("aborting player duping");
+            Log.Error("aborting player duping");
+           throw new InvalidOperationException("aborting player duping");
         }
     }
-
     public NetClient netClient { get; private set; }
-    public static bool isSinglePlayer { get; private set; } = !Process.GetProcessesByName("MP_Stride_ConsoleServer").Any();
-    public IPAddress localAdress;
+    public static bool isSinglePlayer  => Process.GetProcessesByName("MP_Stride_ServerConsole").Length == 0;//{ get; private set; }
+    public IPAddress localAddress;
     private NetPeerConfiguration clientConfig = NetConnectionConfig.GetDefaultClientConfig();
     private static NetPeerConfiguration serverConfig = NetConnectionConfig.GetDefaultConfig();
-    private bool? lastResult;
-    private TimeSpan lastResultTime;
     public Scene serverScene { get; private set; }
 
     public override async Task Execute()
@@ -38,7 +32,7 @@ public class StrideClient : AsyncScript
         netClient = new NetClient(clientConfig);
         netClient.Start();
         netClient.Connect(serverConfig.LocalAddress.ToString(), serverConfig.Port
-            , netClient.CreateMessage("Stride Client is requesting connection"));
+        , netClient.CreateMessage("Stride Client is requesting connection"));
 
         MP_PacketBase.RegisterAll(Content);
         while (Game.IsRunning)
@@ -98,15 +92,6 @@ public class StrideClient : AsyncScript
                     default:
                         Log.Info("Unhandled type: " + inc.MessageType + " " + inc.LengthBytes + " bytes");
                         break;
-                }
-
-                if (lastResult.HasValue)
-                {
-                    DebugText.Print(lastResult.Value ? "Hit!" : "Miss...", new Int2(GraphicsDevice.Presenter.BackBuffer.Width / 2, (int)(GraphicsDevice.Presenter.BackBuffer.Height * 0.6f)));
-                    if ((Game.UpdateTime.Total - lastResultTime) > TimeSpan.FromSeconds(2.0f))
-                    {
-                        lastResult = null;
-                    }
                 }
             }
             await Script.NextFrame();

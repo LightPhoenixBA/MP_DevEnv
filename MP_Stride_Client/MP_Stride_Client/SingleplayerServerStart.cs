@@ -1,6 +1,7 @@
 ﻿using MP_Stride_MultiplayerBase;
 using MP_Stride_ServerConsole;
 using Stride.Core.Mathematics;
+using Stride.BepuPhysics;
 using Stride.Engine;
 using Stride.Graphics;
 using Stride.Physics;
@@ -11,9 +12,8 @@ public class SingleplayerServerStart : SyncScript
 {
     public static MP_Stride_ServerBase server { get; private set; }
     public SceneCameraSlot sceneCamera { get; private set; }
-    Viewport viewport;
-
-    // public CameraComponent camera => sceneCamera.Camera;
+    public Simulation simulation { get; private set; }
+    // static Viewport viewport  = new Viewport(Game.Window.ClientBounds.Left, Game.Window.ClientBounds.Bottom, Game.Window.ClientBounds.X, Game.Window.ClientBounds.Y);
     override public void Start()
     {
         if (StrideClient.isSinglePlayer == true)
@@ -26,7 +26,9 @@ public class SingleplayerServerStart : SyncScript
             Log.Info("multiplayer instance detected");
         }
         sceneCamera = SceneSystem.GraphicsCompositor.Cameras[0];
-        viewport = new Viewport(Game.Window.ClientBounds.Left, Game.Window.ClientBounds.Bottom, Game.Window.ClientBounds.X, Game.Window.ClientBounds.Y);
+        simulation = SceneSystem.SceneInstance.GetProcessor<PhysicsProcessor>()?.Simulation;
+
+        // viewport = new Viewport(Game.Window.ClientBounds.Left, Game.Window.ClientBounds.Bottom, Game.Window.ClientBounds.X, Game.Window.ClientBounds.Y);
         //  camera = SceneSystem.GraphicsCompositor.Cameras.First(o => o.Name == "Main").Camera;
     }
 
@@ -47,8 +49,7 @@ public class SingleplayerServerStart : SyncScript
 
                 Vector3 direction = Vector3.Normalize(farPoint - nearPoint);
 
-                Simulation simulation = this.GetSimulation();
-                HitResult result = simulation.Raycast(nearPoint, nearPoint + (direction * 1000f), CollisionFilterGroups.AllFilter);
+                HitResult result = simulation.Raycast(nearPoint, nearPoint + (direction * 100f), CollisionFilterGroups.AllFilter);
 
                 if (result.Succeeded)
                 {

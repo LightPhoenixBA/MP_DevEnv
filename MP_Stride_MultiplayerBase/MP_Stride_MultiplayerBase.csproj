@@ -6,11 +6,11 @@
 	<ImplicitUsings>enable</ImplicitUsings>
 	<Nullable>enable</Nullable>
 	<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
-	<PackageOutputPath>../packages</PackageOutputPath>
+	<PackageOutputPath>$(SolutionDir)packages\</PackageOutputPath>
   </PropertyGroup>
 
   <ItemGroup>
-	<PackageReference Include="Lidgren.Network" Version="1.0.2" />
+	<PackageReference Include="Lidgren.Network" Version="1.0.0" />
 	<PackageReference Include="Stride.Assets" Version="4.2.0.1" />
 	<PackageReference Include="Stride.Core" Version="4.2.0.1" />
 	<PackageReference Include="Stride.Engine" Version="4.2.0.1" />

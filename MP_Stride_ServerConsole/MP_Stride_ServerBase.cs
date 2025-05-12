@@ -1,21 +1,19 @@
-﻿using Stride.Core.Diagnostics;
+﻿using Stride.BepuPhysics;
+using Stride.Core.Diagnostics;
 using Stride.Engine.Design;
-using Stride.Graphics;
 using Stride.Physics;
-using System.Drawing.Printing;
+using System.Diagnostics;
+using System.Numerics;
 namespace MP_Stride_ServerConsole;
 
 public class MP_Stride_ServerBase
 {
-    public ServiceRegistry Services { get; init; } = new ServiceRegistry();
-    internal GameSettings gameSettings { get; init; } = new GameSettings()
-    {
-        DefaultSceneUrl = "ServerScene",
-        DefaultGraphicsCompositorUrl = null
-    };
-    //public Bullet2PhysicsSystem physicsSystem { get; init; }
+    public ServiceRegistry Services { get; init; }
+    public GameSettings gameSettings { get; init; }
     public ContentManager Content { get; init; }
     public GameSystemCollection GameSystems { get; init; }
+    public SceneSystem sceneSystem { get; init; }
+    public BepuConfiguration physicsEngine { get; init; }
     private Stride.Core.Diagnostics.Logger Log { get; } = GlobalLogger.GetLogger("MP_Stride_ServerBase");
 
     private Scene serverScene;
@@ -27,6 +25,7 @@ public class MP_Stride_ServerBase
             typeof(Scene),
             typeof(TransformComponent),
             typeof(Prefab),
+            typeof(ColliderShape)
             //typeof(ProceduralModelDescriptor),
             //typeof(Model)
         ]),
@@ -37,42 +36,72 @@ public class MP_Stride_ServerBase
     public MP_Stride_ServerBase(IServiceRegistry Services)
     {
         Log.Info("Starting Stride singleplayer server");
-        this.Services = (ServiceRegistry)Services;
+        Game Game = (Game)Services.GetService<IGame>();
+        gameSettings = Game.Settings;
         Content = (ContentManager)Services.GetSafeServiceAs<IContentManager>();
         GameSystems = (GameSystemCollection)Services.GetSafeServiceAs<IGameSystemCollection>();
+        sceneSystem = Game.SceneSystem;
+        //Bullet2PhysicsSystem discardPhysics = (Bullet2PhysicsSystem)Services.GetSafeServiceAs<IPhysicsSystem>();
+        //Services.RemoveService<IPhysicsSystem>(discardPhysics);
+        //GameSystems.Remove(discardPhysics);
+        //Game.SceneSystem.SceneInstance.Processors.Clear();
+        gameSettings = Content.Load<GameSettings>(GameSettings.AssetUrl); //Services.GetService<GameSettings>();
+        Services.AddService(physicsEngine = gameSettings.Configurations?.Get<BepuConfiguration>());
         StartServerSystems();
     }
     public MP_Stride_ServerBase() : base()
     {
         Console.WriteLine("Starting Console Server");
         //start core systems
+        Services = new ServiceRegistry();
         var objectDatabase = ObjectDatabase.CreateDefaultDatabase();
         var mountPath = VirtualFileSystem.ResolveProviderUnsafe("\\Assets", true).Provider == null ? "/asset" : null;
         var databaseFileProvider = new DatabaseFileProvider(objectDatabase, mountPath);
         Services.AddService<IDatabaseFileProviderService>(new DatabaseFileProviderService(databaseFileProvider));
         Services.AddService<IContentManager>(Content = new ContentManager(Services));
-        StartServerSystems();
-
+        Services.AddService(gameSettings = Content.Load<GameSettings>("ServerGameSettings"));
+        Services.RemoveService<IPhysicsSystem>();
+        Services.AddService(physicsEngine = gameSettings.Configurations?.Get<BepuConfiguration>());
+        // PhysicsGameSystem physics = new PhysicsGameSystem(Services, physicsEngine);
+        //PhysicsGameSystem
         //start game systems
-        serverScene = Content.Load<Scene>("ServerScene", loadSettings);
-        Services.AddService(gameSettings);
-        Services.AddService<IPhysicsSystem>(new Bullet2PhysicsSystem(Services));
+        serverScene = Content.Load<Scene>(gameSettings.DefaultSceneUrl, loadSettings);
         GameSystems = new GameSystemCollection(Services);
         Services.AddService<IGameSystemCollection>(GameSystems);
-        var sceneSystem = new SceneSystem(Services)
-        {
-            SceneInstance = new SceneInstance(Services, serverScene)
-        };
-        GameSystems.Add(sceneSystem);
-
+        sceneSystem = new SceneSystem(Services);
         Services.AddService(sceneSystem);
+        GameSystems.Add(sceneSystem);
+        // _simulation = sceneSystem.SceneInstance.GetProcessor<PhysicsProcessor>()?.Simulation;
 
-        GameSystems.Initialize();
+        // BepuConfiguration _bepuConfig = Services.GetService<BepuConfiguration>();
+        // var physicsSystem = new Bullet2PhysicsSystem(Services);
+        // Services.AddService<IPhysicsSystem>(physicsSystem);
+        // GameSystems.Add(physicsSystem);
         // Services.AddService(sceneSystem);
+        GameSystems.Initialize();
         sceneSystem.Initialize();
+        sceneSystem.SceneInstance = new SceneInstance(Services, serverScene);
+        Simulation sim = sceneSystem.SceneInstance.GetProcessor<PhysicsProcessor>()?.Simulation;
+        var hrp = sim.Raycast(-Vector3.UnitZ, Vector3.UnitZ);
+        //  physicsSystem.Create(sceneSystem.SceneInstance.Processors.Get<PhysicsProcessor>(), PhysicsEngineFlags.CollisionsOnly);
+
+
+        StartServerSystems();
         //physicsSystem = new Bullet2PhysicsSystem(Services);
         //Services.AddService(physicsSystem);
         //simulation = physicsSystem.Create(new PhysicsProcessor(), PhysicsEngineFlags.UseHardwareWhenPossible);
+    }
+    private void SafetyCheck()
+    {
+        var hrr = Services.GetService<IPhysicsSystem>().Name;
+        if (hrr == "Bullet2PhysicsSystem")
+        {
+            throw new InvalidDataException("a bullet2Physics system is still active");
+        }
+        if (sceneSystem.SceneInstance.GetProcessor<PhysicsProcessor>().Simulation.GetType() != typeof(BepuSimulation))
+        {
+            throw new InvalidDataException("a BepuSimulation was not found");
+        }
     }
     private void StartServerSystems()
     {
@@ -81,6 +110,8 @@ public class MP_Stride_ServerBase
     }
     public async Task Execute()
     {
+        Log.Info("Server online "+ ToString());
+        //SafetyCheck();
         while (netServer.Status == NetPeerStatus.Running)
         {
             NetIncomingMessage inc;

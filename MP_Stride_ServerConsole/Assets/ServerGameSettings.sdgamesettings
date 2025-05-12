@@ -1,9 +1,9 @@
 !GameSettingsAsset
-Id: 46951fa1-67ed-4ff6-95c3-ace90e644a84
+Id: 315a26f5-50df-4bef-b6f1-1cb9dfc63cfa
 SerializedVersion: {Stride: 3.1.0.1}
 Tags: []
-DefaultScene: b0b623a2-9f37-4c34-89c5-2960ac12b78c:ClientScene
-GraphicsCompositor: ce9f8c58-92e4-48a5-99f0-b57b19402204:GraphicsCompositor
+DefaultScene: b3bf3ccd-46dc-42de-b10f-a40df146fa41:ServerScene
+GraphicsCompositor: null
 Defaults:
     - !Stride.Audio.AudioEngineSettings,Stride.Audio
         HrtfSupport: false
@@ -15,7 +15,7 @@ Defaults:
         AdaptBackBufferToScreen: false
         DefaultGraphicsProfile: Level_10_0
         ColorSpace: Linear
-        DisplayOrientation: LandscapeRight
+        DisplayOrientation: Default
     - !Stride.Streaming.StreamingSettings,Stride.Rendering
         ManagerUpdatesInterval: 0:00:00:00.0330000
         ResourceLiveTimeout: 0:00:00:08.0000000
@@ -23,7 +23,7 @@ Defaults:
         TextureQuality: Fast
     - !Stride.BepuPhysics.BepuConfiguration,Stride.BepuPhysics
         BepuSimulations:
-            -   AssociatedScene: b0b623a2-9f37-4c34-89c5-2960ac12b78c:ClientScene
+            -   AssociatedScene: b3bf3ccd-46dc-42de-b10f-a40df146fa41:ServerScene
                 ThreadCount: -1
                 Enabled: true
                 ParallelUpdate: true
