@@ -6,24 +6,24 @@ ChildrenIds: []
 Offset: {X: 0.0, Y: 0.0, Z: 0.0}
 Hierarchy:
     RootParts:
-        - ref!! b3b4e64f-ab66-41e5-bdb8-5655fb21e8d5
+        - ref!! 70875364-59cd-4196-9cc9-92fe92f53882
     Parts:
         -   Entity:
-                Id: b3b4e64f-ab66-41e5-bdb8-5655fb21e8d5
+                Id: 70875364-59cd-4196-9cc9-92fe92f53882
                 Name: CubePrefab
                 Components:
                     990f2b222f4cff35d73f008dfeecb911: !TransformComponent
-                        Id: aa4af1f5-2fa9-45ff-aaac-7fe11de147e8
-                        Position*: {X: 0.0, Y: -0.5, Z: 0.0}
+                        Id: b9110080-e1b9-4581-9601-e9289ba6e736
+                        Position*: {X: 0.0, Y: 0.0, Z: 0.0}
                         Rotation: {X: 0.0, Y: 0.0, Z: 0.0, W: 1.0}
                         Scale: {X: 1.0, Y: 1.0, Z: 1.0}
                         Children: {}
                     37b4a4dc83e607a4cabae9e5c13f34fa: !ModelComponent
-                        Id: b81f4c8d-37ec-416a-8f98-7f2582726a1f
+                        Id: c50d97ef-06d1-4a61-9c81-90d062dc6f2a
                         Model: 451ce864-ac0d-4142-a3d9-af25432e058b:CubeModel
                         Materials: {}
                     1324f003be564f626e9dd09b6a484903: !StaticColliderComponent
-                        Id: ea1b7976-76d7-4e05-b16c-a444fe2d65c9
+                        Id: a6bddd72-ea90-46df-9f6c-ecab2335a72f
                         CanSleep: false
                         Restitution: 0.0
                         Friction: 0.5
@@ -41,4 +41,4 @@ Hierarchy:
             Base:
                 BasePartAsset: 92a07faf-1aef-4f5b-b99e-c63d4d615418:CubePrefab
                 BasePartId: acaf6825-5429-4d82-a12a-6aa5ab74f0ff
-                InstanceId: c8ebb6c6-172e-45bc-b70e-3fe39b29c3a4
+                InstanceId: ad5413ad-aaa4-4450-965e-8e202b6f86e6

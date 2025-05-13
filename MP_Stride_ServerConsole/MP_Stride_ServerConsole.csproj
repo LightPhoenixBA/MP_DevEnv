@@ -6,15 +6,18 @@
 	<Nullable>enable</Nullable>
 	<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 	  <PackageOutputPath>$(SolutionDir)packages\</PackageOutputPath>
+	  <IncludeContentInPack>true</IncludeContentInPack>
   </PropertyGroup>
   <ItemGroup>
+	<PackageReference Include="MP_Stride_MultiplayerBase" Version="1.0.0" />
 	<PackageReference Include="Lidgren.Network" Version="1.0.0" />
 	<PackageReference Include="Stride" Version="4.2.0.1" />
 	<PackageReference Include="Stride.BepuPhysics" Version="4.2.0.1" />
 	<PackageReference Include="Stride.Core.Mathematics" Version="4.2.0.1" />
 	<PackageReference Include="Stride.Core.Assets.CompilerApp" Version="4.2.0.1" IncludeAssets="build;buildTransitive" />
   </ItemGroup>
+
   <ItemGroup>
-	<ProjectReference Include="..\MP_Stride_MultiplayerBase\MP_Stride_MultiplayerBase.csproj" />
+	<None Include="Assets\**\*.*" Pack="true" PackagePath="Assets" />
   </ItemGroup>
 </Project>

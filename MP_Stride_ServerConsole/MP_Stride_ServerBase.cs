@@ -81,8 +81,8 @@ public class MP_Stride_ServerBase
         GameSystems.Initialize();
         sceneSystem.Initialize();
         sceneSystem.SceneInstance = new SceneInstance(Services, serverScene);
-        Simulation sim = sceneSystem.SceneInstance.GetProcessor<PhysicsProcessor>()?.Simulation;
-        var hrp = sim.Raycast(-Vector3.UnitZ, Vector3.UnitZ);
+       // Simulation sim = sceneSystem.SceneInstance.GetProcessor<PhysicsProcessor>()?.Simulation;
+        //var hrp = sim.Raycast(-Vector3.UnitZ, Vector3.UnitZ);
         //  physicsSystem.Create(sceneSystem.SceneInstance.Processors.Get<PhysicsProcessor>(), PhysicsEngineFlags.CollisionsOnly);
 
 

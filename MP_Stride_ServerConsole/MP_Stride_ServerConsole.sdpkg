@@ -5,7 +5,7 @@ Meta:
     Version: 1.0.0
     Authors: []
     Owners: []
-    Dependencies: null
+    Dependencies: []
 AssetFolders:
     -   Path: !dir Assets
 ResourceFolders:

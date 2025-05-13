@@ -1,7 +1,8 @@
 !PrefabAsset
 Id: 92a07faf-1aef-4f5b-b99e-c63d4d615418
 SerializedVersion: {Stride: 3.1.0.1}
-Tags: []
+Tags:
+    - CubeBaseAsset
 Hierarchy:
     RootParts:
         - ref!! acaf6825-5429-4d82-a12a-6aa5ab74f0ff
