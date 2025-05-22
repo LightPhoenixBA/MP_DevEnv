@@ -1,19 +1,35 @@
 ﻿using Lidgren.Network;
+using Stride.Core.IO;
 using Stride.Core.Serialization.Contents;
+using Stride.Graphics.SDL;
 namespace MP_Stride_MultiplayerBase;
 
 public abstract class MP_PacketBase
 {
-    public static readonly List<MP_PacketBase> registry = new();
-    protected static ContentManager Content { get; private set; }
-    public static void RegisterAll(ContentManager content)
+    public static readonly List<MP_PacketBase> registry = RegisterAll();
+    protected static ContentManager Content { get; private set; } 
+    private static List<MP_PacketBase> RegisterAll()
+    {
+        // Content = content;
+        return new List<MP_PacketBase>() {
+             new ScenePacket()
+            , new EntityPacket()
+            , new TransformPacket()
+            , new PrefabPacket()
+        };
+    }
+    public static void SetContentManager(ContentManager content)
     {
         Content = content;
-        _ = new ScenePacket();
-        _ = new EntityPacket();
-        _ = new TransformPacket();
-        _ = new PrefabPacket();
     }
+    //private static void RegisterAll(ContentManager content)
+    //{
+    //    Content = content;
+    //    _ = new ScenePacket();
+    //    _ = new EntityPacket();
+    //    _ = new TransformPacket();
+    //    _ = new PrefabPacket();
+    //}
     public static int Register(MP_PacketBase packet)
     {
         if (registry.Contains(packet))

@@ -1,13 +1,17 @@
 ﻿using Stride.BepuPhysics;
+using Stride.Core;
 using Stride.Core.Diagnostics;
+using Stride.Core.Serialization;
+using Stride.Engine;
 using Stride.Engine.Design;
 using Stride.Physics;
-using System.Diagnostics;
-using System.Numerics;
-namespace MP_Stride_ServerConsole;
+
+namespace MP_Stride_MultiplayerBase;
 
 public class MP_Stride_ServerBase
 {
+    public static MP_Stride_ServerBase Server { get; private set ; }
+    public virtual UrlReference sceneUrl { get; private set; } = new UrlReference("ServerScene");
     public ServiceRegistry Services { get; init; }
     public GameSettings gameSettings { get; init; }
     public ContentManager Content { get; init; }
@@ -15,8 +19,9 @@ public class MP_Stride_ServerBase
     public SceneSystem sceneSystem { get; init; }
     public BepuConfiguration physicsEngine { get; init; }
     private Stride.Core.Diagnostics.Logger Log { get; } = GlobalLogger.GetLogger("MP_Stride_ServerBase");
-
     private Scene serverScene;
+
+    public readonly NetPeerConfiguration ServerConfig = NetConnectionConfig.GetDefaultConfig();
     private NetServer netServer = new NetServer(NetConnectionConfig.GetDefaultConfig());
     public static readonly ContentManagerLoaderSettings loadSettings = new ContentManagerLoaderSettings
     {
@@ -36,11 +41,13 @@ public class MP_Stride_ServerBase
     public MP_Stride_ServerBase(IServiceRegistry Services)
     {
         Log.Info("Starting Stride singleplayer server");
+        Server = this;
         Game Game = (Game)Services.GetService<IGame>();
         gameSettings = Game.Settings;
         Content = (ContentManager)Services.GetSafeServiceAs<IContentManager>();
         GameSystems = (GameSystemCollection)Services.GetSafeServiceAs<IGameSystemCollection>();
         sceneSystem = Game.SceneSystem;
+        sceneSystem.SceneInstance.RootScene.Children.Add(Content.Load<Scene>(sceneUrl.Url));
         //Bullet2PhysicsSystem discardPhysics = (Bullet2PhysicsSystem)Services.GetSafeServiceAs<IPhysicsSystem>();
         //Services.RemoveService<IPhysicsSystem>(discardPhysics);
         //GameSystems.Remove(discardPhysics);
@@ -52,6 +59,7 @@ public class MP_Stride_ServerBase
     public MP_Stride_ServerBase() : base()
     {
         Console.WriteLine("Starting Console Server");
+        Server = this;
         //start core systems
         Services = new ServiceRegistry();
         var objectDatabase = ObjectDatabase.CreateDefaultDatabase();
@@ -62,26 +70,21 @@ public class MP_Stride_ServerBase
         Services.AddService(gameSettings = Content.Load<GameSettings>("ServerGameSettings"));
         Services.RemoveService<IPhysicsSystem>();
         Services.AddService(physicsEngine = gameSettings.Configurations?.Get<BepuConfiguration>());
-        // PhysicsGameSystem physics = new PhysicsGameSystem(Services, physicsEngine);
-        //PhysicsGameSystem
+
         //start game systems
-        serverScene = Content.Load<Scene>(gameSettings.DefaultSceneUrl, loadSettings);
         GameSystems = new GameSystemCollection(Services);
         Services.AddService<IGameSystemCollection>(GameSystems);
         sceneSystem = new SceneSystem(Services);
         Services.AddService(sceneSystem);
         GameSystems.Add(sceneSystem);
-        // _simulation = sceneSystem.SceneInstance.GetProcessor<PhysicsProcessor>()?.Simulation;
 
-        // BepuConfiguration _bepuConfig = Services.GetService<BepuConfiguration>();
-        // var physicsSystem = new Bullet2PhysicsSystem(Services);
-        // Services.AddService<IPhysicsSystem>(physicsSystem);
-        // GameSystems.Add(physicsSystem);
-        // Services.AddService(sceneSystem);
         GameSystems.Initialize();
         sceneSystem.Initialize();
+        serverScene = Content.Load<Scene>(sceneUrl.Url,loadSettings);
+        serverScene.Name = sceneUrl.ToString();
         sceneSystem.SceneInstance = new SceneInstance(Services, serverScene);
-       // Simulation sim = sceneSystem.SceneInstance.GetProcessor<PhysicsProcessor>()?.Simulation;
+        serverScene.UpdateWorldMatrix();
+        // Simulation sim = sceneSystem.SceneInstance.GetProcessor<PhysicsProcessor>()?.Simulation;
         //var hrp = sim.Raycast(-Vector3.UnitZ, Vector3.UnitZ);
         //  physicsSystem.Create(sceneSystem.SceneInstance.Processors.Get<PhysicsProcessor>(), PhysicsEngineFlags.CollisionsOnly);
 
@@ -105,12 +108,11 @@ public class MP_Stride_ServerBase
     }
     private void StartServerSystems()
     {
-        MP_PacketBase.RegisterAll(Content);
         netServer.Start();
     }
     public async Task Execute()
     {
-        Log.Info("Server online "+ ToString());
+        Log.Info("Server online " + ToString());
         //SafetyCheck();
         while (netServer.Status == NetPeerStatus.Running)
         {

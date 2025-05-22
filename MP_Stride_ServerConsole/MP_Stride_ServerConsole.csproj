@@ -4,12 +4,11 @@
 	<TargetFramework>net8.0</TargetFramework>
 	<ImplicitUsings>enable</ImplicitUsings>
 	<Nullable>enable</Nullable>
-	<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 	  <PackageOutputPath>$(SolutionDir)packages\</PackageOutputPath>
+	<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 	  <IncludeContentInPack>true</IncludeContentInPack>
   </PropertyGroup>
   <ItemGroup>
-	<PackageReference Include="MP_Stride_MultiplayerBase" Version="1.0.0" />
 	<PackageReference Include="Lidgren.Network" Version="1.0.0" />
 	<PackageReference Include="Stride" Version="4.2.0.1" />
 	<PackageReference Include="Stride.BepuPhysics" Version="4.2.0.1" />
@@ -19,5 +18,9 @@
 
   <ItemGroup>
 	<None Include="Assets\**\*.*" Pack="true" PackagePath="Assets" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\MP_Stride_MultiplayerBase\MP_Stride_MultiplayerBase.csproj" />
   </ItemGroup>
 </Project>

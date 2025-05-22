@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "MP_Stride_LinuxConsole": {
+      "commandName": "Project"
+    },
+    "Container (Dockerfile)": {
+      "commandName": "Docker"
+    }
+  }
+}
