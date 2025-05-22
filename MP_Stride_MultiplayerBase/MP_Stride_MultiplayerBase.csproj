@@ -5,14 +5,15 @@
 	  <Authors>LightPhoenixBA</Authors>
 	<ImplicitUsings>enable</ImplicitUsings>
 	<Nullable>enable</Nullable>
-	<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 	<PackageOutputPath>$(SolutionDir)packages\</PackageOutputPath>
+	<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 	<IncludeContentInPack>true</IncludeContentInPack>
   </PropertyGroup>
 
   <ItemGroup>
 	<PackageReference Include="Lidgren.Network" Version="1.0.0" />
 	<PackageReference Include="Stride.Assets" Version="4.2.0.1" />
+	<PackageReference Include="Stride.BepuPhysics" Version="4.2.0.1" />
 	<PackageReference Include="Stride.Core" Version="4.2.0.1" />
 	<PackageReference Include="Stride.Engine" Version="4.2.0.1" />
 	<PackageReference Include="Stride.UI" Version="4.2.0.1" />
@@ -21,6 +22,10 @@
 
 	<ItemGroup>
 		<None Include="Assets\**\*.*" Pack="true" PackagePath="Assets" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Folder Include="Scripts\Debugging\" />
 	</ItemGroup>
 
 </Project>

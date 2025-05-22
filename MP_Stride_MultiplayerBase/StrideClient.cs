@@ -1,4 +1,5 @@
 ﻿using Lidgren.Network;
+using Stride.Engine.Design;
 using System.Diagnostics;
 using System.Net;
 
@@ -19,6 +20,7 @@ public class StrideClient : AsyncScript
             Log.Error("aborting player duping");
            throw new InvalidOperationException("aborting player duping");
         }
+       // ClientInstance.SceneSystem.SceneInstance.RootScene.Entities.Add(new Entity{ this});
     }
     public NetClient netClient { get; private set; }
     public static bool isSinglePlayer  => Process.GetProcessesByName("MP_Stride_ServerConsole").Length == 0;//{ get; private set; }
@@ -34,7 +36,7 @@ public class StrideClient : AsyncScript
         netClient.Connect(serverConfig.LocalAddress.ToString(), serverConfig.Port
         , netClient.CreateMessage("Stride Client is requesting connection"));
 
-        MP_PacketBase.RegisterAll(Content);
+        //MP_PacketBase.RegisterAll(Content);
         while (Game.IsRunning)
         {
             NetIncomingMessage inc;
@@ -72,13 +74,14 @@ public class StrideClient : AsyncScript
                                 {
                                     throw new NotImplementedException("StrideClient can only have one server scene and is already set as " + serverScene.Name);
                                 }
-
                                 serverScene = incPacket as Scene;
                                 SceneSystem.SceneInstance.RootScene.Children.Add(serverScene);
                                 break;
+
                             case Stride.Engine.Entity:
                                 serverScene.Entities.Add(incPacket as Entity);
                                 break;
+
                             case Tuple<string, Prefab>:
                                 Prefab prefab = (incPacket as Tuple<string, Prefab>).Item2;
                                 foreach (var entity in prefab.Entities)
