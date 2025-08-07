@@ -1,8 +1,8 @@
 ﻿using Lidgren.Network;
 
-namespace MP_Stride_MultiplayerBase
-{
-    public static class NetConnectionConfig
+namespace LightPhoenixBA.StrideExtentions.MultiplayerBase;
+
+public static class NetConnectionConfig
     {
         public static NetPeerConfiguration GetDefaultConfig()
         {
@@ -19,4 +19,3 @@ namespace MP_Stride_MultiplayerBase
             return config;
         }
     }
-}

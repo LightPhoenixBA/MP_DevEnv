@@ -4,13 +4,14 @@ using Stride.Core.Diagnostics;
 using Stride.Core.Serialization;
 using Stride.Engine;
 using Stride.Engine.Design;
+using Stride.Engine.Processors;
 using Stride.Physics;
 
-namespace MP_Stride_MultiplayerBase;
+namespace LightPhoenixBA.StrideExtentions.MultiplayerBase;
 
-public class MP_Stride_ServerBase
+public class StrideServerBase
 {
-    public static MP_Stride_ServerBase Server { get; private set ; }
+    public static StrideServerBase Server { get; private set ; }
     public virtual UrlReference sceneUrl { get; protected set; } = new UrlReference("ServerScene");
     public ServiceRegistry Services { get; init; }
     public GameSettings gameSettings { get; init; }
@@ -18,7 +19,7 @@ public class MP_Stride_ServerBase
     public GameSystemCollection GameSystems { get; init; }
     public SceneSystem sceneSystem { get; init; }
     public BepuConfiguration physicsEngine { get; init; }
-    private Stride.Core.Diagnostics.Logger Log { get; } = GlobalLogger.GetLogger("MP_Stride_ServerBase");
+    private Logger Log { get; } = GlobalLogger.GetLogger("MP_Stride_ServerBase");
     private Scene serverScene;
 
     public readonly NetPeerConfiguration ServerConfig = NetConnectionConfig.GetDefaultConfig();
@@ -38,7 +39,7 @@ public class MP_Stride_ServerBase
         LoadContentReferences = true,
     };
     public string ServerRootPath => Path.GetFullPath(Path.Combine(AppContext.BaseDirectory, @"..\..\.."));
-    public MP_Stride_ServerBase(IServiceRegistry Services)
+    public StrideServerBase(IServiceRegistry Services)
     {
         Log.Info("Starting Stride singleplayer server");
         Server = this;
@@ -56,9 +57,8 @@ public class MP_Stride_ServerBase
         Services.AddService(physicsEngine = gameSettings.Configurations?.Get<BepuConfiguration>());
         StartServerSystems();
     }
-    public MP_Stride_ServerBase() : base()
+    public StrideServerBase() : base()
     {
-        Console.WriteLine("Starting Console Server");
         Server = this;
         //start core systems
         Services = new ServiceRegistry();
@@ -70,12 +70,14 @@ public class MP_Stride_ServerBase
         Services.AddService(gameSettings = Content.Load<GameSettings>("ServerGameSettings"));
         Services.RemoveService<IPhysicsSystem>();
         Services.AddService(physicsEngine = gameSettings.Configurations?.Get<BepuConfiguration>());
-
+        // Services.AddService<ScriptSystem>();
         //start game systems
         GameSystems = new GameSystemCollection(Services);
+        //GameSystems.Add(new ScriptSystem(Services));
         Services.AddService<IGameSystemCollection>(GameSystems);
         sceneSystem = new SceneSystem(Services);
         Services.AddService(sceneSystem);
+        Services.AddService(new ScriptSystem(Services));
         GameSystems.Add(sceneSystem);
 
         GameSystems.Initialize();
@@ -83,7 +85,7 @@ public class MP_Stride_ServerBase
         serverScene = Content.Load<Scene>(sceneUrl.Url,loadSettings);
         serverScene.Name = sceneUrl.ToString();
         sceneSystem.SceneInstance = new SceneInstance(Services, serverScene);
-        serverScene.UpdateWorldMatrix();
+        //serverScene.UpdateWorldMatrix();
         // Simulation sim = sceneSystem.SceneInstance.GetProcessor<PhysicsProcessor>()?.Simulation;
         //var hrp = sim.Raycast(-Vector3.UnitZ, Vector3.UnitZ);
         //  physicsSystem.Create(sceneSystem.SceneInstance.Processors.Get<PhysicsProcessor>(), PhysicsEngineFlags.CollisionsOnly);
@@ -125,7 +127,7 @@ public class MP_Stride_ServerBase
                     case NetIncomingMessageType.WarningMessage:
                     case NetIncomingMessageType.ErrorMessage:
                     case NetIncomingMessageType.VerboseDebugMessage:
-                        Console.WriteLine(this.ToString() + " " + inc.ReadString());
+                        Console.WriteLine(ToString() + " " + inc.ReadString());
                         break;
 
                     case NetIncomingMessageType.StatusChanged:

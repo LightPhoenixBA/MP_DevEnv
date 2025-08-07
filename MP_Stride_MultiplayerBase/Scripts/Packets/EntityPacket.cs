@@ -1,6 +1,6 @@
 ﻿using Lidgren.Network;
 
-namespace MP_Stride_MultiplayerBase;
+namespace LightPhoenixBA.StrideExtentions.MultiplayerBase;
 
 public class EntityPacket : MP_PacketBase<Entity>
 {

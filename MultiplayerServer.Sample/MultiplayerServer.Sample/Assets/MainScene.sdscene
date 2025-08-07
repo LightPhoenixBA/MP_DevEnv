@@ -1,0 +1,65 @@
+!SceneAsset
+Id: 18d45502-d8d8-44b5-b6e5-0a4e4ecc8da8
+SerializedVersion: {Stride: 3.1.0.1}
+Tags: []
+ChildrenIds: []
+Offset: {X: 0.0, Y: 0.0, Z: 0.0}
+Hierarchy:
+    RootParts:
+        - ref!! 5b5fdd03-5c6e-4ff0-9f05-464fceb12dcb
+        - ref!! 8b380cca-6616-4574-aba4-41ed2cc6d737
+        - ref!! da63c14d-3fd7-4a5f-a794-e351b2431100
+    Parts:
+        -   Entity:
+                Id: 5b5fdd03-5c6e-4ff0-9f05-464fceb12dcb
+                Name: Camera
+                Components:
+                    baafc8a5c8f0435b19fce80736125b7d: !TransformComponent
+                        Id: f851da3c-e965-4734-86a2-8300540f7102
+                        Position: {X: 2.6, Y: 0.6, Z: -1.0}
+                        Rotation: {X: 0.0, Y: 0.82903755, Z: 0.0, W: 0.5591929}
+                        Scale: {X: 1.0, Y: 1.0, Z: 1.0}
+                        Children: {}
+                    9d4f7c747f65d3ff7f4e42fbd4de98f2: !CameraComponent
+                        Id: 79ffebfe-7c27-446d-83d0-ce15c33d3d99
+                        Name: null
+                        Projection: Perspective
+                        Slot: ff6e8fb4-cd23-4376-b5fe-cc970489061e
+                    4d9b4f763dedc48b9292d0eebbe613c0: !MultiplayerServer.Sample.BasicCameraController,MultiplayerServer.Sample
+                        Id: 6a55ea80-fb5a-4650-a307-0cc8aff5cda6
+                        Gamepad: false
+                        KeyboardMovementSpeed: {X: 5.0, Y: 5.0, Z: 5.0}
+                        TouchMovementSpeed: {X: 0.7, Y: 0.7, Z: 0.3}
+                        SpeedFactor: 5.0
+                        KeyboardRotationSpeed: {X: 3.0, Y: 3.0}
+                        MouseRotationSpeed: {X: 1.0, Y: 1.0}
+                        TouchRotationSpeed: {X: 1.0, Y: 0.7}
+        -   Entity:
+                Id: 8b380cca-6616-4574-aba4-41ed2cc6d737
+                Name: Skybox
+                Components:
+                    fc9fb7799162a47de21454cd0ed43c6b: !TransformComponent
+                        Id: 89a582ad-fd8e-4ac3-808e-b94740ce56b2
+                        Position: {X: 0.0, Y: 2.0, Z: -2.0}
+                        Rotation: {X: 0.0, Y: 0.0, Z: 0.0, W: 1.0}
+                        Scale: {X: 1.0, Y: 1.0, Z: 1.0}
+                        Children: {}
+                    a6d45bb73d53d80a62dcac7fd6618727: !BackgroundComponent
+                        Id: f09bc439-401e-44d6-9a0a-e537ac6ac6e8
+                        Texture: c82379e4-dec2-4ebd-a0bf-f4443b95b6d7:Skybox texture
+                    c7b5a647503ace9e9e074270047c17cc: !LightComponent
+                        Id: ac738c2b-70fc-4b0e-bfea-02b586b117d1
+                        Type: !LightSkybox
+                            Skybox: 348609d3-8021-4900-84bc-4a843fa3c2f5:Skybox
+        -   Entity:
+                Id: da63c14d-3fd7-4a5f-a794-e351b2431100
+                Name: PlayerSampleScript
+                Components:
+                    7e56c2b166f4dbd566fcaa78554360d4: !TransformComponent
+                        Id: 97bc0a23-fc34-4876-abf6-ca070f394efb
+                        Position: {X: 0.0, Y: 0.0, Z: 0.0}
+                        Rotation: {X: 0.0, Y: 0.0, Z: 0.0, W: 1.0}
+                        Scale: {X: 1.0, Y: 1.0, Z: 1.0}
+                        Children: {}
+                    892659b0a928619bd8794f003dbc2507: !MultiplayerServer.Sample.PlayerSampleScript,MultiplayerServer.Sample
+                        Id: f6d1d4db-8a60-4104-92bb-123ea4eadbf2

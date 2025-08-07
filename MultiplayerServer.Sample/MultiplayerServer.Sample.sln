@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.14.36401.2 d17.14
+MinimumVisualStudioVersion = 16.0.0.0
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MultiplayerServer.Sample.Windows", "MultiplayerServer.Sample.Windows\MultiplayerServer.Sample.Windows.csproj", "{E8063E96-DEAF-4DFC-8E29-2030B0F858B5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MultiplayerServer.Sample", "MultiplayerServer.Sample\MultiplayerServer.Sample.csproj", "{5B77D23C-C493-46BA-A67A-A15D5BA12C11}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{E8063E96-DEAF-4DFC-8E29-2030B0F858B5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E8063E96-DEAF-4DFC-8E29-2030B0F858B5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E8063E96-DEAF-4DFC-8E29-2030B0F858B5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E8063E96-DEAF-4DFC-8E29-2030B0F858B5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5B77D23C-C493-46BA-A67A-A15D5BA12C11}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5B77D23C-C493-46BA-A67A-A15D5BA12C11}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5B77D23C-C493-46BA-A67A-A15D5BA12C11}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5B77D23C-C493-46BA-A67A-A15D5BA12C11}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

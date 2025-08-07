@@ -2,7 +2,7 @@
 using Stride.Graphics.SDL;
 using Stride.Physics;
 
-namespace MP_Stride_MultiplayerBase;
+namespace LightPhoenixBA.StrideExtentions.MultiplayerBase;
 
 public static partial class MP_Stride_MultiplayerBaseExtentions
 {
@@ -17,13 +17,13 @@ public static partial class MP_Stride_MultiplayerBaseExtentions
     public static HitResult PerformServerRaycast(Vector3 nearPoint, Vector3 farPoint)
     {
         Vector3 direction = Vector3.Normalize(nearPoint - farPoint);
-        return MP_Stride_ServerBase.Server.sceneSystem.SceneInstance.GetProcessor<PhysicsProcessor>().Simulation
-             .Raycast(nearPoint, nearPoint + (direction * 100f), CollisionFilterGroups.AllFilter);
+        return StrideServerBase.Server.sceneSystem.SceneInstance.GetProcessor<PhysicsProcessor>().Simulation
+             .Raycast(nearPoint, nearPoint + direction * 100f, CollisionFilterGroups.AllFilter);
     }
     public static void PerformCameraRaycast(CameraComponent camera)
     {
         // Get the window client bounds relative to the screen
-        var window = StrideClient.ClientInstance.Game.Window;
+        var window = StrideClientBase.ClientInstance.Game.Window;
         var clientBounds = window.ClientBounds;
         Int2 windowPosition = window.Position;//new Int2(Application.WindowWithFocus.ClientSize.Width, Application.WindowWithFocus.ClientSize.Height) ;
         Int2 mouseScreenPos = new Int2(Application.MousePosition);
@@ -49,12 +49,12 @@ public static partial class MP_Stride_MultiplayerBaseExtentions
         if (result.Succeeded)
         {
             Log.Info($"Hit at {result.Point} on {result.Collider.Entity.Name}");
-            StrideClient.ClientInstance.DebugText.Print($"Hit: {result.Collider.Entity.Name}", mousePos, null, TimeSpan.FromSeconds(3));
+            StrideClientBase.ClientInstance.DebugText.Print($"Hit: {result.Collider.Entity.Name}", mousePos, null, TimeSpan.FromSeconds(3));
         }
         else
         {
             Log.Info("Miss");
-            StrideClient.ClientInstance.DebugText.Print("Miss", mousePos, null, TimeSpan.FromSeconds(0.3));
+            StrideClientBase.ClientInstance.DebugText.Print("Miss", mousePos, null, TimeSpan.FromSeconds(1));
         }
     }
     public static Vector3 ScreenToWorld(CameraComponent camera, Vector3 screenPosition, Vector2 screenSize)
@@ -64,9 +64,9 @@ public static partial class MP_Stride_MultiplayerBaseExtentions
 
         // Convert screen space [0, width] -> [-1, 1] (NDC space)
         Vector3 ndc = new Vector3(
-            (2.0f * screenPosition.X / screenSize.X) - 1.0f,
-            1.0f - (2.0f * screenPosition.Y / screenSize.Y),
-            (screenPosition.Z * 2.0f) - 1.0f
+            2.0f * screenPosition.X / screenSize.X - 1.0f,
+            1.0f - 2.0f * screenPosition.Y / screenSize.Y,
+            screenPosition.Z * 2.0f - 1.0f
         );
 
         // Create vector in homogeneous clip space
