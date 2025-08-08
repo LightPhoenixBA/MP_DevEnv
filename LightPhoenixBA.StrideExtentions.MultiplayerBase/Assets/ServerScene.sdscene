@@ -1,0 +1,44 @@
+!SceneAsset
+Id: b3bf3ccd-46dc-42de-b10f-a40df146fa41
+SerializedVersion: {Stride: 3.1.0.1}
+Tags: []
+ChildrenIds: []
+Offset: {X: 0.0, Y: 0.0, Z: 0.0}
+Hierarchy:
+    RootParts:
+        - ref!! 70875364-59cd-4196-9cc9-92fe92f53882
+    Parts:
+        -   Entity:
+                Id: 70875364-59cd-4196-9cc9-92fe92f53882
+                Name: CubePrefab
+                Components:
+                    990f2b222f4cff35d73f008dfeecb911: !TransformComponent
+                        Id: b9110080-e1b9-4581-9601-e9289ba6e736
+                        Position: {X: 0.0, Y: 0.0, Z: 0.0}
+                        Rotation: {X: 0.0, Y: 0.0, Z: 0.0, W: 1.0}
+                        Scale: {X: 1.0, Y: 1.0, Z: 1.0}
+                        Children: {}
+                    37b4a4dc83e607a4cabae9e5c13f34fa: !ModelComponent
+                        Id: c50d97ef-06d1-4a61-9c81-90d062dc6f2a
+                        Model: 451ce864-ac0d-4142-a3d9-af25432e058b:CubeModel
+                        Materials: {}
+                    1324f003be564f626e9dd09b6a484903: !StaticColliderComponent
+                        Id: a6bddd72-ea90-46df-9f6c-ecab2335a72f
+                        CanSleep: false
+                        Restitution: 0.0
+                        Friction: 0.5
+                        RollingFriction: 0.0
+                        CcdMotionThreshold: 0.0
+                        CcdSweptSphereRadius: 0.0
+                        IsTrigger: false
+                        AlwaysUpdateNaviMeshCache: false
+                        ColliderShapes:
+                            92c03cbcf32dac67eaa2bd868ae0ccfe: !BoxColliderShapeDesc
+                                Is2D: false
+                                Size: {X: 1.0, Y: 1.0, Z: 1.0}
+                                LocalOffset: {X: 0.0, Y: 0.0, Z: 0.0}
+                                LocalRotation: {X: 0.0, Y: 0.0, Z: 0.0, W: 1.0}
+            Base:
+                BasePartAsset: 92a07faf-1aef-4f5b-b99e-c63d4d615418:CubePrefab
+                BasePartId: acaf6825-5429-4d82-a12a-6aa5ab74f0ff
+                InstanceId: ad5413ad-aaa4-4450-965e-8e202b6f86e6

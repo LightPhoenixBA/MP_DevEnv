@@ -3,11 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.13.35818.85
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MultiplayerServer.Sample", "MultiplayerServer.Sample\MultiplayerServer.Sample\MultiplayerServer.Sample.csproj", "{C32F97C7-877F-C104-F176-FD282F85B723}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LightPhoenixBA.StrideExtentions.MultiplayerBase.Sample.Client.Windows", "LightPhoenixBA.StrideExtentions.MultiplayerBase.Sample.Client.Windows\LightPhoenixBA.StrideExtentions.MultiplayerBase.Sample.Client.Windows.csproj", "{6858E5F1-E0C1-45AD-B03C-387617FD5887}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MultiplayerServer.Sample.Windows", "MultiplayerServer.Sample\MultiplayerServer.Sample.Windows\MultiplayerServer.Sample.Windows.csproj", "{8609D1BF-86B8-8B08-6848-F66D69F4652E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LightPhoenixBA.StrideExtentions.MultiplayerBase", "LightPhoenixBA.StrideExtentions.MultiplayerBase\LightPhoenixBA.StrideExtentions.MultiplayerBase.csproj", "{BFBF5C58-D6DD-2ABB-2F56-D84DEC93C4DA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LightPhoenixBA.StrideExtentions.MultiplayerBase", "MP_Stride_MultiplayerBase\LightPhoenixBA.StrideExtentions.MultiplayerBase.csproj", "{6B1E9EE5-D51D-D966-16D3-ACB73D845E91}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LightPhoenixBA.StrideExtentions.MultiplayerServer", "LightPhoenixBA.StrideExtentions.MultiplayerBase.Sample.Console\LightPhoenixBA.StrideExtentions.MultiplayerServer.csproj", "{1084C08E-0C03-C579-A2DB-DF7340272CB6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LightPhoenixBA.StrideExtentions.MultiplayerBase.Sample.Client", "LightPhoenixBA.StrideExtentions.MultiplayerBase.Sample.Client\LightPhoenixBA.StrideExtentions.MultiplayerBase.Sample.Client.csproj", "{3047DD45-B710-7E2C-E796-4A713D12A36A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,18 +17,22 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{C32F97C7-877F-C104-F176-FD282F85B723}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{C32F97C7-877F-C104-F176-FD282F85B723}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{C32F97C7-877F-C104-F176-FD282F85B723}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{C32F97C7-877F-C104-F176-FD282F85B723}.Release|Any CPU.Build.0 = Release|Any CPU
-		{8609D1BF-86B8-8B08-6848-F66D69F4652E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{8609D1BF-86B8-8B08-6848-F66D69F4652E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{8609D1BF-86B8-8B08-6848-F66D69F4652E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{8609D1BF-86B8-8B08-6848-F66D69F4652E}.Release|Any CPU.Build.0 = Release|Any CPU
-		{6B1E9EE5-D51D-D966-16D3-ACB73D845E91}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{6B1E9EE5-D51D-D966-16D3-ACB73D845E91}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{6B1E9EE5-D51D-D966-16D3-ACB73D845E91}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{6B1E9EE5-D51D-D966-16D3-ACB73D845E91}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6858E5F1-E0C1-45AD-B03C-387617FD5887}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6858E5F1-E0C1-45AD-B03C-387617FD5887}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6858E5F1-E0C1-45AD-B03C-387617FD5887}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6858E5F1-E0C1-45AD-B03C-387617FD5887}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BFBF5C58-D6DD-2ABB-2F56-D84DEC93C4DA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BFBF5C58-D6DD-2ABB-2F56-D84DEC93C4DA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BFBF5C58-D6DD-2ABB-2F56-D84DEC93C4DA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BFBF5C58-D6DD-2ABB-2F56-D84DEC93C4DA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1084C08E-0C03-C579-A2DB-DF7340272CB6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1084C08E-0C03-C579-A2DB-DF7340272CB6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1084C08E-0C03-C579-A2DB-DF7340272CB6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1084C08E-0C03-C579-A2DB-DF7340272CB6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3047DD45-B710-7E2C-E796-4A713D12A36A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3047DD45-B710-7E2C-E796-4A713D12A36A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3047DD45-B710-7E2C-E796-4A713D12A36A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3047DD45-B710-7E2C-E796-4A713D12A36A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
