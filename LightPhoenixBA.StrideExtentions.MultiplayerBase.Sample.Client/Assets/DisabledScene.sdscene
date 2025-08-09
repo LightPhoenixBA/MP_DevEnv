@@ -1,0 +1,36 @@
+!SceneAsset
+Id: d7138690-211e-42f3-8b51-e938d102443a
+SerializedVersion: {Stride: 3.1.0.1}
+Tags: []
+ChildrenIds: []
+Parent: 7cf8de0c-5533-4f69-8f49-589c7d4f4185:MainScene
+Offset: {X: 0.0, Y: 0.0, Z: 0.0}
+Hierarchy:
+    RootParts:
+        - ref!! 4f9798de-fa37-4da8-9ed9-8095eac11812
+    Parts:
+        -   Entity:
+                Id: 4f9798de-fa37-4da8-9ed9-8095eac11812
+                Name: Directional light
+                Components:
+                    ccaf929044718fa56d98447129086925: !TransformComponent
+                        Id: f472934a-0da4-4adf-999f-e2c45258c0fe
+                        Position: {X: 0.0, Y: 2.0, Z: 0.0}
+                        Rotation: {X: 1.131334E-08, Y: -0.9659258, Z: -0.25881904, W: -4.222196E-08}
+                        Scale: {X: 1.0, Y: 1.0, Z: 1.0}
+                        Children: {}
+                    375f52e1526f00e44c6d9c5adecccae0: !LightComponent
+                        Id: d0d5b448-4235-45a8-89f9-f9e9248b34b7
+                        Type: !LightDirectional
+                            Color: !ColorRgbProvider
+                                Value: {R: 1.0, G: 1.0, B: 1.0}
+                            Shadow:
+                                Enabled: true
+                                Filter: !LightShadowMapFilterTypePcf
+                                    FilterSize: Filter5x5
+                                Size: Large
+                                DepthRange: {}
+                                PartitionMode: !LightDirectionalShadowMap.PartitionLogarithmic {}
+                                ComputeTransmittance: false
+                                BiasParameters: {}
+                        Intensity: 20.0

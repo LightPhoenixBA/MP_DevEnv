@@ -1,46 +1,33 @@
 !SceneAsset
-Id: 18d45502-d8d8-44b5-b6e5-0a4e4ecc8da8
+Id: 7cf8de0c-5533-4f69-8f49-589c7d4f4185
 SerializedVersion: {Stride: 3.1.0.1}
 Tags: []
-ChildrenIds: []
+ChildrenIds:
+    - d7138690-211e-42f3-8b51-e938d102443a
 Offset: {X: 0.0, Y: 0.0, Z: 0.0}
 Hierarchy:
     RootParts:
-        - ref!! 5b5fdd03-5c6e-4ff0-9f05-464fceb12dcb
-        - ref!! 8b380cca-6616-4574-aba4-41ed2cc6d737
-        - ref!! 3c74e442-b6d2-4a04-af10-77e5ab801869
+        - ref!! 2ac676ed-3c5e-4e93-83ef-186d376691f1
+        - ref!! 82bae690-212a-4977-8e79-e54449addcb8
+        - ref!! 59f4a72e-da8a-4d00-a16d-ad7d2d73c65a
     Parts:
         -   Entity:
-                Id: 3c74e442-b6d2-4a04-af10-77e5ab801869
-                Name: MultiplayerClientSample
-                Components:
-                    38550f6a54640e7fa5527b771a157d3c: !TransformComponent
-                        Id: 9c520126-9ee0-45e8-9a14-c14ea55539af
-                        Position: {X: 0.0, Y: 0.0, Z: 0.0}
-                        Rotation: {X: 0.0, Y: 0.0, Z: 0.0, W: 1.0}
-                        Scale: {X: 1.0, Y: 1.0, Z: 1.0}
-                        Children: {}
-                    76adaf5fc71c6721f9088fc36253777c: !LightPhoenixBA.StrideExtentions.MultiplayerBase.Sample.Client.MultiplayerClientSample,LightPhoenixBA.StrideExtentions.MultiplayerBase.Sample.Client
-                        Id: 1ad87900-4e90-461a-967a-142912c3734f
-                        PlayerName: SamplePlayer
-                        ServerSceneHandle: b3bf3ccd-46dc-42de-b10f-a40df146fa41:ServerScene
-        -   Entity:
-                Id: 5b5fdd03-5c6e-4ff0-9f05-464fceb12dcb
+                Id: 2ac676ed-3c5e-4e93-83ef-186d376691f1
                 Name: Camera
                 Components:
-                    baafc8a5c8f0435b19fce80736125b7d: !TransformComponent
-                        Id: f851da3c-e965-4734-86a2-8300540f7102
+                    eb03a58a8ece94ce0c17fa018fc9de18: !TransformComponent
+                        Id: 7c4196ac-cea0-46ca-b8ee-90f9e477fabd
                         Position: {X: 2.6, Y: 0.6, Z: -1.0}
                         Rotation: {X: 0.0, Y: 0.82903755, Z: 0.0, W: 0.5591929}
                         Scale: {X: 1.0, Y: 1.0, Z: 1.0}
                         Children: {}
-                    9d4f7c747f65d3ff7f4e42fbd4de98f2: !CameraComponent
-                        Id: 79ffebfe-7c27-446d-83d0-ce15c33d3d99
+                    cda2d8c07941c752373b0b5a8106f3e3: !CameraComponent
+                        Id: bf9901ec-3c46-423f-84e8-892f28143ac9
                         Name: null
                         Projection: Perspective
-                        Slot: ff6e8fb4-cd23-4376-b5fe-cc970489061e
-                    59c6b1815baa93d5c8dfeb29d2b170fe: !LightPhoenixBA.StrideExtentions.MultiplayerBase.Sample.Client.BasicCameraController,LightPhoenixBA.StrideExtentions.MultiplayerBase.Sample.Client
-                        Id: aa6e5bf3-23db-4085-8f3e-8abe09942066
+                        Slot: ffcebe19-6bc1-4f2b-b1a2-1103fd0a034b
+                    eb08c2a8a601ff8eaedd0ba5d53fd592: !LightPhoenixBA.StrideExtentions.MultiplayerBase.Sample.Client.BasicCameraController,LightPhoenixBA.StrideExtentions.MultiplayerBase.Sample.Client
+                        Id: 41dfcd04-3832-4ceb-9c0b-2eef72280ad4
                         Gamepad: false
                         KeyboardMovementSpeed: {X: 5.0, Y: 5.0, Z: 5.0}
                         TouchMovementSpeed: {X: 0.7, Y: 0.7, Z: 0.3}
@@ -49,19 +36,33 @@ Hierarchy:
                         MouseRotationSpeed: {X: 1.0, Y: 1.0}
                         TouchRotationSpeed: {X: 1.0, Y: 0.7}
         -   Entity:
-                Id: 8b380cca-6616-4574-aba4-41ed2cc6d737
+                Id: 59f4a72e-da8a-4d00-a16d-ad7d2d73c65a
+                Name: MultiplayerClientSample
+                Components:
+                    c53c2f1ba70b8d0df7aadd31135d4377: !TransformComponent
+                        Id: 36c8bee6-5dc3-467e-9f4b-571ce0e682d1
+                        Position: {X: 0.0, Y: 0.0, Z: 0.0}
+                        Rotation: {X: 0.0, Y: 0.0, Z: 0.0, W: 1.0}
+                        Scale: {X: 1.0, Y: 1.0, Z: 1.0}
+                        Children: {}
+                    cd221a5a7a62abe22a1a04ce266ad119: !LightPhoenixBA.StrideExtentions.MultiplayerBase.Sample.Client.MultiplayerClientSample,LightPhoenixBA.StrideExtentions.MultiplayerBase.Sample.Client
+                        Id: 54d8072a-e447-492f-8d63-c03e7ea69f51
+                        PlayerName: Testificate
+                        ServerSceneHandle: null
+        -   Entity:
+                Id: 82bae690-212a-4977-8e79-e54449addcb8
                 Name: Skybox
                 Components:
-                    fc9fb7799162a47de21454cd0ed43c6b: !TransformComponent
-                        Id: 89a582ad-fd8e-4ac3-808e-b94740ce56b2
+                    4a64381ffd564800bfdbb26b24405a0e: !TransformComponent
+                        Id: fe389e9e-5607-4f79-8abf-6b19dd0d31a2
                         Position: {X: 0.0, Y: 2.0, Z: -2.0}
                         Rotation: {X: 0.0, Y: 0.0, Z: 0.0, W: 1.0}
                         Scale: {X: 1.0, Y: 1.0, Z: 1.0}
                         Children: {}
-                    a6d45bb73d53d80a62dcac7fd6618727: !BackgroundComponent
-                        Id: f09bc439-401e-44d6-9a0a-e537ac6ac6e8
-                        Texture: 93de37df-c42b-4449-9dff-3a30a728913d:Skybox texture
-                    c7b5a647503ace9e9e074270047c17cc: !LightComponent
-                        Id: ac738c2b-70fc-4b0e-bfea-02b586b117d1
+                    52bb7e80619412e85a1d49b77242b9ba: !BackgroundComponent
+                        Id: ea159ac7-7a9e-42b7-81a4-febc447d1412
+                        Texture: c113cdaf-5fcc-4498-a03e-dd32fd226da8:Skybox texture
+                    a93ee8e352121a4f0c95615b7879b6a9: !LightComponent
+                        Id: 30044e73-a606-43d8-b8f8-797ddac67d8c
                         Type: !LightSkybox
-                            Skybox: 5a62db71-f810-4729-a206-659e737f66bc:Skybox
+                            Skybox: 4bc28239-dac1-4b9b-9838-451f10551f73:Skybox

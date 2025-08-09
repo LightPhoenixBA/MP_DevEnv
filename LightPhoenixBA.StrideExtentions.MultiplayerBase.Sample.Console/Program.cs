@@ -12,6 +12,7 @@ public class ConsoleProgram
 	 public static void Main(string[] args)
 	 {
 			Console.WriteLine($"Starting Console Server in {Environment.OSVersion}");
-			new StrideServerBase().Execute().Wait();
+			//new StrideServerBase().Execute().Wait();
+			(StrideServerBase.NewInstance(null) as StrideServerBase).Execute().Wait();
 	 }
 }

@@ -1,11 +1,13 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>net8.0</TargetFrameworks>
+    <TargetFrameworks>net8.0-windows</TargetFrameworks>
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="LightPhoenixBA.StrideExtentions.MultiplayerBase" Version="1.0.0" />
     <PackageReference Include="Stride.Engine" Version="4.2.1.1" />
+
     <PackageReference Include="Stride.Video" Version="4.2.1.1" />
     <PackageReference Include="Stride.Physics" Version="4.2.1.1" />
     <PackageReference Include="Stride.Navigation" Version="4.2.1.1" />
@@ -13,9 +15,5 @@
     <PackageReference Include="Stride.UI" Version="4.2.1.1" />
 
     <PackageReference Include="Stride.Core.Assets.CompilerApp" Version="4.2.1.1" IncludeAssets="build;buildTransitive" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\LightPhoenixBA.StrideExtentions.MultiplayerBase\LightPhoenixBA.StrideExtentions.MultiplayerBase.csproj" />
   </ItemGroup>
 </Project>

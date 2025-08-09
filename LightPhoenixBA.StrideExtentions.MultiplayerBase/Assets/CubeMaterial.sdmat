@@ -1,8 +1,7 @@
 !MaterialAsset
 Id: 54418b70-f0b7-4f8e-9143-e023033c9a20
 SerializedVersion: {Stride: 2.0.0.0}
-Tags:
-    - CubeBaseAsset
+Tags: []
 Attributes:
     Diffuse: !MaterialDiffuseMapFeature
         DiffuseMap: !ComputeColor

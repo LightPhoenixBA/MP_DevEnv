@@ -7,9 +7,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LightPhoenixBA.StrideExtent
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LightPhoenixBA.StrideExtentions.MultiplayerBase", "LightPhoenixBA.StrideExtentions.MultiplayerBase\LightPhoenixBA.StrideExtentions.MultiplayerBase.csproj", "{BFBF5C58-D6DD-2ABB-2F56-D84DEC93C4DA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LightPhoenixBA.StrideExtentions.MultiplayerServer", "LightPhoenixBA.StrideExtentions.MultiplayerBase.Sample.Console\LightPhoenixBA.StrideExtentions.MultiplayerServer.csproj", "{1084C08E-0C03-C579-A2DB-DF7340272CB6}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LightPhoenixBA.StrideExtentions.MultiplayerBase.Sample.Client", "LightPhoenixBA.StrideExtentions.MultiplayerBase.Sample.Client\LightPhoenixBA.StrideExtentions.MultiplayerBase.Sample.Client.csproj", "{3047DD45-B710-7E2C-E796-4A713D12A36A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LightPhoenixBA.StrideExtentions.MultiplayerServer", "LightPhoenixBA.StrideExtentions.MultiplayerBase.Sample.Console\LightPhoenixBA.StrideExtentions.MultiplayerServer.csproj", "{1084C08E-0C03-C579-A2DB-DF7340272CB6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -25,14 +25,14 @@ Global
 		{BFBF5C58-D6DD-2ABB-2F56-D84DEC93C4DA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BFBF5C58-D6DD-2ABB-2F56-D84DEC93C4DA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BFBF5C58-D6DD-2ABB-2F56-D84DEC93C4DA}.Release|Any CPU.Build.0 = Release|Any CPU
-		{1084C08E-0C03-C579-A2DB-DF7340272CB6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{1084C08E-0C03-C579-A2DB-DF7340272CB6}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{1084C08E-0C03-C579-A2DB-DF7340272CB6}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{1084C08E-0C03-C579-A2DB-DF7340272CB6}.Release|Any CPU.Build.0 = Release|Any CPU
 		{3047DD45-B710-7E2C-E796-4A713D12A36A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{3047DD45-B710-7E2C-E796-4A713D12A36A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3047DD45-B710-7E2C-E796-4A713D12A36A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3047DD45-B710-7E2C-E796-4A713D12A36A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1084C08E-0C03-C579-A2DB-DF7340272CB6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1084C08E-0C03-C579-A2DB-DF7340272CB6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1084C08E-0C03-C579-A2DB-DF7340272CB6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1084C08E-0C03-C579-A2DB-DF7340272CB6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

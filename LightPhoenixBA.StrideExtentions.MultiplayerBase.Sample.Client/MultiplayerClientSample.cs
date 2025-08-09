@@ -21,7 +21,8 @@ public class MultiplayerClientSample : StartupScript
 	 public override void Start()
 	 {
 			ClientInstance = StrideClientService.NewInstance(Services) as StrideClientService;
-			ServerInstance = StrideServerBase.Init(Services,ServerSceneHandle);
+			StrideServerBase.sceneUrl = ServerSceneHandle;
+			ServerInstance = (StrideServerBase)StrideServerBase.NewInstance(Services);
 			ClientInstance.Execute();
 			//this.Script.Dispose();
 	 }

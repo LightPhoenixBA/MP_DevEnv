@@ -2,7 +2,7 @@
 
   <PropertyGroup>
 	<TargetFramework>net8.0</TargetFramework>
-	  <Authors>LightPhoenixBA</Authors>
+	 <Authors>LightPhoenixBA</Authors>
 	<ImplicitUsings>enable</ImplicitUsings>
 	<Nullable>enable</Nullable>
 	<PackageOutputPath>$(SolutionDir)packages\</PackageOutputPath>
@@ -22,8 +22,6 @@
 
 	<ItemGroup>
 		<None Include="Assets\**\*.*" Pack="true" PackagePath="Assets" />
-		<Content Remove="C:\Users\Phoenix\.nuget\packages\stride.assets\4.2.1.1\contentFiles\any\net8.0\ffmpeg.exe" />
-		<Content Remove="C:\Users\Phoenix\.nuget\packages\stride.assets\4.2.1.1\contentFiles\any\net8.0\msdfgen.exe" />
 		<Folder Include="Scripts\Debugging\" />
 		<Folder Include="Scripts\Packets\" />
 	</ItemGroup>

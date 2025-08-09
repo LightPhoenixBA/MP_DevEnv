@@ -1,9 +1,9 @@
 !GameSettingsAsset
-Id: 9224a6db-bf96-4091-a2a6-1201a1cdd56f
+Id: 8a2b5658-360a-4b73-a261-92837ba0a027
 SerializedVersion: {Stride: 3.1.0.1}
 Tags: []
-DefaultScene: 18d45502-d8d8-44b5-b6e5-0a4e4ecc8da8:MainScene
-GraphicsCompositor: 11fe6216-1f28-46ea-844d-e876f3034d86:GraphicsCompositor
+DefaultScene: 7cf8de0c-5533-4f69-8f49-589c7d4f4185:MainScene
+GraphicsCompositor: fa617d35-5c78-42e0-9e81-baf24bb07386:GraphicsCompositor
 Defaults:
     - !Stride.Audio.AudioEngineSettings,Stride.Audio
         HrtfSupport: false
@@ -13,7 +13,7 @@ Defaults:
         DefaultBackBufferWidth: 1280
         DefaultBackBufferHeight: 720
         AdaptBackBufferToScreen: false
-        DefaultGraphicsProfile: Level_10_0
+        DefaultGraphicsProfile: Level_11_0
         ColorSpace: Linear
         DisplayOrientation: LandscapeRight
     - !Stride.Streaming.StreamingSettings,Stride.Rendering

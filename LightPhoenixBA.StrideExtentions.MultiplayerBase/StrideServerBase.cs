@@ -1,23 +1,26 @@
-﻿using Stride.BepuPhysics;
+﻿using JetBrains.Diagnostics;
+using Stride.BepuPhysics;
+using Stride.Core.Assets.Diagnostics;
 using Stride.Core.Diagnostics;
 using Stride.Core.Serialization;
 using Stride.Engine.Design;
 using Stride.Engine.Processors;
+using Stride.Graphics.SDL;
 using Stride.Physics;
 
 namespace LightPhoenixBA.StrideExtentions.MultiplayerBase;
 
-public class StrideServerBase
+public class StrideServerBase : IService
 {
-	 public static StrideServerBase Instance { get; private set; }
-	 public static UrlReference<Scene> sceneUrl { get; protected set; } = new UrlReference<Scene>("ServerScene");
+	 public static StrideServerBase Instance { get; protected set; }
+	 readonly static Logger Log = GlobalLogger.GetLogger(typeof(StrideServerBase).FullName);
+	 public static UrlReference<Scene> sceneUrl; //=> new UrlReference<Scene>("ServerScene");
 	 public ServiceRegistry Services { get; init; }
 	 public GameSettings gameSettings { get; init; }
 	 public ContentManager Content { get; init; }
 	 public GameSystemCollection GameSystems { get; init; }
 	 public SceneSystem sceneSystem { get; init; }
 	 public BepuConfiguration physicsEngine { get; init; }
-	 private Logger Log { get; } = GlobalLogger.GetLogger("MP_Stride_ServerBase");
 	 private Scene serverScene;
 
 	 public readonly NetPeerConfiguration ServerConfig = NetConnectionConfig.GetDefaultConfig();
@@ -37,7 +40,7 @@ public class StrideServerBase
 			LoadContentReferences = true,
 	 };
 	 public string ServerRootPath => Path.GetFullPath(Path.Combine(AppContext.BaseDirectory, @"..\..\.."));
-	 public StrideServerBase(IServiceRegistry Services)
+	 private StrideServerBase(IServiceRegistry Services)
 	 {
 			Log.Info("Starting Stride singleplayer server");
 			Instance = this;
@@ -46,25 +49,47 @@ public class StrideServerBase
 			Content = (ContentManager)Services.GetSafeServiceAs<IContentManager>();
 			GameSystems = (GameSystemCollection)Services.GetSafeServiceAs<IGameSystemCollection>();
 			sceneSystem = Game.SceneSystem;
+			if (sceneUrl == null) throw new NullReferenceException($"{this.ToString()} was not provided a scene to connect to from the client");
 			sceneSystem.SceneInstance.RootScene.Children.Add(Content.Load<Scene>(sceneUrl.Url));
 			gameSettings = Content.Load<GameSettings>(GameSettings.AssetUrl); //Services.GetService<GameSettings>();
 			Services.AddService(physicsEngine = gameSettings.Configurations?.Get<BepuConfiguration>());
 	 }
-
-	 public static StrideServerBase Init(IServiceRegistry? Services, UrlReference<Scene> ServerSceneHandle)
+	 public static IService NewInstance(IServiceRegistry services)
 	 {
-			sceneUrl = ServerSceneHandle;
-			if (Services != null)
+			if (Instance != null)
 			{
-				 return new StrideServerBase(Services);
+				 Log.Error($"{typeof(StrideServerBase).FullName} is already declared");
+				 return Instance;
+			}
+			if (sceneUrl == null)
+			{
+				 Log.Error($"sceneUrl({sceneUrl}) is not set loading default");
+				 sceneUrl = new UrlReference<Scene>("ServerScene");
+			}
+			if (services != null)
+			{
+				 return new StrideServerBase(services);
 			}
 			else
 			{
 				 return new StrideServerBase();
 			}
+			//return Instance = Init(services, sceneUrl);
 	 }
+	 //public static StrideServerBase Init(IServiceRegistry? Services, UrlReference<Scene> ServerSceneHandle)
+	 //{
+		//	sceneUrl = ServerSceneHandle;
+		//	if (Services != null)
+		//	{
+		//		 return new StrideServerBase(Services);
+		//	}
+		//	else
+		//	{
+		//		 return new StrideServerBase();
+		//	}
+	 //}
 
-	 public StrideServerBase()
+	 private StrideServerBase()
 	 {
 			Instance = this;
 			//start core systems
@@ -74,7 +99,7 @@ public class StrideServerBase
 			var databaseFileProvider = new DatabaseFileProvider(objectDatabase, mountPath);
 			Services.AddService<IDatabaseFileProviderService>(new DatabaseFileProviderService(databaseFileProvider));
 			Services.AddService<IContentManager>(Content = new ContentManager(Services));
-			Services.AddService(gameSettings = Content.Load<GameSettings>("ServerGameSettings"));
+			Services.AddService(gameSettings = HeadlessServer_SetupGameSettings());
 			Services.RemoveService<IPhysicsSystem>();
 			Services.AddService(physicsEngine = gameSettings.Configurations?.Get<BepuConfiguration>());
 			// Services.AddService<ScriptSystem>();
@@ -103,6 +128,27 @@ public class StrideServerBase
 			{
 				 throw new InvalidDataException("a BepuSimulation was not found");
 			}
+	 }
+	 private GameSettings HeadlessServer_SetupGameSettings()
+	 {
+			var hmm = Content.Load<GameSettings>("ServerGameSettings");
+			GameSettings gameSettings = new();
+			gameSettings.DefaultSceneUrl = sceneUrl.ToString();
+			gameSettings.PackageName = this.ToString();
+			if (gameSettings.DefaultGraphicsCompositorUrl != null)
+			{
+				 Log.Error(gameSettings.PackageName + "for the headless server seems to have a graphics renderer");
+			}
+			gameSettings.Configurations = new()
+			{
+				 Configurations = new()
+				 {
+						new Stride.Data.ConfigurationOverride() 
+						{ Configuration = new BepuConfiguration { BepuSimulations = [new BepuSimulation()] }}
+				 },
+			};
+			//gameSettings.Configurations.Configurations.Add(new BepuConfiguration { BepuSimulations = [new BepuSimulation()] });
+			return gameSettings;
 	 }
 	 private void StartServerSystems()
 	 {
