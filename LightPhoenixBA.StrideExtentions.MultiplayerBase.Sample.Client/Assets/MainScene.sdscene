@@ -48,7 +48,7 @@ Hierarchy:
                     cd221a5a7a62abe22a1a04ce266ad119: !LightPhoenixBA.StrideExtentions.MultiplayerBase.Sample.Client.MultiplayerClientSample,LightPhoenixBA.StrideExtentions.MultiplayerBase.Sample.Client
                         Id: 54d8072a-e447-492f-8d63-c03e7ea69f51
                         PlayerName: Testificate
-                        ServerSceneHandle: null
+                        ServerSceneHandle: b3bf3ccd-46dc-42de-b10f-a40df146fa41:ServerScene
         -   Entity:
                 Id: 82bae690-212a-4977-8e79-e54449addcb8
                 Name: Skybox

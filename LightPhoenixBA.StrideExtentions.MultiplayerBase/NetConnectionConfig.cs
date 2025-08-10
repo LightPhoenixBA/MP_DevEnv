@@ -4,18 +4,23 @@ namespace LightPhoenixBA.StrideExtentions.MultiplayerBase;
 
 public static class NetConnectionConfig
 {
-	 public static NetPeerConfiguration latestConfig = GetDefaultConfig();
 	 public static NetPeerConfiguration GetDefaultConfig()
 	 {
-			return latestConfig = new NetPeerConfiguration(System.AppContext.TargetFrameworkName)
+			return new NetPeerConfiguration(System.AppContext.TargetFrameworkName)
 			{
-				 LocalAddress = System.Net.IPAddress.Loopback,//new([127,0,0,1]),
+				 LocalAddress = System.Net.IPAddress.Loopback,
 				 Port = 4420
 			};
 	 }
 	 public static NetPeerConfiguration GetDefaultClientConfig()
 	 {
-			latestConfig.Port++;
-			return latestConfig;
+			//NetPeerConfiguration latestConfig = GetDefaultConfig();
+			//latestConfig.Port++;
+			return new NetPeerConfiguration(System.AppContext.TargetFrameworkName)
+			{
+				 LocalAddress = System.Net.IPAddress.Loopback,
+			//	 Port = 4420
+			};
+		//	return latestConfig;
 	 }
 }

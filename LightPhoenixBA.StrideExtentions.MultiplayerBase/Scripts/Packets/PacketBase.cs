@@ -28,13 +28,8 @@ public abstract class MP_PacketBase
 			int id = msg.ReadVariableInt32();
 			return registry[id].Read(msg);
 	 }
-	 //public static object ReceivePacket(NetIncomingMessage msg)
-	 //{
-	 //	int id = msg.ReadVariableInt32();
-	 //	return registry[id].Read(msg);
-	 //}
-	 public abstract void SendPacket(object data, NetOutgoingMessage msg);
 
+	 public abstract void SendPacket(object data, NetOutgoingMessage msg);
 	 protected abstract object Read(NetIncomingMessage msg);
 }
 
