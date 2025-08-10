@@ -24,9 +24,9 @@ public static partial class MP_Stride_MultiplayerBaseExtentions
 		}
 		public static void PerformCameraRaycast(CameraComponent camera)
 		{
-			DebugTextSystem DebugText = StrideClientService.Services.GetService<DebugTextSystem>();
+			DebugTextSystem DebugText = StrideClientBase.Services.GetService<DebugTextSystem>();
 			 // Get the window client bounds relative to the screen
-			 GameWindow window = StrideClientService.Game.Window;
+			 GameWindow window = StrideClientBase.Game.Window;
 				var clientBounds = window.ClientBounds;
 				Int2 windowPosition = window.Position;//new Int2(Application.WindowWithFocus.ClientSize.Width, Application.WindowWithFocus.ClientSize.Height) ;
 				Int2 mouseScreenPos = new Int2(Application.MousePosition);

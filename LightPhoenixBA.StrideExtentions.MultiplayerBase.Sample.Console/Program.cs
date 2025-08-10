@@ -11,8 +11,12 @@ public class ConsoleProgram
 	 [STAThread]
 	 public static void Main(string[] args)
 	 {
-			Console.WriteLine($"Starting Console Server in {Environment.OSVersion}");
-			//new StrideServerBase().Execute().Wait();
+			Console.WriteLine($"Starting a Stride console server in {Environment.OSVersion}");
+			string argName = "Scene = ";
+			if (args.Contains(argName))
+			{
+				 StrideServerBase.sceneUrl = new Stride.Core.Serialization.UrlReference<Scene>(args[0].Remove(0, argName.Length));
+			}
 			(StrideServerBase.NewInstance(null) as StrideServerBase).Execute().Wait();
 	 }
 }

@@ -14,7 +14,7 @@ public class StrideServerBase : IService
 {
 	 public static StrideServerBase Instance { get; protected set; }
 	 readonly static Logger Log = GlobalLogger.GetLogger(typeof(StrideServerBase).FullName);
-	 public static UrlReference<Scene> sceneUrl; //=> new UrlReference<Scene>("ServerScene");
+	 public static UrlReference<Scene> sceneUrl;
 	 public ServiceRegistry Services { get; init; }
 	 public GameSettings gameSettings { get; init; }
 	 public ContentManager Content { get; init; }
@@ -40,54 +40,6 @@ public class StrideServerBase : IService
 			LoadContentReferences = true,
 	 };
 	 public string ServerRootPath => Path.GetFullPath(Path.Combine(AppContext.BaseDirectory, @"..\..\.."));
-	 private StrideServerBase(IServiceRegistry Services)
-	 {
-			Log.Info("Starting Stride singleplayer server");
-			Instance = this;
-			Game Game = (Game)Services.GetService<IGame>();
-			gameSettings = Game.Settings;
-			Content = (ContentManager)Services.GetSafeServiceAs<IContentManager>();
-			GameSystems = (GameSystemCollection)Services.GetSafeServiceAs<IGameSystemCollection>();
-			sceneSystem = Game.SceneSystem;
-			if (sceneUrl == null) throw new NullReferenceException($"{this.ToString()} was not provided a scene to connect to from the client");
-			sceneSystem.SceneInstance.RootScene.Children.Add(Content.Load<Scene>(sceneUrl.Url));
-			gameSettings = Content.Load<GameSettings>(GameSettings.AssetUrl); //Services.GetService<GameSettings>();
-			Services.AddService(physicsEngine = gameSettings.Configurations?.Get<BepuConfiguration>());
-	 }
-	 public static IService NewInstance(IServiceRegistry services)
-	 {
-			if (Instance != null)
-			{
-				 Log.Error($"{typeof(StrideServerBase).FullName} is already declared");
-				 return Instance;
-			}
-			if (sceneUrl == null)
-			{
-				 Log.Error($"sceneUrl({sceneUrl}) is not set loading default");
-				 sceneUrl = new UrlReference<Scene>("ServerScene");
-			}
-			if (services != null)
-			{
-				 return new StrideServerBase(services);
-			}
-			else
-			{
-				 return new StrideServerBase();
-			}
-			//return Instance = Init(services, sceneUrl);
-	 }
-	 //public static StrideServerBase Init(IServiceRegistry? Services, UrlReference<Scene> ServerSceneHandle)
-	 //{
-		//	sceneUrl = ServerSceneHandle;
-		//	if (Services != null)
-		//	{
-		//		 return new StrideServerBase(Services);
-		//	}
-		//	else
-		//	{
-		//		 return new StrideServerBase();
-		//	}
-	 //}
 
 	 private StrideServerBase()
 	 {
@@ -117,21 +69,46 @@ public class StrideServerBase : IService
 			serverScene.Name = sceneUrl.ToString();
 			sceneSystem.SceneInstance = new SceneInstance(Services, serverScene);
 	 }
-	 private void SafetyCheck()
+
+	 public StrideServerBase(IServiceRegistry Services)
 	 {
-			var hrr = Services.GetService<IPhysicsSystem>().Name;
-			if (hrr == "Bullet2PhysicsSystem")
+			Log.Info("Starting Stride singleplayer server");
+			Instance = this;
+			Game Game = (Game)Services.GetService<IGame>();
+			gameSettings = Game.Settings;
+			Content = (ContentManager)Services.GetSafeServiceAs<IContentManager>();
+			GameSystems = (GameSystemCollection)Services.GetSafeServiceAs<IGameSystemCollection>();
+			sceneSystem = Game.SceneSystem;
+			if (sceneUrl == null) throw new NullReferenceException($"{this.ToString()} was not provided a scene to connect to from the client");
+			sceneSystem.SceneInstance.RootScene.Children.Add(Content.Load<Scene>(sceneUrl.Url));
+			gameSettings = Content.Load<GameSettings>(GameSettings.AssetUrl); //Services.GetService<GameSettings>();
+			Services.AddService(physicsEngine = gameSettings.Configurations?.Get<BepuConfiguration>());
+	 }
+
+	 public static IService NewInstance(IServiceRegistry services)
+	 {
+			if (Instance != null)
 			{
-				 throw new InvalidDataException("a bullet2Physics system is still active");
+				 Log.Error($"{typeof(StrideServerBase).FullName} is already declared as {Instance.ToString()}");
+				 return Instance;
 			}
-			if (sceneSystem.SceneInstance.GetProcessor<PhysicsProcessor>().Simulation.GetType() != typeof(BepuSimulation))
+			if (sceneUrl == null)
 			{
-				 throw new InvalidDataException("a BepuSimulation was not found");
+				 Log.Error($"sceneUrl({sceneUrl}) is not set loading default");
+				 sceneUrl = new UrlReference<Scene>("ServerScene");
+			}
+			if (services != null)
+			{
+				 return new StrideServerBase(services);
+			}
+			else
+			{
+				 return new StrideServerBase();
 			}
 	 }
+
 	 private GameSettings HeadlessServer_SetupGameSettings()
 	 {
-			var hmm = Content.Load<GameSettings>("ServerGameSettings");
 			GameSettings gameSettings = new();
 			gameSettings.DefaultSceneUrl = sceneUrl.ToString();
 			gameSettings.PackageName = this.ToString();
@@ -147,7 +124,6 @@ public class StrideServerBase : IService
 						{ Configuration = new BepuConfiguration { BepuSimulations = [new BepuSimulation()] }}
 				 },
 			};
-			//gameSettings.Configurations.Configurations.Add(new BepuConfiguration { BepuSimulations = [new BepuSimulation()] });
 			return gameSettings;
 	 }
 	 private void StartServerSystems()
@@ -159,7 +135,6 @@ public class StrideServerBase : IService
 			StartServerSystems();
 
 			Log.Info("Server online " + ToString());
-			//SafetyCheck();
 			while (netServer.Status == NetPeerStatus.Running)
 			{
 				 NetIncomingMessage inc;
@@ -167,12 +142,6 @@ public class StrideServerBase : IService
 				 {
 						switch (inc.MessageType)
 						{
-							 case NetIncomingMessageType.DebugMessage:
-							 case NetIncomingMessageType.WarningMessage:
-							 case NetIncomingMessageType.ErrorMessage:
-							 case NetIncomingMessageType.VerboseDebugMessage:
-									Console.WriteLine(ToString() + " " + inc.ReadString());
-									break;
 
 							 case NetIncomingMessageType.StatusChanged:
 									HandleStatusChange(inc);
@@ -180,6 +149,10 @@ public class StrideServerBase : IService
 
 							 case NetIncomingMessageType.Data:
 									// Handle game-specific data
+									break;
+							 default:
+									Console.WriteLine($"{inc.ReadString()} has no action");
+									Log.Info($"{inc.ReadString()} has no action");
 									break;
 						}
 						netServer.Recycle(inc);
@@ -207,7 +180,8 @@ public class StrideServerBase : IService
 						// Log.Info($"{ToString()} Client disconnected: {inc.SenderConnection}");
 						Console.WriteLine($"{ToString()} Client disconnected: {inc.SenderConnection}");
 						break;
-
+				 case NetConnectionStatus.None:
+						break;
 				 default:
 						// Log.Info($"{ToString()} Status changed: {status} - {inc.ReadString()}");
 						Console.WriteLine($"{ToString()} Status changed: {status} - {inc.ReadString()}");

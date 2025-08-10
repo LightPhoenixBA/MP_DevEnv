@@ -3,18 +3,18 @@ using Stride.Engine.Processors;
 
 namespace LightPhoenixBA.StrideExtentions.MultiplayerBase
 {
-	 public class StrideClientService : IService
+	 public class StrideClientBase : IService
 	 {
-			readonly static Stride.Core.Diagnostics.Logger Log = GlobalLogger.GetLogger(typeof(StrideClientService).FullName);
+			readonly static Stride.Core.Diagnostics.Logger Log = GlobalLogger.GetLogger(typeof(StrideClientBase).FullName);
 			public static IServiceRegistry Services { get; private set; }
-			public static StrideClientService Instance { get; private set; }
+			public static StrideClientBase Instance { get; private set; }
 			public static Game Game { get; private set; }
 			public static Scene GamePlayScene { get; private set; }
 
 			public ScriptSystem ScriptSystem { get; private set; }
 			public NetClient netClient { get; private set; }
-			//public NetPeerConfiguration netPeerConfiguration { get; private set; }
-			private NetPeerConfiguration clientConfig = NetConnectionConfig.GetDefaultClientConfig();
+			//public NetPeerConfiguration netPeerConfiguration => NetConnectionConfig.GetDefaultConfig();//{ get; private set; }
+			private NetPeerConfiguration clientConfig => NetConnectionConfig.GetDefaultClientConfig();
 			private static NetPeerConfiguration serverConfig = NetConnectionConfig.GetDefaultConfig();
 
 			public static IService NewInstance(IServiceRegistry services)
@@ -23,9 +23,9 @@ namespace LightPhoenixBA.StrideExtentions.MultiplayerBase
 				 {
 						Services = services;
 						Game = Services.GetService<IGame>() as Game;
-						services.AddService(Instance = new StrideClientService());
+						services.AddService(Instance = new StrideClientBase());
 				 }
-				 else throw new InvalidOperationException("StrideClientService is already running as " + Services.GetService<StrideClientService>());
+				 else throw new InvalidOperationException("StrideClientService is already running as " + Services.GetService<StrideClientBase>());
 						return Instance;
 			}
 			public async Task Execute()
@@ -38,6 +38,7 @@ namespace LightPhoenixBA.StrideExtentions.MultiplayerBase
 				 , serverConfig.Port
 				 , netClient.CreateMessage($"{Game.Window.Name} is requesting connection"));
 				 MP_PacketBase.SetContentManager(Game.Content);
+				 Log.Warning("Starting Client Loop");
 
 				 while (Game.IsRunning)
 				 {
@@ -53,6 +54,7 @@ namespace LightPhoenixBA.StrideExtentions.MultiplayerBase
 										 break;
 									case NetIncomingMessageType.StatusChanged:
 										 NetConnectionStatus status = (NetConnectionStatus)inc.ReadByte();
+										 Log.Info(status.ToString());
 										 switch (status)
 										 {
 												case NetConnectionStatus.InitiatedConnect:
@@ -99,10 +101,11 @@ namespace LightPhoenixBA.StrideExtentions.MultiplayerBase
 										 break;
 									default:
 										 Log.Info("Unhandled type: " + inc.MessageType + " " + inc.LengthBytes + " bytes");
+										 Console.WriteLine($"{inc.ReadString()} has no action");
 										 break;
 							 }
 						}
-						await ScriptSystem.NextFrame();
+						//await ScriptSystem.NextFrame();
 				 }
 			}
 	 }
