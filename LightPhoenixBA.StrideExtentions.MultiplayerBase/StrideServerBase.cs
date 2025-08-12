@@ -43,6 +43,7 @@ public class StrideServerBase : IService
 
 	 private StrideServerBase()
 	 {
+			Console.WriteLine("Starting Stride console server");
 			Instance = this;
 			//start core systems
 			Services = new ServiceRegistry();

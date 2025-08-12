@@ -1,6 +1,8 @@
 ﻿using Stride.Core.Serialization;
 using Stride.Engine;
+using System;
 using System.Diagnostics;
+using System.Threading.Tasks;
 
 namespace LightPhoenixBA.StrideExtentions.MultiplayerBase.Sample.Client;
 
@@ -21,14 +23,14 @@ public class MultiplayerClientSample : StartupScript
 	 public override void Start()
 	 {
 			StrideServerBase.sceneUrl = ServerSceneHandle;
-			if (Process.GetProcessesByName("LightPhoenixBA.StrideExtentions.MultiplayerServer").Length == 0)
-			{
-				 ServerInstance = StrideServerBase.NewInstance(Services) as StrideServerBase;
-				 ServerInstance.Execute();
-			}
+			//if (Process.GetProcessesByName("LightPhoenixBA.StrideExtentions.MultiplayerServer").Length == 0)
+			//{
+			//	 ServerInstance = StrideServerBase.NewInstance(Services) as StrideServerBase;
+			//	 Task.Run(() => ServerInstance.Execute());
+			//}
 
 			ClientInstance = StrideClientBase.NewInstance(Services) as StrideClientBase;
-			ClientInstance.Execute();
+			Task.Run(() => ClientInstance.Execute());
 			//this.Script.Dispose();
 	 }
 }
