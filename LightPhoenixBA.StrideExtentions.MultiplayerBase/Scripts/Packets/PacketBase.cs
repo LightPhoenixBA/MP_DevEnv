@@ -1,12 +1,26 @@
-﻿namespace LightPhoenixBA.StrideExtentions.MultiplayerBase;
+﻿using Stride.Core.Extensions;
+using System.Reflection;
+
+namespace LightPhoenixBA.StrideExtentions.MultiplayerBase;
 
 public abstract class MP_PacketBase
 {
 	 public static readonly List<MP_PacketBase> registry = new();
 	 protected static ContentManager Content { get; private set; }
-	 public static void SetContentManager(ContentManager content)
+	 public static void InitilizePacketSystem(ContentManager content, NetPeer NetPeer, NetIncomingMessage? inc = null)
 	 {
 			Content = content;
+			switch (NetPeer)
+			{
+				 case NetServer:
+						RegisterAllPackets();
+						break;
+				 case NetClient:
+						RegisterAllPackets();
+						break;
+				 default:
+						break;
+			}
 	 }
 	 public static int Register(MP_PacketBase packet)
 	 {
@@ -18,11 +32,6 @@ public abstract class MP_PacketBase
 			return registry.Count - 1;
 	 }
 
-	 public static MP_PacketBase GetById(int id)
-	 {
-			return registry[id];
-	 }
-
 	 public static object ReceivePacket(NetIncomingMessage msg)
 	 {
 			int id = msg.ReadVariableInt32();
@@ -31,6 +40,41 @@ public abstract class MP_PacketBase
 
 	 public abstract void SendPacket(object data, NetOutgoingMessage msg);
 	 protected abstract object Read(NetIncomingMessage msg);
+
+	 private static void RegisterAllPackets()
+	 {
+			AppDomain.CurrentDomain.GetAssemblies()
+			.Where(a =>
+			{
+				 // Keep the MultiplayerBase assembly itself
+				 if (a == typeof(MP_PacketBase).Assembly)
+				 {
+						return true;
+				 }
+
+				 // Keep any assembly that directly references MultiplayerBase
+				 return a.GetReferencedAssemblies()
+					 .Any(r => r.FullName == typeof(MP_PacketBase).Assembly.FullName);
+			})
+			.SelectMany(a =>
+			{
+				 try
+				 {
+						return a.GetTypes();
+				 }
+				 catch (ReflectionTypeLoadException e)
+				 {
+						return e.Types.Where(t => t != null)!;
+				 }
+			})
+			.Where(type =>
+					type.IsClass &&
+					!type.IsAbstract &&
+					type.BaseType?.IsGenericType == true &&
+					type.BaseType.GetGenericTypeDefinition() == typeof(MP_PacketBase<>))
+			.ForEach(type => MP_PacketBase.Register((MP_PacketBase)Activator.CreateInstance(type)!))
+			;
+	 }
 }
 
 public abstract class MP_PacketBase<T> : MP_PacketBase

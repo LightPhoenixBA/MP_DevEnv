@@ -1,9 +1,10 @@
-﻿global using Stride.Core.Mathematics;
-global using Lidgren.Network;
-global using Stride.Core;
+﻿global using Stride.Core;
 global using Stride.Core.IO;
+global using Stride.Core.Diagnostics;
+global using Stride.Core.Mathematics;
 global using Stride.Core.Serialization.Contents;
 global using Stride.Core.Storage;
 global using Stride.Engine;
 global using Stride.Games;
 global using Stride.Rendering.ProceduralModels;
+global using Lidgren.Network;

@@ -1,11 +1,7 @@
-﻿using JetBrains.Diagnostics;
-using Stride.BepuPhysics;
-using Stride.Core.Assets.Diagnostics;
-using Stride.Core.Diagnostics;
+﻿using Stride.BepuPhysics;
 using Stride.Core.Serialization;
 using Stride.Engine.Design;
 using Stride.Engine.Processors;
-using Stride.Graphics.SDL;
 using Stride.Physics;
 
 namespace LightPhoenixBA.StrideExtentions.MultiplayerBase;
@@ -80,7 +76,11 @@ public class StrideServerBase : IService
 			Content = (ContentManager)Services.GetSafeServiceAs<IContentManager>();
 			GameSystems = (GameSystemCollection)Services.GetSafeServiceAs<IGameSystemCollection>();
 			sceneSystem = Game.SceneSystem;
-			if (sceneUrl == null) throw new NullReferenceException($"{this.ToString()} was not provided a scene to connect to from the client");
+			if (sceneUrl == null)
+			{
+				 throw new NullReferenceException($"{this.ToString()} was not provided a scene to connect to from the client");
+			}
+
 			sceneSystem.SceneInstance.RootScene.Children.Add(Content.Load<Scene>(sceneUrl.Url));
 			gameSettings = Content.Load<GameSettings>(GameSettings.AssetUrl); //Services.GetService<GameSettings>();
 			Services.AddService(physicsEngine = gameSettings.Configurations?.Get<BepuConfiguration>());
@@ -121,7 +121,7 @@ public class StrideServerBase : IService
 			{
 				 Configurations = new()
 				 {
-						new Stride.Data.ConfigurationOverride() 
+						new Stride.Data.ConfigurationOverride()
 						{ Configuration = new BepuConfiguration { BepuSimulations = [new BepuSimulation()] }}
 				 },
 			};
@@ -130,12 +130,13 @@ public class StrideServerBase : IService
 	 private void StartServerSystems()
 	 {
 			netServer.Start();
+			MP_PacketBase.InitilizePacketSystem(Content, netServer);
 	 }
 	 public async Task Execute()
 	 {
 			StartServerSystems();
 
-			Log.Info("Server online " + ToString());
+			Console.WriteLine($"Server online {ToString()} at {netServer.Configuration.BroadcastAddress}");
 			while (netServer.Status == NetPeerStatus.Running)
 			{
 				 NetIncomingMessage inc;
@@ -143,7 +144,6 @@ public class StrideServerBase : IService
 				 {
 						switch (inc.MessageType)
 						{
-
 							 case NetIncomingMessageType.StatusChanged:
 									HandleStatusChange(inc);
 									break;
@@ -153,7 +153,6 @@ public class StrideServerBase : IService
 									break;
 							 default:
 									Console.WriteLine($"{inc.ReadString()} has no action");
-									Log.Info($"{inc.ReadString()} has no action");
 									break;
 						}
 						netServer.Recycle(inc);
@@ -162,30 +161,22 @@ public class StrideServerBase : IService
 	 }
 	 private void HandleStatusChange(NetIncomingMessage inc)
 	 {
-			var status = (NetConnectionStatus)inc.ReadByte();
+			NetConnectionStatus status = (NetConnectionStatus)inc.ReadByte();
+			string message = inc.ReadString();
+			Console.WriteLine($"{ToString()} processing status({status}) of {inc.SenderConnection}");
 
 			switch (status)
 			{
-				 case NetConnectionStatus.InitiatedConnect:
-						//Log.Info($"{ToString()} Initiating connection with {inc.SenderConnection}");
-						Console.WriteLine($"{ToString()} Initiating connection with {inc.SenderConnection}");
+				 case NetConnectionStatus.RespondedConnect:
 						break;
 
 				 case NetConnectionStatus.Connected:
-						//Log.Info($"{ToString()} Client connected: {inc.SenderConnection}");
-						Console.WriteLine($"{ToString()} Client connected: {inc.SenderConnection}");
+						//ConnectionPacket.SyncConnectionPacket(netServer);
 						SendSceneAndEntities(inc.SenderConnection);
 						break;
 
-				 case NetConnectionStatus.Disconnected:
-						// Log.Info($"{ToString()} Client disconnected: {inc.SenderConnection}");
-						Console.WriteLine($"{ToString()} Client disconnected: {inc.SenderConnection}");
-						break;
-				 case NetConnectionStatus.None:
-						break;
 				 default:
-						// Log.Info($"{ToString()} Status changed: {status} - {inc.ReadString()}");
-						Console.WriteLine($"{ToString()} Status changed: {status} - {inc.ReadString()}");
+						Console.Error.WriteLine($"{ToString()} unhandled for ({status}) of {inc.SenderConnection} = {inc.ReadString()}");
 						break;
 			}
 	 }
@@ -203,8 +194,6 @@ public class StrideServerBase : IService
 				 Console.WriteLine($"sending {entity.Name} as {referencedObj}");
 				 switch (referencedObj)
 				 {
-						case ProceduralModelDescriptor:
-							 throw new InvalidOperationException("depreciated");
 						case Prefab:
 							 PrefabPacket.SendUntypedPacket(entity.Name, entityMessage);
 							 break;

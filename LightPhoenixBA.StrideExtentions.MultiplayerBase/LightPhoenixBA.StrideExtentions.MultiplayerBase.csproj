@@ -5,8 +5,8 @@
 	 <Authors>LightPhoenixBA</Authors>
 	<ImplicitUsings>enable</ImplicitUsings>
 	<Nullable>enable</Nullable>
-	<PackageOutputPath>$(SolutionDir)packages\</PackageOutputPath>
-	<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+	  <PackageOutputPath>$(MSBuildProjectDirectory)\..\packages\</PackageOutputPath>
+	  <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 	<IncludeContentInPack>true</IncludeContentInPack>
   </PropertyGroup>
 
@@ -23,7 +23,6 @@
 	<ItemGroup>
 		<None Include="Assets\**\*.*" Pack="true" PackagePath="Assets" />
 		<Folder Include="Scripts\Debugging\" />
-		<Folder Include="Scripts\Packets\" />
 	</ItemGroup>
 
   <PropertyGroup>

@@ -1,15 +1,14 @@
-﻿using System.Security.Cryptography.X509Certificates;
-
-namespace LightPhoenixBA.StrideExtentions.MultiplayerBase;
+﻿namespace LightPhoenixBA.StrideExtentions.MultiplayerBase;
 
 public static class NetConnectionConfig
 {
+	 public static int DefaultPort = 4420;
 	 public static NetPeerConfiguration GetDefaultConfig()
 	 {
 			return new NetPeerConfiguration(System.AppContext.TargetFrameworkName)
 			{
 				 LocalAddress = System.Net.IPAddress.Loopback,
-				 Port = 4420
+				 Port = DefaultPort
 			};
 	 }
 	 public static NetPeerConfiguration GetDefaultClientConfig()
@@ -19,8 +18,8 @@ public static class NetConnectionConfig
 			return new NetPeerConfiguration(System.AppContext.TargetFrameworkName)
 			{
 				 LocalAddress = System.Net.IPAddress.Loopback,
-			//	 Port = 4420
+				 Port = Random.Shared.Next(DefaultPort + 1, 9999)
 			};
-		//	return latestConfig;
+			//	return latestConfig;
 	 }
 }
