@@ -15,9 +15,10 @@ public abstract class MP_PacketBase
 				 case NetServer:
 						RegisterAllPackets();
 						break;
-				 case NetClient:
-						RegisterAllPackets();
-						break;
+				 //case NetClient:
+						//RegisterAllPackets();
+						//throw new InvalidOperationException("client receives its packetRegistry from server");
+					//	break;
 				 default:
 						break;
 			}

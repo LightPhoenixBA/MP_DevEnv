@@ -1,4 +1,5 @@
-﻿using Stride.BepuPhysics;
+﻿using Lidgren.Network;
+using Stride.BepuPhysics;
 using Stride.Core.Serialization;
 using Stride.Engine.Design;
 using Stride.Engine.Processors;
@@ -69,6 +70,7 @@ public class StrideServerBase : IService
 
 	 public StrideServerBase(IServiceRegistry Services)
 	 {
+			this.Services = (ServiceRegistry)Services;
 			Log.Info("Starting Stride singleplayer server");
 			Instance = this;
 			Game Game = (Game)Services.GetService<IGame>();
@@ -81,7 +83,7 @@ public class StrideServerBase : IService
 				 throw new NullReferenceException($"{this.ToString()} was not provided a scene to connect to from the client");
 			}
 
-			sceneSystem.SceneInstance.RootScene.Children.Add(Content.Load<Scene>(sceneUrl.Url));
+			sceneSystem.SceneInstance.RootScene.Children.Add(serverScene = Content.Load<Scene>(sceneUrl.Url));
 			gameSettings = Content.Load<GameSettings>(GameSettings.AssetUrl); //Services.GetService<GameSettings>();
 			Services.AddService(physicsEngine = gameSettings.Configurations?.Get<BepuConfiguration>());
 	 }
@@ -100,12 +102,15 @@ public class StrideServerBase : IService
 			}
 			if (services != null)
 			{
-				 return new StrideServerBase(services);
+				 services.AddService(new StrideServerBase(services));
 			}
 			else
 			{
-				 return new StrideServerBase();
+				 new StrideServerBase();
+				 Instance.Services.AddService(Instance);
 			}
+			return Instance;
+
 	 }
 
 	 private GameSettings HeadlessServer_SetupGameSettings()
@@ -130,6 +135,8 @@ public class StrideServerBase : IService
 	 private void StartServerSystems()
 	 {
 			netServer.Start();
+			//netServer.Configuration.EnableMessageType(NetIncomingMessageType.DiscoveryRequest);
+			//netServer.Configuration.EnableMessageType(NetIncomingMessageType.DiscoveryResponse);
 			MP_PacketBase.InitilizePacketSystem(Content, netServer);
 	 }
 	 public async Task Execute()
@@ -144,41 +151,60 @@ public class StrideServerBase : IService
 				 {
 						switch (inc.MessageType)
 						{
+							 //case NetIncomingMessageType.DiscoveryRequest:
+								//	Console.WriteLine($"{inc.SenderEndPoint} is attempting to Discover {netServer.Configuration.LocalAddress}");
+								//	netServer.SendDiscoveryResponse(ConnectionPacket.SyncConnectionPacket(netServer), inc.SenderEndPoint);
+								//	break;
+
 							 case NetIncomingMessageType.StatusChanged:
-									HandleStatusChange(inc);
+									OnHandleStatusChange(inc,(NetConnectionStatus)inc.ReadByte());
 									break;
 
 							 case NetIncomingMessageType.Data:
-									// Handle game-specific data
+									object packetData = MP_PacketBase.ReceivePacket(inc);
 									break;
+
+									case NetIncomingMessageType.DebugMessage:
+									Console.WriteLine("Info = " + inc.ReadString());
+									break;
+
 							 default:
-									Console.WriteLine($"{inc.ReadString()} has no action");
+									Console.WriteLine($"({inc.MessageType}) has no action [{inc.PeekString()}]");
 									break;
 						}
 						netServer.Recycle(inc);
 				 }
 			}
 	 }
-	 private void HandleStatusChange(NetIncomingMessage inc)
+	 private void OnHandleStatusChange(NetIncomingMessage inc, NetConnectionStatus status)
 	 {
-			NetConnectionStatus status = (NetConnectionStatus)inc.ReadByte();
-			string message = inc.ReadString();
-			Console.WriteLine($"{ToString()} processing status({status}) of {inc.SenderConnection}");
+			string message = inc.PeekString();
+			Console.WriteLine($"processing status({status}) of [{inc.SenderConnection}] with ({message})");
 
 			switch (status)
 			{
 				 case NetConnectionStatus.RespondedConnect:
+						OnRespondedConnect(inc,status);
 						break;
 
 				 case NetConnectionStatus.Connected:
-						//ConnectionPacket.SyncConnectionPacket(netServer);
-						SendSceneAndEntities(inc.SenderConnection);
+						OnConnected(inc,status);
 						break;
 
 				 default:
-						Console.Error.WriteLine($"{ToString()} unhandled for ({status}) of {inc.SenderConnection} = {inc.ReadString()}");
+						Console.Error.WriteLine($"Server unhandled action({status}) from {inc.SenderConnection} = ({inc.PeekString()})");
 						break;
 			}
+	 }
+
+	 public virtual void OnRespondedConnect(NetIncomingMessage inc, NetConnectionStatus status)
+	 {
+			//netServer.SendDiscoveryResponse(ConnectionPacket.SyncConnectionPacket(netServer), inc.SenderEndPoint);
+			netServer.SendUnconnectedMessage(ConnectionPacket.SyncConnectionPacket(netServer), inc.SenderEndPoint);
+	 }
+	 public virtual void OnConnected(NetIncomingMessage inc, NetConnectionStatus status)
+	 {
+			SendSceneAndEntities(inc.SenderConnection);
 	 }
 
 	 private void SendSceneAndEntities(NetConnection connection)

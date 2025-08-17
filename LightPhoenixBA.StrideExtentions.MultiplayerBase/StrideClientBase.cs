@@ -1,4 +1,5 @@
-﻿using Stride.Engine.Processors;
+﻿using Lidgren.Network;
+using Stride.Engine.Processors;
 
 namespace LightPhoenixBA.StrideExtentions.MultiplayerBase
 {
@@ -10,7 +11,7 @@ namespace LightPhoenixBA.StrideExtentions.MultiplayerBase
 			public static Game Game { get; private set; }
 			public static Scene GamePlayScene { get; private set; }
 			public ScriptSystem ScriptSystem { get; private set; }
-			private NetClient netClient = new NetClient(NetConnectionConfig.GetDefaultClientConfig());
+			public NetClient netClient { get; private set; } = new NetClient(NetConnectionConfig.GetDefaultClientConfig());
 			public NetPeerConfiguration serverConfig = NetConnectionConfig.GetDefaultConfig();
 
 			public static IService NewInstance(IServiceRegistry services)
@@ -31,48 +32,51 @@ namespace LightPhoenixBA.StrideExtentions.MultiplayerBase
 			public async Task Execute()
 			{
 				 ScriptSystem = Services.GetService<ScriptSystem>();
+				// netClient.Configuration.EnableMessageType(NetIncomingMessageType.DiscoveryResponse);
 				 netClient.Start();
+				 MP_PacketBase.InitilizePacketSystem(Game.Content, netClient);
 				 netClient.Connect(
 					 serverConfig.LocalAddress.ToString()
 				 , serverConfig.Port
-				 , netClient.CreateMessage($"{Game.Window.Name} is requesting connection"));
-				 Log.Warning("Starting Client Loop");
+				 , netClient.CreateMessage($"{Game.Window.Name} is requesting connection")
+				 );
+
+				 Log.Info("Starting Client Loop");
 
 				 while (Game.IsRunning)
 				 {
 						NetIncomingMessage inc;
 						while ((inc = netClient.ReadMessage()) != null)
 						{
+							// Log.Info("hmm = "+ inc.PeekString());
 							 switch (inc.MessageType)
 							 {
-									case NetIncomingMessageType.DebugMessage:
-									case NetIncomingMessageType.ErrorMessage:
-									case NetIncomingMessageType.WarningMessage:
-									case NetIncomingMessageType.VerboseDebugMessage:
-										 Log.Info(inc.ReadString());
-										 break;
 									case NetIncomingMessageType.StatusChanged:
 										 NetConnectionStatus status = (NetConnectionStatus)inc.ReadByte();
-										 string reason = inc.ReadString();
-										 Log.Info(inc.SenderConnection + ": " + status + " (" + reason + ")");
+										 //Log.Warning($"handling {status} {inc.PeekString()}");
 										 switch (status)
 										 {
 												case NetConnectionStatus.InitiatedConnect:
 													 netClient.Tag = this;
-													 //ConnectionPacket.SyncConnectionPacket(inc);
-													 MP_PacketBase.InitilizePacketSystem(Game.Content, netClient, inc);
+													 //netClient.DiscoverKnownPeer(serverConfig.LocalAddress.ToString(), serverConfig.Port);
 													 break;
 
 												case NetConnectionStatus.Connected:
+													 Log.Info($" {inc.ReadString()} at {inc.SenderEndPoint}");
 													 if (MP_PacketBase.registry.Count == 0)
 													 {
-															throw new InvalidOperationException("MP_PacketBase.registry is empty");
+															Log.Error("MP_PacketBase.registry has no elements");
+															//throw new NullReferenceException("MP_PacketBase.registry is empty");
 													 }
 													 break;
 												default:
-													 Log.Warning($"{ToString()} unhandled for ({status}) of {inc.SenderConnection} = {inc.Data}");
+													 Log.Warning($"unhandled for ({status}) of {inc.SenderConnection} = {inc.Data}");
 													 break;
 										 }
+										 break;
+									case NetIncomingMessageType.UnconnectedData:
+										 Log.Warning($"Syncing Packets using {inc.MessageType} from " + inc.SenderEndPoint);
+										 ConnectionPacket.SyncConnectionPacket(inc);
 										 break;
 									case NetIncomingMessageType.Data:
 										 object incPacket = MP_PacketBase.ReceivePacket(inc);
@@ -105,14 +109,26 @@ namespace LightPhoenixBA.StrideExtentions.MultiplayerBase
 
 										 }
 										 break;
-									default:
-										 Log.Info("Unhandled type: " + inc.MessageType + " " + inc.LengthBytes + " bytes");
-										 Console.WriteLine($"{inc.ReadString()} has no action");
+
+									case NetIncomingMessageType.VerboseDebugMessage:
+									case NetIncomingMessageType.DebugMessage:
+										 Log.Info(inc.ReadString());
 										 break;
+									case NetIncomingMessageType.WarningMessage:
+										 Log.Warning(inc.ReadString());
+										 break;
+									case NetIncomingMessageType.ErrorMessage:
+										 Log.Error(inc.ReadString());
+										 break;
+									default:
+										 Log.Error($"Unhandled {inc.MessageType} : {inc.ReadString()} length{inc.LengthBytes}");
+										 break;
+
 							 }
 						}
 						//await ScriptSystem.NextFrame();
 				 }
 			}
+			public static bool IsSingleplayer => StrideClientBase.Services.GetService<StrideServerBase>() != null;
 	 }
 }

@@ -13,13 +13,18 @@ public static class NetConnectionConfig
 	 }
 	 public static NetPeerConfiguration GetDefaultClientConfig()
 	 {
-			//NetPeerConfiguration latestConfig = GetDefaultConfig();
+			NetPeerConfiguration Config = GetDefaultConfig();
+			Config.Port = Random.Shared.Next(DefaultPort + 1, 9999);
+			//Config.EnableMessageType(NetIncomingMessageType.DiscoveryResponse);
+			return Config;
 			//latestConfig.Port++;
-			return new NetPeerConfiguration(System.AppContext.TargetFrameworkName)
-			{
-				 LocalAddress = System.Net.IPAddress.Loopback,
-				 Port = Random.Shared.Next(DefaultPort + 1, 9999)
-			};
+			//return new NetPeerConfiguration(System.AppContext.TargetFrameworkName)
+			//{
+			//	 LocalAddress = System.Net.IPAddress.Loopback,
+			//	 Port = Random.Shared.Next(DefaultPort + 1, 9999),
+				 
+				 
+			//}.EnableMessageType(NetIncomingMessageType.DiscoveryResponse);
 			//	return latestConfig;
 	 }
 }
