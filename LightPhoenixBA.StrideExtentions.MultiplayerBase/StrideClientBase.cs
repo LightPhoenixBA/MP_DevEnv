@@ -3,16 +3,20 @@ using Stride.Engine.Processors;
 
 namespace LightPhoenixBA.StrideExtentions.MultiplayerBase
 {
-	 public class StrideClientBase : IService
+	 public class StrideClientBase : NetClient ,  IService
 	 {
 			readonly static Logger Log = GlobalLogger.GetLogger(typeof(StrideClientBase).FullName);
+			public StrideClientBase() : base(NetConnectionConfig.GetDefaultClientConfig())
+			{
+
+			}
+
 			public static IServiceRegistry Services { get; private set; }
 			public static StrideClientBase Instance { get; private set; }
 			public static Game Game { get; private set; }
 			public static Scene GamePlayScene { get; private set; }
 			public ScriptSystem ScriptSystem { get; private set; }
-			public NetClient netClient { get; private set; } = new NetClient(NetConnectionConfig.GetDefaultClientConfig());
-			public NetPeerConfiguration serverConfig = NetConnectionConfig.GetDefaultConfig();
+			public NetPeerConfiguration serverConfig => NetConnectionConfig.GetDefaultConfig();
 
 			public static IService NewInstance(IServiceRegistry services)
 			{
@@ -32,13 +36,13 @@ namespace LightPhoenixBA.StrideExtentions.MultiplayerBase
 			public async Task Execute()
 			{
 				 ScriptSystem = Services.GetService<ScriptSystem>();
-				// netClient.Configuration.EnableMessageType(NetIncomingMessageType.DiscoveryResponse);
-				 netClient.Start();
-				 MP_PacketBase.InitilizePacketSystem(Game.Content, netClient);
-				 netClient.Connect(
+				 // netClient.Configuration.EnableMessageType(NetIncomingMessageType.DiscoveryResponse);
+				 Instance.Start();
+				 MP_PacketBase.InitilizePacketSystem(Game.Content, Instance);
+				 Instance.Connect(
 					 serverConfig.LocalAddress.ToString()
 				 , serverConfig.Port
-				 , netClient.CreateMessage($"{Game.Window.Name} is requesting connection")
+				 , Instance.CreateMessage($"{Game.Window.Name} is requesting connection")
 				 );
 
 				 Log.Info("Starting Client Loop");
@@ -46,7 +50,7 @@ namespace LightPhoenixBA.StrideExtentions.MultiplayerBase
 				 while (Game.IsRunning)
 				 {
 						NetIncomingMessage inc;
-						while ((inc = netClient.ReadMessage()) != null)
+						while ((inc = Instance.ReadMessage()) != null)
 						{
 							// Log.Info("hmm = "+ inc.PeekString());
 							 switch (inc.MessageType)
@@ -57,7 +61,7 @@ namespace LightPhoenixBA.StrideExtentions.MultiplayerBase
 										 switch (status)
 										 {
 												case NetConnectionStatus.InitiatedConnect:
-													 netClient.Tag = this;
+													 Instance.Tag = this;
 													 //netClient.DiscoverKnownPeer(serverConfig.LocalAddress.ToString(), serverConfig.Port);
 													 break;
 

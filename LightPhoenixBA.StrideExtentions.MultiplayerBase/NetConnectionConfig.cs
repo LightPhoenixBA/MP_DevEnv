@@ -1,4 +1,6 @@
-﻿namespace LightPhoenixBA.StrideExtentions.MultiplayerBase;
+﻿using System.Security.Policy;
+
+namespace LightPhoenixBA.StrideExtentions.MultiplayerBase;
 
 public static class NetConnectionConfig
 {
@@ -7,7 +9,7 @@ public static class NetConnectionConfig
 	 {
 			return new NetPeerConfiguration(System.AppContext.TargetFrameworkName)
 			{
-				 LocalAddress = System.Net.IPAddress.Loopback,
+				 LocalAddress =  System.Net.IPAddress.Loopback,
 				 Port = DefaultPort
 			};
 	 }
@@ -15,16 +17,6 @@ public static class NetConnectionConfig
 	 {
 			NetPeerConfiguration Config = GetDefaultConfig();
 			Config.Port = Random.Shared.Next(DefaultPort + 1, 9999);
-			//Config.EnableMessageType(NetIncomingMessageType.DiscoveryResponse);
 			return Config;
-			//latestConfig.Port++;
-			//return new NetPeerConfiguration(System.AppContext.TargetFrameworkName)
-			//{
-			//	 LocalAddress = System.Net.IPAddress.Loopback,
-			//	 Port = Random.Shared.Next(DefaultPort + 1, 9999),
-				 
-				 
-			//}.EnableMessageType(NetIncomingMessageType.DiscoveryResponse);
-			//	return latestConfig;
 	 }
 }

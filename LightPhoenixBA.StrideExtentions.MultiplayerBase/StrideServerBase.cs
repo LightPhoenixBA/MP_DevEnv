@@ -25,14 +25,12 @@ public class StrideServerBase : IService
 	 public static readonly ContentManagerLoaderSettings loadSettings = new ContentManagerLoaderSettings
 	 {
 			ContentFilter = ContentManagerLoaderSettings.NewContentFilterByType([
-					 typeof(Entity),
-						typeof(Scene),
-						typeof(TransformComponent),
-						typeof(Prefab),
-						typeof(ColliderShape)
-			 //typeof(ProceduralModelDescriptor),
-			 //typeof(Model)
-			 ]),
+				typeof(Entity),
+				typeof(Scene),
+				typeof(TransformComponent),
+				typeof(Prefab),
+				typeof(ColliderShape)
+			]),
 			AllowContentStreaming = false,
 			LoadContentReferences = true,
 	 };
@@ -135,15 +133,13 @@ public class StrideServerBase : IService
 	 private void StartServerSystems()
 	 {
 			netServer.Start();
-			//netServer.Configuration.EnableMessageType(NetIncomingMessageType.DiscoveryRequest);
-			//netServer.Configuration.EnableMessageType(NetIncomingMessageType.DiscoveryResponse);
 			MP_PacketBase.InitilizePacketSystem(Content, netServer);
 	 }
 	 public async Task Execute()
 	 {
 			StartServerSystems();
 
-			Console.WriteLine($"Server online {ToString()} at {netServer.Configuration.BroadcastAddress}");
+			Console.WriteLine($"Server online {ToString()} at {netServer.Configuration.LocalAddress}");
 			while (netServer.Status == NetPeerStatus.Running)
 			{
 				 NetIncomingMessage inc;
@@ -151,20 +147,15 @@ public class StrideServerBase : IService
 				 {
 						switch (inc.MessageType)
 						{
-							 //case NetIncomingMessageType.DiscoveryRequest:
-								//	Console.WriteLine($"{inc.SenderEndPoint} is attempting to Discover {netServer.Configuration.LocalAddress}");
-								//	netServer.SendDiscoveryResponse(ConnectionPacket.SyncConnectionPacket(netServer), inc.SenderEndPoint);
-								//	break;
-
 							 case NetIncomingMessageType.StatusChanged:
-									OnHandleStatusChange(inc,(NetConnectionStatus)inc.ReadByte());
+									OnHandleStatusChange(inc, (NetConnectionStatus)inc.ReadByte());
 									break;
 
 							 case NetIncomingMessageType.Data:
 									object packetData = MP_PacketBase.ReceivePacket(inc);
 									break;
 
-									case NetIncomingMessageType.DebugMessage:
+							 case NetIncomingMessageType.DebugMessage:
 									Console.WriteLine("Info = " + inc.ReadString());
 									break;
 
@@ -173,6 +164,9 @@ public class StrideServerBase : IService
 									break;
 						}
 						netServer.Recycle(inc);
+						//_ = this.GameSystems;
+						Thread.Sleep(1);
+						
 				 }
 			}
 	 }
@@ -184,11 +178,11 @@ public class StrideServerBase : IService
 			switch (status)
 			{
 				 case NetConnectionStatus.RespondedConnect:
-						OnRespondedConnect(inc,status);
+						OnRespondedConnect(inc, status);
 						break;
 
 				 case NetConnectionStatus.Connected:
-						OnConnected(inc,status);
+						OnConnected(inc, status);
 						break;
 
 				 default:
