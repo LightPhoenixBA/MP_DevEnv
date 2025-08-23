@@ -49,6 +49,8 @@ public static partial class MP_Stride_MultiplayerBaseExtentions
 				);
 
 				HitResult result = PerformServerRaycast(closePoint, farPoint);
+			#if DEBUG
+
 				if (result.Succeeded)
 				{
 						Log.Info($"Hit at {result.Point} on {result.Collider.Entity.Name}");
@@ -59,6 +61,7 @@ public static partial class MP_Stride_MultiplayerBaseExtentions
 						Log.Info("Miss");
 						DebugText.Print("Miss", mousePos, null, TimeSpan.FromSeconds(1));
 				}
+#endif
 		}
 		public static Vector3 ScreenToWorld(CameraComponent camera, Vector3 screenPosition, Vector2 screenSize)
 		{

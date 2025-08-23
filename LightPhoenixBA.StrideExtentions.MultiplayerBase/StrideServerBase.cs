@@ -1,5 +1,4 @@
-﻿using Lidgren.Network;
-using Stride.BepuPhysics;
+﻿using Stride.BepuPhysics;
 using Stride.Core.Serialization;
 using Stride.Engine.Design;
 using Stride.Engine.Processors;
