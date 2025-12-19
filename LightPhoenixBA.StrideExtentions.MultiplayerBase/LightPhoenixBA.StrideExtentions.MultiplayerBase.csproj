@@ -1,32 +1,27 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-
   <PropertyGroup>
-	<TargetFramework>net8.0</TargetFramework>
-	 <Authors>LightPhoenixBA</Authors>
-	<ImplicitUsings>enable</ImplicitUsings>
-	<Nullable>enable</Nullable>
-	  <PackageOutputPath>$(MSBuildProjectDirectory)\..\packages\</PackageOutputPath>
-	  <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
-	<IncludeContentInPack>true</IncludeContentInPack>
+    <TargetFramework>net10.0</TargetFramework>
+    <Authors>LightPhoenixBA</Authors>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <PackageOutputPath>$(MSBuildProjectDirectory)\..\packages\</PackageOutputPath>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <IncludeContentInPack>true</IncludeContentInPack>
   </PropertyGroup>
-
   <ItemGroup>
-	<PackageReference Include="Lidgren.Network" Version="1.0.0" />
-	<PackageReference Include="Stride.Assets" Version="4.2.1.1" />
-	<PackageReference Include="Stride.BepuPhysics" Version="4.2.1.1" />
-	<PackageReference Include="Stride.Core" Version="4.2.1.1" />
-	<PackageReference Include="Stride.Engine" Version="4.2.1.1" />
-	<PackageReference Include="Stride.UI" Version="4.2.1.1" />
-	<PackageReference Include="Stride.Core.Assets.CompilerApp" Version="4.2.1.1" IncludeAssets="build;buildTransitive" />
+    <PackageReference Include="Lidgren.Network" Version="1.0.0" />
+    <PackageReference Include="Stride.Assets" Version="4.3.0.1" />
+    <PackageReference Include="Stride.BepuPhysics" Version="4.3.0.1" />
+    <PackageReference Include="Stride.Core" Version="4.3.0.1" />
+    <PackageReference Include="Stride.Engine" Version="4.3.0.1" />
+    <PackageReference Include="Stride.UI" Version="4.3.0.1" />
+    <PackageReference Include="Stride.Core.Assets.CompilerApp" Version="4.3.0.1" IncludeAssets="build;buildTransitive" />
   </ItemGroup>
-
-	<ItemGroup>
-		<None Include="Assets\**\*.*" Pack="true" PackagePath="Assets" />
-		<Folder Include="Scripts\Debugging\" />
-	</ItemGroup>
-
+  <ItemGroup>
+    <None Include="Assets\**\*.*" Pack="true" PackagePath="Assets" />
+    <Folder Include="Scripts\Debugging\" />
+  </ItemGroup>
   <PropertyGroup>
-	<RootNamespace>LightPhoenixBA.StrideExtentions.MultiplayerBase</RootNamespace>
+    <RootNamespace>LightPhoenixBA.StrideExtentions.MultiplayerBase</RootNamespace>
   </PropertyGroup>
-
 </Project>
