@@ -21,6 +21,10 @@
     <None Include="Assets\**\*.*" Pack="true" PackagePath="Assets" />
     <Folder Include="Scripts\Debugging\" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Legion Forge\Chunks\Chunks.csproj" />
+    <ProjectReference Include="..\..\Legion Forge\Globals\Globals.csproj" />
+  </ItemGroup>
   <PropertyGroup>
     <RootNamespace>LightPhoenixBA.StrideExtentions.MultiplayerBase</RootNamespace>
   </PropertyGroup>
