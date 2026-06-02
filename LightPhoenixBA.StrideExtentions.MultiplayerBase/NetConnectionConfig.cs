@@ -1,22 +1,20 @@
-﻿using System.Security.Policy;
-
-namespace LightPhoenixBA.StrideExtentions.MultiplayerBase;
+﻿namespace LightPhoenixBA.StrideExtentions.MultiplayerBase;
 
 public static class NetConnectionConfig
 {
-	 public static int DefaultPort = 4420;
-	 public static NetPeerConfiguration GetDefaultConfig()
-	 {
-			return new NetPeerConfiguration(System.AppContext.TargetFrameworkName)
-			{
-				 LocalAddress =  System.Net.IPAddress.Loopback,
-				 Port = DefaultPort
-			};
-	 }
-	 public static NetPeerConfiguration GetDefaultClientConfig()
-	 {
-			NetPeerConfiguration Config = GetDefaultConfig();
-			Config.Port = Random.Shared.Next(DefaultPort + 1, 9999);
-			return Config;
-	 }
+    public static int DefaultPort = 4420;
+    public static NetPeerConfiguration GetDefaultConfig()
+    {
+        return new NetPeerConfiguration(System.AppContext.TargetFrameworkName)
+        {
+            LocalAddress = System.Net.IPAddress.Loopback,
+            Port = DefaultPort
+        };
+    }
+    public static NetPeerConfiguration GetDefaultClientConfig()
+    {
+        NetPeerConfiguration Config = GetDefaultConfig();
+        Config.Port = Random.Shared.Next(DefaultPort + 1, 9999);
+        return Config;
+    }
 }
