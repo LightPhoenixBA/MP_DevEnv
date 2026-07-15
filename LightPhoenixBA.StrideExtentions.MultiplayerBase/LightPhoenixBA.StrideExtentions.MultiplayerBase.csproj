@@ -9,6 +9,7 @@
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <IncludeContentInPack>true</IncludeContentInPack>
     <RepositoryUrl>https://github.com/LightPhoenixBA/MP_DevEnv</RepositoryUrl>
+    <Version>1.0.1</Version>
   </PropertyGroup>
   <ItemGroup>
 	  <PackageReference Include="Lidgren.Network" Version="1.0.2" />
