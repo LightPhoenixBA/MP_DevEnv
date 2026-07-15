@@ -12,14 +12,20 @@ public struct MP_HitInfo
 				Normal = result.Normal;
 				Point = result.Point;
 				Succeeded = result.Succeeded;
-				Entity = result.Collider.Entity;
+				if (result.Collider != null)
+				{
+						Entity = result.Collider.Entity;
+				}
 		}
 		public MP_HitInfo(bool _Succeeded, HitInfo result)
 		{
 				Normal = result.Normal;
 				Point = result.Point;
 				Succeeded = _Succeeded;
-				Entity = result.Collidable.Entity;
+				if (result.Collidable != null)
+				{
+						Entity = result.Collidable.Entity;
+				}
 		}
 }
 public static partial class MP_Stride_MultiplayerBaseExtentions
@@ -27,7 +33,7 @@ public static partial class MP_Stride_MultiplayerBaseExtentions
 #if DEBUG
 		private static readonly Logger Log = GlobalLogger.GetLogger(typeof(MP_Stride_MultiplayerBaseExtentions).FullName);
 #endif
-		public static readonly object Physics = SetPhysicsProcessor();
+		public static readonly object Physics = SetPhysicsSimulation();
 		private static readonly DebugTextSystem DebugText = StrideClientBase.Services.GetService<DebugTextSystem>();
 		public static MP_HitInfo PerformCameraRaycast(CameraComponent camera)
 		{
@@ -38,18 +44,22 @@ public static partial class MP_Stride_MultiplayerBaseExtentions
 				MP_HitInfo result;
 				switch (Physics)
 				{
-						case PhysicsProcessor bullet2:
-								result = new(bullet2.Simulation.Raycast(origin, target, CollisionFilterGroups.AllFilter));
+						case Simulation bullet2:
+								result = new(bullet2.Raycast(origin, target, CollisionFilterGroups.AllFilter));
 								break;
 						case BepuSimulation bepu:
-							;
-								result = new(bepu.RayCast(origin, target, 1000f, out HitInfo hitInfo),hitInfo);
+								result = new(bepu.RayCast(origin, target, 1000f, out HitInfo hitInfo), hitInfo);
 								break;
 						default:
+								if (Physics == null)
+								{
+										Log.Warning("No physics simulation found. Raycast will not work.");
+										result = default;
+										break;
+								}
 								throw new NotImplementedException($"{Physics} Unsupported physics processor");
 				}
 #if DEBUG
-
 				if (result.Succeeded)
 				{
 						Log.Info($"Hit at {result.Point} on {result.Entity.Scene.Name}.{result.Entity.Name}");
@@ -63,15 +73,18 @@ public static partial class MP_Stride_MultiplayerBaseExtentions
 #endif
 				return result;
 		}
-		private static	object SetPhysicsProcessor()
+		private static object SetPhysicsSimulation()
 		{
-				if (StrideClientBase.Services.GetService<PhysicsProcessor>() is PhysicsProcessor physicsProcessor)
+				var hmm = StrideClientBase.Game.SceneSystem.SceneInstance.GetProcessor<PhysicsProcessor>();
+				if (StrideClientBase.Services.GetService<IPhysicsSystem>() is Bullet2PhysicsSystem bullet2PhysicsSystem)
 				{
-						return physicsProcessor;
+						return StrideClientBase.Game.SceneSystem.SceneInstance.GetProcessor<PhysicsProcessor>().Simulation;
 				}
-			else
-			{
-					return StrideClientBase.Services.GetService<BepuSimulation>();
-			}
+				else if (StrideClientBase.Services.GetService<BepuConfiguration>() is BepuConfiguration bepuPhysicsSystem)
+				{
+						return bepuPhysicsSystem.BepuSimulations[0];
+				}
+				Log.Error($"No physics simulation found. Ensure that either Bullet2PhysicsSystem or BepuConfiguration is registered in the services.");
+				return null;
 		}
 }
