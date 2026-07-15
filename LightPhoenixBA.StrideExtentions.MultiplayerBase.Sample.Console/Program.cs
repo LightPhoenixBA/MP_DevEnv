@@ -1,6 +1,6 @@
 ﻿namespace LightPhoenixBA.StrideExtentions.MultiplayerServer;
 /// <summary>
-/// root Server class for running Multiplayer in Stride with Lidgren containing MainAsync() method for running server
+/// root Server class for running Multiplayer in Stride with Lidgren containing MainAsync() method for running a console server
 /// </summary>
 public class ConsoleProgram
 {

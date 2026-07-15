@@ -1,4 +1,5 @@
 ﻿using Stride.Engine.Processors;
+using Stride.Games;
 
 namespace LightPhoenixBA.StrideExtentions.MultiplayerBase
 {

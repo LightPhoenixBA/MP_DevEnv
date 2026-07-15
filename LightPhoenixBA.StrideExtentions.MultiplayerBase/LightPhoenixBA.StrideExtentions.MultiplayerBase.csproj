@@ -4,28 +4,20 @@
     <Authors>LightPhoenixBA</Authors>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
-    <PackageOutputPath>$(MSBuildProjectDirectory)\..\packages\</PackageOutputPath>
+	 <RootNamespace>LightPhoenixBA.StrideExtentions.MultiplayerBase</RootNamespace>
+	 <PackageOutputPath>$(MSBuildProjectDirectory)\..\packages\</PackageOutputPath>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <IncludeContentInPack>true</IncludeContentInPack>
+    <RepositoryUrl>https://github.com/LightPhoenixBA/MP_DevEnv</RepositoryUrl>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="Lidgren.Network" Version="1.0.0" />
-    <PackageReference Include="Stride.Assets" Version="4.3.0.1" />
-    <PackageReference Include="Stride.BepuPhysics" Version="4.3.0.1" />
-    <PackageReference Include="Stride.Core" Version="4.3.0.1" />
-    <PackageReference Include="Stride.Engine" Version="4.3.0.1" />
-    <PackageReference Include="Stride.UI" Version="4.3.0.1" />
-    <PackageReference Include="Stride.Core.Assets.CompilerApp" Version="4.3.0.1" IncludeAssets="build;buildTransitive" />
+	  <PackageReference Include="Lidgren.Network" Version="1.0.2" />
+	  <PackageReference Include="Stride.BepuPhysics" Version="4.4.0-Dev" />
+	  <PackageReference Include="Stride.Engine" Version="4.4.0-dev" />
+	  <PackageReference Include="Stride.Physics" Version="4.4.0-dev" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\**\*.*" Pack="true" PackagePath="Assets" />
     <Folder Include="Scripts\Debugging\" />
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\Legion Forge\Chunks\Chunks.csproj" />
-    <ProjectReference Include="..\..\Legion Forge\Globals\Globals.csproj" />
-  </ItemGroup>
-  <PropertyGroup>
-    <RootNamespace>LightPhoenixBA.StrideExtentions.MultiplayerBase</RootNamespace>
-  </PropertyGroup>
 </Project>
