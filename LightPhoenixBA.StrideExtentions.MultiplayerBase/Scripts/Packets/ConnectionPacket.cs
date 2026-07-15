@@ -36,8 +36,6 @@ public static class ConnectionPacket
                 Console.WriteLine($"[WARN] Packet type '{packetName}' not found.");
                 continue;
             }
-            //// Create instance
-            // if (packetType.BaseType == typeof(MP_PacketBase<>))
             if (packetType.BaseType.BaseType == typeof(MP_PacketBase))
             {
                 MP_PacketBase.Register(Activator.CreateInstance(packetType) as MP_PacketBase);
@@ -48,12 +46,9 @@ public static class ConnectionPacket
     public static NetOutgoingMessage SyncConnectionPacket(NetServer netServer)
     {
         NetOutgoingMessage outFromServer = netServer.CreateMessage();
-        List<string> dafuq = new();
-        //outFromServer.Write(typeof(ConnectionPacket).ToString());
         foreach (MP_PacketBase packet in registry)
         {
-            outFromServer.Write(packet.ToString());//packet.GetType().FullName
-            dafuq.Add(packet.ToString());
+            outFromServer.Write(packet.ToString());
         }
         return outFromServer;
     }

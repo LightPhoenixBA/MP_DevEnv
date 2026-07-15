@@ -1,0 +1,6 @@
+<Solution>
+  <Project Path="LightPhoenixBA.StrideExtentions.MultiplayerBase.Sample.Client.Windows/LightPhoenixBA.StrideExtentions.MultiplayerBase.Sample.Client.Windows.csproj" DefaultStartup="true" />
+  <Project Path="LightPhoenixBA.StrideExtentions.MultiplayerBase.Sample.Client/LightPhoenixBA.StrideExtentions.MultiplayerBase.Sample.Client.csproj" />
+  <Project Path="LightPhoenixBA.StrideExtentions.MultiplayerBase.Sample.Console/LightPhoenixBA.StrideExtentions.MultiplayerServer.csproj" />
+  <Project Path="LightPhoenixBA.StrideExtentions.MultiplayerBase/LightPhoenixBA.StrideExtentions.MultiplayerBase.csproj" />
+</Solution>
